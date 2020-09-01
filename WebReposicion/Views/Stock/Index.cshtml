@@ -1,0 +1,81 @@
+﻿
+@{
+    ViewBag.Title = "SISTEMA DE GESTIÓN DE STOCK";
+}
+
+<h2 style="text-align:center">@ViewBag.Title</h2>
+
+
+@using (Html.BeginForm("Index", "Stock", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel panel-heading" style="background-color:#3c8dbc">
+            <b style="color:aliceblue">  <span class="glyphicon glyphicon-search"> </span>  CONSULTA DE STOCK DE ARTÍCULOS</b>
+        </div>
+        <div class="panel-body">
+            <div>@Html.TextBox("Cadena", "", new { @class = "form-control" })</div>
+
+            @*<div>
+                    <input type="text" class="form-control" name="Cadena" placeholder="Ingrese nombre del cliente" required autofocus>
+                </div>*@
+
+            <br>
+            <div style="text-align:right">
+                <button type="submit" class="btn btn-success">Buscar</button>
+            </div>
+            @*<button id="btnTodo" type="submit" class="btn btn-default" >Cargar todo</button>*@
+        </div>
+    </div>
+}
+
+
+<div class="panel panel-default">
+    <div class="panel panel-heading" style="background-color:#3c8dbc">
+        <b style="color:aliceblue">   <span class="glyphicon glyphicon-blackboard"> </span>  RESULTADO DE BÚSQUEDA</b>
+    </div>
+    <div class="panel-body">
+        <div class="panel panel-default">
+            <div class="panel panel-heading" style="background-color:#3c8dbc">
+                <b style="color:aliceblue">Información del artículo</b>
+                <div class="panel-body">
+                    <table class="table" style="background-color:#ecf0f5">
+
+                        <tr>
+                            <th></th>
+                            <th></th>
+                            <th></th>
+                            <th>Imagen referencial</th>
+                          
+                        </tr>
+
+                        <tr>
+                            <td colspan="3"> <p>CÓDIGO:  @Html.TextBox("Cadena", "", new { @class = "form-control" })</p></td>
+                            <td rowspan="4" colspan="1"> <IMG SRC="https://m.media-amazon.com/images/I/61mP6pDJIUL._AC_SS350_.jpg" style="max-width:100%;width:auto;height:auto;"></td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="3"> <p>DESCRIPCIÓN:  @Html.TextBox("Cadena", "", new { @class = "form-control" })</p></td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="3"> <p>CATEGORÍA:  @Html.TextBox("Cadena", "", new { @class = "form-control" }) </p></td>
+
+                        </tr>
+                        <tr>
+                            <td colspan="3"> <p>CLASIFICACIÓN:  @Html.TextBox("Cadena", "", new { @class = "form-control" })</p>  </td>
+
+                        </tr>
+                        <tr>
+                           
+                        </tr>
+
+
+                    </table>
+                </div>
+
+
+            </div>
+        </div>
+
+
+
