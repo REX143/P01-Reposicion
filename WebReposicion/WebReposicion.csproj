@@ -6985,6 +6985,11 @@
     <Content Include="Scripts\jquery.validate.unobtrusive.js" />
     <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
     <Content Include="Scripts\modernizr-2.8.3.js" />
+    <Content Include="SQL\pa_updateStockTda.sql" />
+    <Content Include="SQL\sp_AsignarClasificacion.sql" />
+    <Content Include="SQL\sp_AsignarClasificacionABC.sql" />
+    <Content Include="SQL\sp_AsignarClasificacionXYZ.sql" />
+    <Content Include="SQL\sp_Consolidad_Ventas.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
