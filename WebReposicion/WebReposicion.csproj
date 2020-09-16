@@ -6989,6 +6989,7 @@
     <Content Include="SQL\sp_AsignarClasificacion.sql" />
     <Content Include="SQL\sp_AsignarClasificacionABC.sql" />
     <Content Include="SQL\sp_AsignarClasificacionXYZ.sql" />
+    <Content Include="SQL\sp_AsignarPrioridadReposicion.sql" />
     <Content Include="SQL\sp_Consolidad_Ventas.sql" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
