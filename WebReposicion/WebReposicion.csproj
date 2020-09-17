@@ -47,10 +47,18 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.2.0\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -128,6 +136,25 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\dbpredictivo.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbpredictivo.Context.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dbpredictivo.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\dbpredictivo.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>dbpredictivo.edmx</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_obtenerConsultaStock_Result.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\StockViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -6491,6 +6518,16 @@
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
     <Content Include="Content\Site.css" />
+    <Content Include="Models\dbpredictivo.Context.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <LastGenOutput>dbpredictivo.Context.cs</LastGenOutput>
+      <DependentUpon>dbpredictivo.edmx</DependentUpon>
+    </Content>
+    <Content Include="Models\dbpredictivo.tt">
+      <Generator>TextTemplatingFileGenerator</Generator>
+      <DependentUpon>dbpredictivo.edmx</DependentUpon>
+      <LastGenOutput>dbpredictivo.cs</LastGenOutput>
+    </Content>
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Content\bower_components\bootstrap-colorpicker\.bower.json" />
@@ -6974,6 +7011,13 @@
     <Content Include="Content\bower_components\SELECT2\src\SCSS\_single.scss" />
     <Content Include="Content\dist\CSS\adminlte.css.map" />
     <Content Include="Content\dist\CSS\adminlte.min.css.map" />
+    <EntityDeploy Include="Models\dbpredictivo.edmx">
+      <Generator>EntityModelCodeGenerator</Generator>
+      <LastGenOutput>dbpredictivo.Designer.cs</LastGenOutput>
+    </EntityDeploy>
+    <Content Include="Models\dbpredictivo.edmx.diagram">
+      <DependentUpon>dbpredictivo.edmx</DependentUpon>
+    </Content>
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -7011,7 +7055,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Content\Img\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="fonts\glyphicons-halflings-regular.woff2" />
@@ -7032,6 +7076,7 @@
   </ItemGroup>
   <ItemGroup>
     <Service Include="{4A0DDDB5-7A95-4FBF-97CC-616D07737A77}" />
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

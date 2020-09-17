@@ -1,4 +1,5 @@
-﻿
+﻿@model List<WebReposicion.Models.ViewModels.StockViewModel>
+
 @{
     ViewBag.Title = "SISTEMA DE GESTIÓN DE STOCK";
 }
@@ -13,7 +14,7 @@
             <b style="color:aliceblue">  <span class="glyphicon glyphicon-search"> </span>  CONSULTA DE STOCK DE ARTÍCULOS</b>
         </div>
         <div class="panel-body">
-            <div>@Html.TextBox("Cadena", "", new { @class = "form-control" })</div>
+            <div>@Html.TextBox("cadena", "", new { @class = "form-control" })</div>
 
             @*<div>
                     <input type="text" class="form-control" name="Cadena" placeholder="Ingrese nombre del cliente" required autofocus>
@@ -34,48 +35,68 @@
         <b style="color:aliceblue">   <span class="glyphicon glyphicon-blackboard"> </span>  RESULTADO DE BÚSQUEDA</b>
     </div>
     <div class="panel-body">
-        <div class="panel panel-default">
-            <div class="panel panel-heading" style="background-color:#3c8dbc">
-                <b style="color:aliceblue">Información del artículo</b>
-                <div class="panel-body">
-                    <table class="table" style="background-color:#ecf0f5">
 
-                        <tr>
-                            <th></th>
-                            <th></th>
-                            <th></th>
-                            <th>Imagen referencial</th>
-                          
-                        </tr>
 
-                        <tr>
-                            <td colspan="3"> <p>CÓDIGO:  @Html.TextBox("Cadena", "", new { @class = "form-control" })</p></td>
-                            <td rowspan="4" colspan="1"> <IMG SRC="https://m.media-amazon.com/images/I/61mP6pDJIUL._AC_SS350_.jpg" style="max-width:100%;width:auto;height:auto;"></td>
+        @foreach (var oElement in Model)
+        {
+            <div class="panel panel-default">
+                <div class="panel panel-heading" style="background-color:#3c8dbc">
+                    <b style="color:aliceblue">Información del artículo</b>
+                    <div class="panel-body">
+                        <table class="table" style="background-color:#ecf0f5">
 
-                        </tr>
-                        <tr>
-                            <td colspan="3"> <p>DESCRIPCIÓN:  @Html.TextBox("Cadena", "", new { @class = "form-control" })</p></td>
+                            <tr>
+                                <th></th>
+                                <th></th>
+                                <th></th>
+                                <th>   CÓDIGO: @oElement.Codigo</th>
 
-                        </tr>
-                        <tr>
-                            <td colspan="3"> <p>CATEGORÍA:  @Html.TextBox("Cadena", "", new { @class = "form-control" }) </p></td>
+                            </tr>
 
-                        </tr>
-                        <tr>
-                            <td colspan="3"> <p>CLASIFICACIÓN:  @Html.TextBox("Cadena", "", new { @class = "form-control" })</p>  </td>
+                            <tr>
+                                <td colspan="3"> <p>DESCRIPCIÓN:  @oElement.Nombre</p></td>
+                                <td rowspan="4" colspan="1"> <IMG SRC="~/Content/Img/@oElement.Ruta" style="max-width:100%;width:350px;height:350px;"></td>
 
-                        </tr>
-                        <tr>
+                            </tr>
+                            <tr>
+                                <td colspan="3"> <p>CATEGORÍA:  @oElement.Categoria</p></td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="3"> <p>CLASIFICACIÓN:  @oElement.ABC@oElement.XYZ</p></td>
+
+                            </tr>
+                            <tr>
+                                <td colspan="3"> <p>STOCK: @oElement.Stock  COMPROMETIDO: @oElement.Comprometido  DISPONIBLE: @oElement.Disponible</p>  </td>
+
+                            </tr>
+
+                            <tr>
+                                <td colspan="3"> <p>STOCK PREDICTIVO: 0  STOCK MÍNIMO: 0 STOCK MÁXIMO: 0</p>  </td>
+
+                            </tr>
+
+                            <tr>
+                                <td colspan="3"> <p>PRIORIDAD DE REPOSICIÓN: @oElement.PrioridadReposicion</p>  </td>
+
+                            </tr>
+
                            
-                        </tr>
 
 
-                    </table>
+                        </table>
+                    </div>
+
+
                 </div>
-
-
             </div>
-        </div>
+
+        }
 
 
 
+
+
+    </div>
+
+</div>
