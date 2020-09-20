@@ -1,202 +1,209 @@
 ﻿@model List<WebReposicion.Models.ViewModels.StockViewModel>
 
 @{
-    ViewBag.Title = "SISTEMA DE GESTIÓN DE STOCK";
+                /**/
+
+                ViewBag.Title = "SISTEMA DE GESTIÓN DEL STOCK";
 }
 
-<h2 style="text-align:center">@ViewBag.Title</h2>
+<h3 style="text-align:center;color:dimgrey"><B>@ViewBag.Title</B></h3>
 
 
 @using (Html.BeginForm("Index", "Stock", FormMethod.Post))
 {
-    <div class="panel panel-default">
-        <div class="panel panel-heading" style="background-color:#3c8dbc">
-            <b style="color:aliceblue">  <span class="glyphicon glyphicon-search"> </span>  CONSULTA DE STOCK DE ARTÍCULOS</b>
+<div class="panel panel-default">
+    <div class="panel panel-heading" style="background-color:#3c8dbc">
+        <b style="color:aliceblue">  <span class="glyphicon glyphicon-search"> </span>  CONSULTA DE STOCK DE ARTÍCULOS</b>
+    </div>
+    <div class="panel-body">
+        <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div >@Html.TextBox("cadena", "", new { @class = "form-control" })</div>
+
+             
+                <br>
+                <div style="text-align:right">
+                    <button type="submit" class="btn btn-success" >Buscar</button>
+                   
+                </div>
+         
+            </div>
         </div>
         <div class="panel-body">
-            <div>@Html.TextBox("cadena", "", new { @class = "form-control" })</div>
 
-            @*<div>
-                    <input type="text" class="form-control" name="Cadena" placeholder="Ingrese nombre del cliente" required autofocus>
-                </div>*@
+            @foreach (var oElement in Model)
+            {
+                <div class="panel panel-default">
+                    <div class="panel panel-heading">
+                        <b style="color:aliceblue"></b>
+                        <div class="panel-body">
+                            @*Datos principales del artículos*@
+                            <div class="row">
+                                <div class="col-md-3">
 
-            <br>
-            <div style="text-align:right">
-                <button type="submit" class="btn btn-success">Buscar</button>
-            </div>
-            @*<button id="btnTodo" type="submit" class="btn btn-default" >Cargar todo</button>*@
-        </div>
-    </div>
-}
+                                </div>
+                                <div class="col-md-5">
+                                    <div class="box box-solid box-primary">
+                                        <div class="box-header">
+                                            <h3 class="box-title">CÓDIGO DEL ARTÍCULO: @oElement.Codigo</h3>
+                                        </div><!-- /.box-header -->
+                                        <div class="box-body">
 
-
-
-   
-    <div class="panel-body">
-        
-        @foreach (var oElement in Model)
-        {
-            <div class="panel panel-default">
-                <div class="panel panel-heading">
-                    <b style="color:aliceblue"></b>
-                    <div class="panel-body">
-                        @*Datos principales del artículos*@
-                        <div class="row">
-                            <div class="col-md-3">
-
-                            </div>
-                            <div class="col-md-5">
-                                <div class="box box-solid box-primary">
-                                    <div class="box-header">
-                                        <h3 class="box-title">CÓDIGO DEL ARTÍCULO: @oElement.Codigo</h3>
-                                    </div><!-- /.box-header -->
-                                    <div class="box-body">
-
-                                        <div>
-                                            <div class="info-box bg-light-blue">
-                                                <span class="info-box-icon"><i class="fa fa-ticket"></i></span>
-                                                <div class="info-box-content">
-
-                                                    <span class="info-box-number">@oElement.Nombre</span>
-                                                    <!-- The progress section is optional -->
-                                                    <div class="progress">
-                                                        <div class="progress-bar" style="width: 100%"></div>
-                                                    </div>
-                                                    <span class="progress-description">
-                                                        CATEGORÍA: @oElement.Categoria
-                                                    </span>
-                                                </div><!-- /.info-box-content -->
-                                            </div><!-- /.info-box -->
-                                        </div><!-- /.col -->
-                                        <center><IMG SRC="~/Content/Img/@oElement.Ruta" style="max-width:100%;width:350px;height:350px;"></center>
-                                        <p>
                                             <div>
                                                 <div class="info-box bg-light-blue">
-                                                    <span class="info-box-icon"><i class="fa fa-archive"></i></span>
+                                                    <span class="info-box-icon"><i class="fa fa-ticket"></i></span>
                                                     <div class="info-box-content">
-                                                        <span class="info-box-text">TOTAL DE ARTÍCULOS EN TIENDA</span>
-                                                        <span class="info-box-number">@oElement.Stock </span>
+
+                                                        <span class="info-box-number">@oElement.Nombre</span>
                                                         <!-- The progress section is optional -->
                                                         <div class="progress">
-                                                            <div class="progress-bar" style="width: @oElement.Stock%"></div>
+                                                            <div class="progress-bar" style="width: 100%"></div>
                                                         </div>
                                                         <span class="progress-description">
-                                                         COMPROMETIDOS: @oElement.Comprometido  DISPONIBLES: @oElement.Disponible
+                                                            CATEGORÍA: @oElement.Categoria
                                                         </span>
                                                     </div><!-- /.info-box-content -->
                                                 </div><!-- /.info-box -->
                                             </div><!-- /.col -->
-                                    </div><!-- /.box-body -->
-                                </div><!-- /.box -->
-                            </div>
-                            <div class="col-md-4">
+                                            <center><IMG SRC="~/Content/Img/@oElement.Ruta" style="max-width:100%;width:350px;height:350px;"></center>
+                                            <p>
+                                                <div>
+                                                    <div class="info-box bg-light-blue">
+                                                        <span class="info-box-icon"><i class="fa fa-archive"></i></span>
+                                                        <div class="info-box-content">
+                                                            <span class="info-box-text">TOTAL DE ARTÍCULOS EN TIENDA</span>
+                                                            <span class="info-box-number">@oElement.Stock </span>
+                                                            <!-- The progress section is optional -->
+                                                            <div class="progress">
+                                                                <div class="progress-bar" style="width: @oElement.Stock%"></div>
+                                                            </div>
+                                                            <span class="progress-description">
+                                                                COMPROMETIDOS: @oElement.Comprometido  DISPONIBLES: @oElement.Disponible
+                                                            </span>
+                                                        </div><!-- /.info-box-content -->
+                                                    </div><!-- /.info-box -->
+                                                </div><!-- /.col -->
+                                        </div><!-- /.box-body -->
+                                    </div><!-- /.box -->
+                                </div>
+                                <div class="col-md-4">
 
+                                </div>
                             </div>
+                            @*Información del stock e información predictiva*@
+                            <div class="row">
+                                <div class="col-md-1 col-sm-6 col-xs-12">
+
+                                </div><!-- /.col -->
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box bg-green">
+                                        <span class="info-box-icon"><i class="fa fa-area-chart"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">PREDICTIVO </span>
+                                            <span class="info-box-number">@oElement.Predictivo</span>
+                                            <!-- The progress section is optional -->
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: @oElement.Predictivo%"></div>
+                                            </div>
+                                            <span class="progress-description">
+                                                @oElement.Predictivo stock ideal
+                                            </span>
+                                        </div><!-- /.info-box-content -->
+
+                                    </div><!-- /.info-box -->
+                                </div><!-- /.col -->
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box bg-yellow">
+                                        <span class="info-box-icon"><i class="fa fa-plus"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">MÁXIMO</span>
+                                            <span class="info-box-number">@oElement.Maximo</span>
+                                            <!-- The progress section is optional -->
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: @oElement.Maximo%"></div>
+                                            </div>
+                                            <span class="progress-description">
+                                                @oElement.Maximo unidades máximo
+                                            </span>
+                                        </div><!-- /.info-box-content -->
+
+                                    </div><!-- /.info-box -->
+                                </div><!-- /.col -->
+                                <div class="col-md-3 col-sm-6 col-xs-12">
+                                    <div class="info-box bg-red">
+                                        <span class="info-box-icon"><i class="fa fa-minus"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">MÍNIMO</span>
+                                            <span class="info-box-number">@oElement.Minimo</span>
+                                            <!-- The progress section is optional -->
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: @oElement.Minimo%"></div>
+                                            </div>
+                                            <span class="progress-description">
+                                                @oElement.Minimo unidades mínimo
+                                            </span>
+                                        </div><!-- /.info-box-content -->
+
+                                    </div><!-- /.info-box -->
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+
+
+
+                            <div class="row">
+
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="info-box bg-light-blue">
+                                        <span class="info-box-icon"><i class="fa fa-check-circle-o"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">CLASIFICACIÓN </span>
+                                            <span class="info-box-number">@oElement.ABC@oElement.XYZ</span>
+                                            <!-- The progress section is optional -->
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: 100%"></div>
+                                            </div>
+                                            <span class="progress-description">
+                                                ABC Aporte en ventas/ XYZ Movilidad de rotación
+                                            </span>
+                                        </div><!-- /.info-box-content -->
+
+                                    </div><!-- /.info-box -->
+                                </div><!-- /.col -->
+                                <div class="col-md-6 col-sm-6 col-xs-12">
+                                    <div class="info-box bg-light-blue">
+                                        <span class="info-box-icon"><i class="fa fa-check-square-o"></i></span>
+                                        <div class="info-box-content">
+                                            <span class="info-box-text">PRIORIDAD DE REPOSICIÓN</span>
+                                            <span class="info-box-number">@oElement.PrioridadReposicion</span>
+                                            <!-- The progress section is optional -->
+                                            <div class="progress">
+                                                <div class="progress-bar" style="width: 100%"></div>
+                                            </div>
+                                            <span class="progress-description">
+                                                Prioridad 1: Es de atención inmediata
+                                            </span>
+                                        </div><!-- /.info-box-content -->
+                                    </div><!-- /.info-box -->
+                                </div><!-- /.col -->
+                            </div><!-- /.row -->
+
+
+
                         </div>
-                        @*Información del stock e información predictiva*@
-                        <div class="row">
-                            <div class="col-md-1 col-sm-6 col-xs-12">
-                                
-                            </div><!-- /.col -->
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                                <div class="info-box bg-green">
-                                    <span class="info-box-icon"><i class="fa fa-area-chart"></i></span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">PREDICTIVO </span>
-                                        <span class="info-box-number">@oElement.Predictivo</span>
-                                        <!-- The progress section is optional -->
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: @oElement.Predictivo%"></div>
-                                        </div>
-                                        <span class="progress-description">
-                                            @oElement.Predictivo stock ideal
-                                        </span>
-                                    </div><!-- /.info-box-content -->
-
-                                </div><!-- /.info-box -->
-                            </div><!-- /.col -->
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                                <div class="info-box bg-yellow">
-                                    <span class="info-box-icon"><i class="fa fa-plus"></i></span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">MÁXIMO</span>
-                                        <span class="info-box-number">@oElement.Maximo</span>
-                                        <!-- The progress section is optional -->
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: @oElement.Maximo%"></div>
-                                        </div>
-                                        <span class="progress-description">
-                                            @oElement.Maximo unidades máximo
-                                        </span>
-                                    </div><!-- /.info-box-content -->
-
-                                </div><!-- /.info-box -->
-                            </div><!-- /.col -->
-                            <div class="col-md-3 col-sm-6 col-xs-12">
-                                <div class="info-box bg-red">
-                                    <span class="info-box-icon"><i class="fa fa-minus"></i></span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">MÍNIMO</span>
-                                        <span class="info-box-number">@oElement.Minimo</span>
-                                        <!-- The progress section is optional -->
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: @oElement.Minimo%"></div>
-                                        </div>
-                                        <span class="progress-description">
-                                            @oElement.Minimo unidades mínimo
-                                        </span>
-                                    </div><!-- /.info-box-content -->
-
-                                </div><!-- /.info-box -->
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-
-
-
-                        <div class="row">
-
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="info-box bg-light-blue">
-                                    <span class="info-box-icon"><i class="fa fa-check-circle-o"></i></span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">CLASIFICACIÓN </span>
-                                        <span class="info-box-number">@oElement.ABC@oElement.XYZ</span>
-                                        <!-- The progress section is optional -->
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: 100%"></div>
-                                        </div>
-                                        <span class="progress-description">
-                                           ABC Aporte en ventas/ XYZ Movilidad de rotación 
-                                        </span>
-                                    </div><!-- /.info-box-content -->
-
-                                </div><!-- /.info-box -->
-                            </div><!-- /.col -->
-                            <div class="col-md-6 col-sm-6 col-xs-12">
-                                <div class="info-box bg-light-blue">
-                                    <span class="info-box-icon"><i class="fa fa-check-square-o"></i></span>
-                                    <div class="info-box-content">
-                                        <span class="info-box-text">PRIORIDAD DE REPOSICIÓN</span>
-                                        <span class="info-box-number">@oElement.PrioridadReposicion</span>
-                                        <!-- The progress section is optional -->
-                                        <div class="progress">
-                                            <div class="progress-bar" style="width: 100%"></div>
-                                        </div>
-                                        <span class="progress-description">
-                                           Prioridad 1: Es de atención inmediata
-                                        </span>
-                                    </div><!-- /.info-box-content -->
-                                </div><!-- /.info-box -->
-                            </div><!-- /.col -->
-                        </div><!-- /.row -->
-
-
-                                                                                                                                                   
                     </div>
+
+
                 </div>
+               
+            }
+
+        </div>
+
+    </div>
 
 
-            </div>
-        }
+ 
 
-    </div>    
+
+}
+

@@ -5,6 +5,8 @@ VisualStudioVersion = 15.0.28307.1082
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebReposicion", "WebReposicion\WebReposicion.csproj", "{82C8CB57-A4E8-40E3-A099-6DE2F98F3ADC}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicioPredictivo", "ServicioPredictivo\ServicioPredictivo.csproj", "{844F79E2-36F8-4F95-93F7-5D69B15F8B2A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{82C8CB57-A4E8-40E3-A099-6DE2F98F3ADC}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{82C8CB57-A4E8-40E3-A099-6DE2F98F3ADC}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{82C8CB57-A4E8-40E3-A099-6DE2F98F3ADC}.Release|Any CPU.Build.0 = Release|Any CPU
+		{844F79E2-36F8-4F95-93F7-5D69B15F8B2A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{844F79E2-36F8-4F95-93F7-5D69B15F8B2A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{844F79E2-36F8-4F95-93F7-5D69B15F8B2A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{844F79E2-36F8-4F95-93F7-5D69B15F8B2A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
