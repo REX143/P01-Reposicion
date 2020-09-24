@@ -7,7 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebReposicion", "WebReposic
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServicioPredictivo", "ServicioPredictivo\ServicioPredictivo.csproj", "{844F79E2-36F8-4F95-93F7-5D69B15F8B2A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraerPrediccion", "..\ExtraerPrediccion\ExtraerPrediccion\ExtraerPrediccion.csproj", "{0CB78C97-041D-4071-BF0A-0167377B9545}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ExtraerPrediccion", "ExtraerPrediccion\ExtraerPrediccion\ExtraerPrediccion.csproj", "{0CB78C97-041D-4071-BF0A-0167377B9545}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
