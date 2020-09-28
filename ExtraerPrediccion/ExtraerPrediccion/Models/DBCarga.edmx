@@ -1,0 +1,175 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="DBPREDICTIVOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="CargaTemporal">
+          <Key>
+            <PropertyRef Name="PK" />
+          </Key>
+          <Property Name="PK" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="CODIGO" Type="int" />
+          <Property Name="DIA1" Type="int" />
+          <Property Name="DIA2" Type="int" />
+          <Property Name="DIA3" Type="int" />
+          <Property Name="DIA4" Type="int" />
+          <Property Name="DIA5" Type="int" />
+          <Property Name="DIA6" Type="int" />
+          <Property Name="DIA7" Type="int" />
+          <Property Name="DIA8" Type="int" />
+          <Property Name="DIA9" Type="int" />
+          <Property Name="DIA10" Type="int" />
+          <Property Name="DIA11" Type="int" />
+        </EntityType>
+        <!--Errores durante la generación:
+advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ninguna clave principal. Se ha inferido la clave y la definición se creado como una vista o tabla de solo lectura.-->
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="CodigoArticulo" />
+          </Key>
+          <Property Name="CodigoArticulo" Type="int" Nullable="false" />
+          <Property Name="StockFisico" Type="int" />
+          <Property Name="StockComprometido" Type="int" />
+          <Property Name="StockDisponible" Type="int" />
+          <Property Name="ClasificacionABC" Type="varchar" MaxLength="10" />
+          <Property Name="ClasificacionXYZ" Type="varchar" MaxLength="10" />
+          <Property Name="StockPredictivo" Type="int" />
+          <Property Name="StockMinimo" Type="int" />
+          <Property Name="StockMaximo" Type="int" />
+          <Property Name="PrioridadReposicion" Type="varchar" MaxLength="50" />
+        </EntityType>
+        <Function Name="sp_cargarStockPredictivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="StockPredictivo" Type="int" Mode="In" />
+          <Parameter Name="CodigoArticulo" Type="int" Mode="In" />
+        </Function>
+        <EntityContainer Name="DBPREDICTIVOModelStoreContainer">
+          <EntitySet Name="CargaTemporal" EntityType="Self.CargaTemporal" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Stock" EntityType="Self.Stock" store:Type="Tables" store:Schema="dbo">
+            <DefiningQuery>SELECT 
+    [Stock].[CodigoArticulo] AS [CodigoArticulo], 
+    [Stock].[StockFisico] AS [StockFisico], 
+    [Stock].[StockComprometido] AS [StockComprometido], 
+    [Stock].[StockDisponible] AS [StockDisponible], 
+    [Stock].[ClasificacionABC] AS [ClasificacionABC], 
+    [Stock].[ClasificacionXYZ] AS [ClasificacionXYZ], 
+    [Stock].[StockPredictivo] AS [StockPredictivo], 
+    [Stock].[StockMinimo] AS [StockMinimo], 
+    [Stock].[StockMaximo] AS [StockMaximo], 
+    [Stock].[PrioridadReposicion] AS [PrioridadReposicion]
+    FROM [dbo].[Stock] AS [Stock]</DefiningQuery>
+          </EntitySet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="DBPREDICTIVOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="CargaTemporal">
+          <Key>
+            <PropertyRef Name="PK" />
+          </Key>
+          <Property Name="PK" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="CODIGO" Type="Int32" />
+          <Property Name="DIA1" Type="Int32" />
+          <Property Name="DIA2" Type="Int32" />
+          <Property Name="DIA3" Type="Int32" />
+          <Property Name="DIA4" Type="Int32" />
+          <Property Name="DIA5" Type="Int32" />
+          <Property Name="DIA6" Type="Int32" />
+          <Property Name="DIA7" Type="Int32" />
+          <Property Name="DIA8" Type="Int32" />
+          <Property Name="DIA9" Type="Int32" />
+          <Property Name="DIA10" Type="Int32" />
+          <Property Name="DIA11" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Stock">
+          <Key>
+            <PropertyRef Name="CodigoArticulo" />
+          </Key>
+          <Property Name="CodigoArticulo" Type="Int32" Nullable="false" />
+          <Property Name="StockFisico" Type="Int32" />
+          <Property Name="StockComprometido" Type="Int32" />
+          <Property Name="StockDisponible" Type="Int32" />
+          <Property Name="ClasificacionABC" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="ClasificacionXYZ" Type="String" MaxLength="10" FixedLength="false" Unicode="false" />
+          <Property Name="StockPredictivo" Type="Int32" />
+          <Property Name="StockMinimo" Type="Int32" />
+          <Property Name="StockMaximo" Type="Int32" />
+          <Property Name="PrioridadReposicion" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+        </EntityType>
+        <EntityContainer Name="DBPREDICTIVOEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="CargaTemporal" EntityType="Self.CargaTemporal" />
+          <EntitySet Name="Stock" EntityType="Self.Stock" />
+          <FunctionImport Name="sp_cargarStockPredictivo">
+            <Parameter Name="StockPredictivo" Mode="In" Type="Int32" />
+            <Parameter Name="CodigoArticulo" Mode="In" Type="Int32" />
+          </FunctionImport>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="DBPREDICTIVOModelStoreContainer" CdmEntityContainer="DBPREDICTIVOEntities">
+          <EntitySetMapping Name="CargaTemporal">
+            <EntityTypeMapping TypeName="DBPREDICTIVOModel.CargaTemporal">
+              <MappingFragment StoreEntitySet="CargaTemporal">
+                <ScalarProperty Name="PK" ColumnName="PK" />
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DIA1" ColumnName="DIA1" />
+                <ScalarProperty Name="DIA2" ColumnName="DIA2" />
+                <ScalarProperty Name="DIA3" ColumnName="DIA3" />
+                <ScalarProperty Name="DIA4" ColumnName="DIA4" />
+                <ScalarProperty Name="DIA5" ColumnName="DIA5" />
+                <ScalarProperty Name="DIA6" ColumnName="DIA6" />
+                <ScalarProperty Name="DIA7" ColumnName="DIA7" />
+                <ScalarProperty Name="DIA8" ColumnName="DIA8" />
+                <ScalarProperty Name="DIA9" ColumnName="DIA9" />
+                <ScalarProperty Name="DIA10" ColumnName="DIA10" />
+                <ScalarProperty Name="DIA11" ColumnName="DIA11" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Stock">
+            <EntityTypeMapping TypeName="DBPREDICTIVOModel.Stock">
+              <MappingFragment StoreEntitySet="Stock">
+                <ScalarProperty Name="CodigoArticulo" ColumnName="CodigoArticulo" />
+                <ScalarProperty Name="StockFisico" ColumnName="StockFisico" />
+                <ScalarProperty Name="StockComprometido" ColumnName="StockComprometido" />
+                <ScalarProperty Name="StockDisponible" ColumnName="StockDisponible" />
+                <ScalarProperty Name="ClasificacionABC" ColumnName="ClasificacionABC" />
+                <ScalarProperty Name="ClasificacionXYZ" ColumnName="ClasificacionXYZ" />
+                <ScalarProperty Name="StockPredictivo" ColumnName="StockPredictivo" />
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
+                <ScalarProperty Name="StockMaximo" ColumnName="StockMaximo" />
+                <ScalarProperty Name="PrioridadReposicion" ColumnName="PrioridadReposicion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_cargarStockPredictivo" FunctionName="DBPREDICTIVOModel.Store.sp_cargarStockPredictivo" />
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
