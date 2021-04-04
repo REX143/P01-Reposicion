@@ -15,20 +15,24 @@
     <div class="panel panel-heading" style="background-color:#3c8dbc">
         <b style="color:aliceblue">  <span class="glyphicon glyphicon-search"> </span>  CONSULTA DE STOCK DE ARTÍCULOS</b>
     </div>
-    <div class="panel-body">
-        <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div >@Html.TextBox("cadena", "", new { @class = "form-control" })</div>
 
-             
+    @using (Html.BeginForm("Index", "Home", FormMethod.Post))
+    {
+        <div class="panel-body">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <div>@Html.TextBox("cadena", "", new { @class = "form-control" })</div>
+
+
                 <br>
                 <div style="text-align:right">
-                    <button type="submit" class="btn btn-success" >Buscar</button>
-                   
+                    <button type="submit" class="btn btn-success">Buscar</button>
+
                 </div>
-         
+
             </div>
         </div>
+    }
         <div class="panel-body">
 
             @foreach (var oElement in Model)
@@ -194,7 +198,7 @@
 
 
                 </div>
-               
+
             }
 
         </div>

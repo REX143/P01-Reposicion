@@ -98,7 +98,7 @@ namespace CallRequestResponseService
 
                     HttpResponseMessage response = await client.PostAsJsonAsync("", scoreRequest);
 
-                    if (response.IsSuccessStatusCode)
+                    if (response.IsSuccessStatusCode)//respuesta
                     {
                         string result = await response.Content.ReadAsStringAsync();
                         //Console.WriteLine("Result: {0}", result);
