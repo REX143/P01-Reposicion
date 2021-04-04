@@ -4,7 +4,13 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="c69facac366e4b4e8acb5401f4ef451f" Name="Diagram1" />
+      <Diagram DiagramId="c69facac366e4b4e8acb5401f4ef451f" Name="Diagram1" >
+        <EntityTypeShape EntityType="DBPREDICTIVOModel.CargaTemporal" Width="1.5" PointX="0.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBPREDICTIVOModel.Colaborador" Width="1.5" PointX="2.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBPREDICTIVOModel.Rol" Width="1.5" PointX="4.75" PointY="0.75" />
+        <EntityTypeShape EntityType="DBPREDICTIVOModel.Usuario" Width="1.5" PointX="2.75" PointY="4.75" />
+        <EntityTypeShape EntityType="DBPREDICTIVOModel.Stock" Width="1.5" PointX="4.75" PointY="3.75" />
+      </Diagram>
     </edmx:Diagrams>
   </edmx:Designer>
 </edmx:Edmx>

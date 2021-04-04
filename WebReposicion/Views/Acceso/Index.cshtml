@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Login";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<br />
+
+
+
+@*<img src="~/img/Logo.png" sizes="2%" />*@
+@*<h2>Acceso al sistema</h2>*@
+<br />
+<br />
+<div class="panel panel-default" background-color: style="opacity:0.9" ;>
+    <div class="panel panel-heading">
+        REPOSICIÓN Y CONSULTAS DEL STOCK
+    </div>
+    <div class="panel-body">
+
+        <div>
+            <img src="~/img/Logo3.png" sizes="1%" />
+        </div>
+        <br />
+        @using (Html.BeginForm("Index", "Acceso", FormMethod.Post))
+        {
+            <div class="form-group-lg">
+                @*<form action="@Url.Content("~/Login")" method="post">*@
+
+
+                @*<div class="form-group">
+
+                        <h1 class="h3 mb-3 font-weight-normal">Usuario</h1>
+                        <br />
+                        <input type="text" name="User" placeholder="Usuario" required autofocus />
+                    </div>*@
+
+                <div class="input-group">
+                    &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id="User" type="text" class="form-control" name="User" placeholder="Usuario" required autofocus>
+                </div>
+                <br />
+                <br />
+                <br />
+                <div class="input-group">
+                    &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                    &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <input id="Pass" type="password" class="form-control" name="Pass" placeholder="Password">
+                </div>
+
+                <div class="form-group">
+                    @*<input type="submit" value="Entrar" class="btn btn-success" />*@
+                    <br />
+                    <br />
+                    <input value="INGRESAR AL SISTEMA" class="btn btn-primary" type="submit" />&nbsp; &nbsp;&nbsp; &nbsp;
+                    <input value="CANCELAR" class="btn btn-danger" type="submit" onclick="window.close ()" />
+
+
+                    @if (ViewBag.Error != "")
+                    {
+
+                        <br />
+                        <br />
+                        <p style="color:red">@ViewBag.Error</p>
+                    }
+                </div>
+                @*</form>*@
+
+            </div>
+
+        }
+
+
+    </div>
+</div>
+
+
+
