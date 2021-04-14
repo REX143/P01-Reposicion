@@ -1,0 +1,39 @@
+﻿@model WebReposicion.Models.ViewModels.RecoveryViewModel
+@{
+    ViewBag.Title = "StartRecovery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default" background-color: style="opacity:0.9" ;>
+    <div class="panel-body">
+        <div>
+            <form action="@Url.Content("~/Acceso/StartRecovery")" method="post">
+
+                <p></p>
+                <label>Escribe tu correo electrónico</label><br />
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    @Html.TextBoxFor(d => d.Email, null, new { @class = "form-control" })
+                    <div class="text-center">
+                        <button class="btn btn-danger">Recuperar</button>
+                    </div>
+                </div>
+                @Html.ValidationMessageFor(d => d.Email, null, new { style = "color:Red" })
+                <br /> <br />
+                <div style="color:darkblue">
+                    @ViewBag.Message
+                </div>
+                <p></p>
+                <div class="text-justify">
+                    Estimado usuario ingrese el correo electrónico registrado en su cuenta de usuario para poder acceder a la opción de recuperación
+                    de contraseña.
+                </div>
+
+
+
+            </form>
+        </div>
+    </div>
+
+</div>
+

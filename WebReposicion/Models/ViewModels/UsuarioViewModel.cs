@@ -13,7 +13,7 @@ namespace WebReposicion.Models.ViewModels
         public int IDColaborador { get; set; }
         public int IDRol { get; set; }
         public string Nombre_usuario { get; set; }
-        public string Contraseña { get; set; }
+        public string Password { get; set; }
         public string Observaciones { get; set; }
 
 

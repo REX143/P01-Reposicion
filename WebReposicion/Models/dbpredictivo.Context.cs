@@ -107,5 +107,10 @@ namespace WebReposicion.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerHistorialKardexxAticulo_Result>("sp_ObtenerHistorialKardexxAticulo", fECHA_MOVParameter, cODIGOParameter);
         }
+    
+        public virtual ObjectResult<sp_GetUsuarios_Result> sp_GetUsuarios()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUsuarios_Result>("sp_GetUsuarios");
+        }
     }
 }

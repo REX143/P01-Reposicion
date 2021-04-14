@@ -10,9 +10,8 @@
 namespace WebReposicion.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Colaborador
+    public partial class sp_GetUsuarios_Result
     {
         public int IDColaborador { get; set; }
         public string Nombres { get; set; }
@@ -22,5 +21,12 @@ namespace WebReposicion.Models
         public string Correo { get; set; }
         public string Cargo_Asignado { get; set; }
         public string Token_Security { get; set; }
+        public int IDRol { get; set; }
+        public string Descripcion { get; set; }
+        public string Observacion { get; set; }
+        public int IDUsuario { get; set; }
+        public string Nombre_usuario { get; set; }
+        public string Password { get; set; }
+        public string Observaciones { get; set; }
     }
 }

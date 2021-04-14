@@ -18,7 +18,7 @@ namespace WebReposicion.Models
         public Nullable<int> IDColaborador { get; set; }
         public Nullable<int> IDRol { get; set; }
         public string Nombre_usuario { get; set; }
-        public string Contraseña { get; set; }
         public string Observaciones { get; set; }
+        public string Password { get; set; }
     }
 }

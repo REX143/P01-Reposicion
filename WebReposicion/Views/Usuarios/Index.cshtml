@@ -1,0 +1,57 @@
+﻿@*@model List<WebReposicion.Models.ViewModels.UsuarioViewModel>*@
+@model List<WebReposicion.Models.ViewModels.ColaboradorViewModel>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2> MANTENIMIENTO DE USUARIOS</h2>
+<div class="panel panel-heading" style="background-color:#3c8dbc">
+    <b style="color:aliceblue">   <span class="glyphicon glyphicon-user"> </span> </b>
+</div>
+<p></p>
+<div class="row" style="text-align:right;padding:5px;">
+    <a href="~/Usuarios/Nuevo" class="btn btn-success">Nuevo</a>
+</div>
+<div class="row">
+
+    <div>
+        <table class="table">
+            <tr>
+                <th>ID</th>
+                <th>Nombres</th>
+                <th>Apellidos</th>
+                <th>DNI</th>
+                <th>Teléfono</th>
+                <th>Correo</th>
+                <th>Cargo Asignado</th>
+                <th>Rol</th>
+                @*<th>Obs. Rol</th>*@
+                <th>Usuario</th>
+                <th>Contraseña</th>
+                @*<th>Observaciones</th>*@
+            </tr>
+
+            @foreach (var oElemento in Model)
+            {
+                <tr>
+                    <td>@oElemento.IDColaborador</td>
+                    <td>@oElemento.Nombres</td>
+                    <td>@oElemento.Apellidos</td>
+                    <td>@oElemento.DNI</td>
+                    <td>@oElemento.Telefono</td>
+                    <td>@oElemento.Correo</td>
+                    <td>@oElemento.Cargo_Asignado</td>
+                    <td>@oElemento.Descripcion</td>
+                    @*<td>@oElemento.Observacion</td>*@
+                    <td>@oElemento.Nombre_usuario</td>
+                    <td>@oElemento.Password</td>
+                    @*<td>@oElemento.Observaciones</td>*@
+
+
+                </tr>
+            }
+        </table>
+    </div>
+
+</div>

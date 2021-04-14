@@ -1,0 +1,53 @@
+﻿@model WebReposicion.Models.ViewModels.RecoveryPasswordViewModel
+@{
+    ViewBag.Title = "Recovery";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="panel panel-default" background-color: style="opacity:0.9" ;>
+    <div class="panel-body">
+        <div>
+            <form action="@Url.Content("~/Acceso/Recovery")" method="post">
+                @Html.HiddenFor(d => d.Token)
+
+                <div class="text-justify">
+                    Estimado usuario por temas de seguridad deberá ingresar una nueva contraseña y confirmarla. No se olvide que la actualización
+                    es inmediata. Después de dar clic en confirmar ya podra acceder al sistema con la nueva contraseña.
+                </div>
+                <p></p>
+                <label>Escribe una nueva contraseña</label><br />
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    @Html.PasswordFor(d => d.Password, new { @class = "form-control" })
+
+                </div>
+                @Html.ValidationMessageFor(d => d.Password, null, new { style = "color:Red" })
+                <br /> <br />
+
+                <label>Vuelve a escribir la contraseña</label><br />
+                <div class="input-group">
+                    <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                    @Html.PasswordFor(d => d.Password2, new { @class = "form-control" })
+                    <div class="text-center">
+                        <button class="btn btn-danger">Confirmar</button>
+                    </div>
+
+                </div>
+                @Html.ValidationMessageFor(d => d.Password2, null, new { style = "color:Red" })
+                <br /> <br />
+
+
+
+
+
+
+
+
+            </form>
+        </div>
+    </div>
+
+</div>
+
+
+

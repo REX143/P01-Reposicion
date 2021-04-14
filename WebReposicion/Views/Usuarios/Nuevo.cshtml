@@ -1,0 +1,61 @@
+﻿@model WebReposicion.Models.ViewModels.ColaboradorViewModel
+@{
+    ViewBag.Title = "Nuevo Usuario";
+}
+
+<h2>Nuevo</h2>
+
+@using (Html.BeginForm("Nuevo","Usuarios",FormMethod.Post))
+{
+    <div class="row">
+        <div class="col-md-12">
+            @Html.LabelFor(d => d.Nombres)
+            @Html.TextBoxFor(d => d.Nombres, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Nombres, null, new { @style = "color:red" })
+
+            @Html.LabelFor(d => d.Apellidos)
+            @Html.TextBoxFor(d => d.Apellidos, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Apellidos, null, new { @style = "color:red" })
+
+            @Html.LabelFor(d => d.DNI)
+            @Html.TextBoxFor(d => d.DNI, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.DNI, null, new { @style = "color:red" })
+
+            @Html.LabelFor(d => d.Telefono)
+            @Html.TextBoxFor(d => d.Telefono, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Telefono, null, new { @style = "color:red" })
+
+            @Html.LabelFor(d => d.Correo)
+            @Html.TextBoxFor(d => d.Correo, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Correo, null, new { @style = "color:red" })
+
+            @Html.LabelFor(d => d.Cargo_Asignado)
+            @Html.TextBoxFor(d => d.Cargo_Asignado, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Cargo_Asignado, null, new { @style = "color:red" })
+
+
+            @Html.LabelFor(d => d.IDRol)
+            @Html.TextBoxFor(d => d.IDRol, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.IDRol, null, new { @style = "color:red" })
+
+            @Html.LabelFor(d => d.Nombre_usuario)
+            @Html.TextBoxFor(d => d.Nombre_usuario, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Nombre_usuario, null, new { @style = "color:red" })
+
+            @Html.LabelFor(d => d.Password)
+            @Html.TextBoxFor(d => d.Password, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Password, null, new { @style = "color:red" })
+
+            @Html.LabelFor(d => d.Observaciones)
+            @Html.TextBoxFor(d => d.Observaciones, "", new { @class = "form-control" })
+            @Html.ValidationMessageFor(d => d.Observaciones, null, new { @style = "color:red" })
+            <br />
+
+            <div style="text-align:right">
+                <input value="Guardar" class="btn btn-primary" type="submit" />
+            </div>
+        </div>
+
+    </div>
+}
+

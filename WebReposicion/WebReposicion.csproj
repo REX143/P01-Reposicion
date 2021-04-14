@@ -135,6 +135,8 @@
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\KardexController.cs" />
     <Compile Include="Controllers\StockController.cs" />
+    <Compile Include="Controllers\UsuariosController.cs" />
+    <Compile Include="Filters\VerificaSession.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,6 +170,9 @@
     <Compile Include="Models\sp_Consolidar_Ventas_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_GetUsuarios_Result.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_obtenerConsultaStock_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
@@ -180,6 +185,9 @@
     <Compile Include="Models\Usuario.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ViewModels\ColaboradorViewModel.cs" />
+    <Compile Include="Models\ViewModels\RecoveryPasswordViewModel.cs" />
+    <Compile Include="Models\ViewModels\RecoveryViewModel.cs" />
     <Compile Include="Models\ViewModels\StockViewModel.cs" />
     <Compile Include="Models\ViewModels\UsuarioViewModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -7085,6 +7093,11 @@
     <Content Include="Views\Kardex\Index.cshtml" />
     <Content Include="Views\Acceso\Index.cshtml" />
     <Content Include="Views\Acceso\Error.cshtml" />
+    <Content Include="Views\Acceso\UpdatePassword.cshtml" />
+    <Content Include="Views\Acceso\StartRecovery.cshtml" />
+    <Content Include="Views\Acceso\Recovery.cshtml" />
+    <Content Include="Views\Usuarios\Index.cshtml" />
+    <Content Include="Views\Usuarios\Nuevo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -21,6 +21,11 @@
             <img src="~/img/Logo3.png" sizes="1%" />
         </div>
         <br />
+        <div style="color:forestgreen">
+            @ViewBag.Message
+        </div>
+        <br />
+
         @using (Html.BeginForm("Index", "Acceso", FormMethod.Post))
         {
             <div class="form-group-lg">
@@ -29,10 +34,10 @@
 
                 @*<div class="form-group">
 
-                        <h1 class="h3 mb-3 font-weight-normal">Usuario</h1>
-                        <br />
-                        <input type="text" name="User" placeholder="Usuario" required autofocus />
-                    </div>*@
+                    <h1 class="h3 mb-3 font-weight-normal">Usuario</h1>
+                    <br />
+                    <input type="text" name="User" placeholder="Usuario" required autofocus />
+                </div>*@
 
                 <div class="input-group">
                     &nbsp; &nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
@@ -51,8 +56,12 @@
                     <br />
                     <br />
                     <input value="INGRESAR AL SISTEMA" class="btn btn-primary" type="submit" />&nbsp; &nbsp;&nbsp; &nbsp;
-                    <input value="CANCELAR" class="btn btn-danger" type="submit" onclick="window.close ()" />
+                    <input value="CANCELAR" class="btn btn-danger" type="submit" onclick="window.close()" />
+                    <p></p>
 
+                    <div>
+                        @Html.ActionLink("Olvidaste tu contraseña?", "StartRecovery");
+                    </div>
 
                     @if (ViewBag.Error != "")
                     {
