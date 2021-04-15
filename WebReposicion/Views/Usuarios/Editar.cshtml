@@ -1,0 +1,94 @@
+﻿@model WebReposicion.Models.ViewModels.ColaboradorViewModel
+@{
+    ViewBag.Title = "Nuevo Usuario";
+    List<SelectListItem> items = (List<SelectListItem>)ViewBag.items;
+}
+
+<h2>ACTUALIZACIÓN DE DATOS DE USUARIOS</h2>
+<p></p>
+@using (Html.BeginForm("Editar", "Usuarios", FormMethod.Post))
+{
+    <div class="panel panel-default">
+
+        <div class="panel panel-heading" style="background-color:#3c8dbc">
+            <b style="color:aliceblue">  <span class="glyphicon glyphicon-file"> </span>  </b>
+        </div>
+
+        <div class="panel-body">
+            @Html.HiddenFor(d => d.IDColaborador)
+            @Html.HiddenFor(d => d.IDUsuario)
+            <div class="col-md-10" style="align-content:center">
+                @Html.LabelFor(d => d.Nombres)
+                @Html.TextBoxFor(d => d.Nombres, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Nombres, null, new { @style = "color:red" })
+            </div>
+            <br />
+            <div class="col-md-10" style="align-content:center">
+                @Html.LabelFor(d => d.Apellidos)
+                @Html.TextBoxFor(d => d.Apellidos, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Apellidos, null, new { @style = "color:red" })
+            </div>
+            <br />
+            <div class="col-md-4" style="align-content:center">
+                @Html.LabelFor(d => d.DNI)
+                @Html.TextBoxFor(d => d.DNI, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.DNI, null, new { @style = "color:red" })
+                <br />
+                @Html.LabelFor(d => d.Telefono)
+                @Html.TextBoxFor(d => d.Telefono, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Telefono, null, new { @style = "color:red" })
+            </div>
+
+            <br />
+            <div class="col-md-10" style="align-content:center">
+                @Html.LabelFor(d => d.Correo)
+                @Html.TextBoxFor(d => d.Correo, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Correo, null, new { @style = "color:red" })
+            </div>
+            <br />
+            <div class="col-md-10" style="align-content:center">
+                @Html.LabelFor(d => d.Cargo_Asignado)
+                @Html.TextBoxFor(d => d.Cargo_Asignado, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Cargo_Asignado, null, new { @style = "color:red" })
+            </div>
+            <br />
+            <div class="col-md-4" style="align-content:center">
+                @Html.LabelFor(d => d.IDRol)
+                @Html.DropDownListFor(d => d.IDRol, new SelectList(items, "Value", "Text"), "Seleccione", new { @class = "form-control" })
+
+            </div>
+            <br />
+            <div class="col-md-10" style="align-content:center">
+                @Html.LabelFor(d => d.Nombre_usuario)
+                @Html.TextBoxFor(d => d.Nombre_usuario, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Nombre_usuario, null, new { @style = "color:red" })
+            </div>
+            <br />
+            @*<div class="col-md-10" style="align-content:center">
+                @Html.LabelFor(d => d.Password)
+                @Html.TextBoxFor(d => d.Password, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Password, null, new { @style = "color:red" })
+            </div>*@
+            <br />
+            <div class="col-md-10" style="align-content:center">
+                @Html.LabelFor(d => d.Observaciones)
+                @Html.TextBoxFor(d => d.Observaciones, "", new { @class = "form-control" })
+                @Html.ValidationMessageFor(d => d.Observaciones, null, new { @style = "color:red" })
+            </div>
+            <br />
+
+
+
+        </div>
+        <div style="text-align:left">
+            &nbsp; &nbsp;&nbsp;   &nbsp; &nbsp;<input value="Enviar" class="btn btn-success" type="submit" />
+            <br />
+        </div>
+        <div style="text-align:right">
+            .
+        </div>
+    </div>
+}
+
+
+

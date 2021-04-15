@@ -28,7 +28,8 @@
                 <th>Rol</th>
                 @*<th>Obs. Rol</th>*@
                 <th>Usuario</th>
-                <th>Contraseña</th>
+                @*<th>Contraseña</th>*@
+                <th></th>
                 @*<th>Observaciones</th>*@
             </tr>
 
@@ -45,8 +46,14 @@
                     <td>@oElemento.Descripcion</td>
                     @*<td>@oElemento.Observacion</td>*@
                     <td>@oElemento.Nombre_usuario</td>
-                    <td>@oElemento.Password</td>
+                    @*<td>@oElemento.Password</td>*@
                     @*<td>@oElemento.Observaciones</td>*@
+                    <td>
+                        @Html.Hidden(oElemento.IDUsuario.ToString())
+                        <a class="btn btn-primary btn-sm" href="~/Usuarios/Editar/@oElemento.IDColaborador"><span class="glyphicon glyphicon-pencil"> </span> </a>
+                        <a class="btn btn-danger btn-sm" href="~/Usuarios/Eliminar/@oElemento.IDColaborador"><span class="glyphicon glyphicon-trash"> </span></a>
+                        
+                    </td>
 
 
                 </tr>
