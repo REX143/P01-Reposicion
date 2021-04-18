@@ -88,6 +88,10 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
         <Function Name="sp_obtenerConsultaStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CodigoArticulo" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_ObtenerHistorialKardex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FECHA_MOV" Type="datetime" Mode="In" />
+          <Parameter Name="CODIGO" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_ObtenerHistorialKardexxAticulo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FECHA_MOV" Type="datetime" Mode="In" />
           <Parameter Name="CODIGO" Type="varchar" Mode="In" />
@@ -142,6 +146,10 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
             <Parameter Name="CODIGO" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_GetUsuarios" ReturnType="Collection(DBPREDICTIVOModel.sp_GetUsuarios_Result)" />
+          <FunctionImport Name="sp_ObtenerHistorialKardex" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerHistorialKardex_Result)">
+            <Parameter Name="FECHA_MOV" Mode="In" Type="DateTime" />
+            <Parameter Name="CODIGO" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_obtenerConsultaStock_Result">
           <Property Type="Int32" Name="Pk" Nullable="false" />
@@ -267,6 +275,15 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Property Type="String" Name="Nombre_usuario" Nullable="true" MaxLength="60" />
           <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
           <Property Type="String" Name="Observaciones" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerHistorialKardex_Result">
+          <Property Type="DateTime" Name="FECHA_MOV" Nullable="false" />
+          <Property Type="String" Name="COD_ART_IMPORT" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NUMERO_DOCUMENTO" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CANTIDADES" Nullable="false" />
+          <Property Type="Int32" Name="TOTAL_AL_DIA" Nullable="true" />
+          <Property Type="String" Name="DESCRIP_MOV" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PC_CLIENTE" Nullable="true" MaxLength="20" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -428,6 +445,19 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
                 <ScalarProperty Name="Nombre_usuario" ColumnName="Nombre_usuario" />
                 <ScalarProperty Name="Password" ColumnName="Password" />
                 <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerHistorialKardex" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerHistorialKardex">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerHistorialKardex_Result">
+                <ScalarProperty Name="FECHA_MOV" ColumnName="FECHA_MOV" />
+                <ScalarProperty Name="COD_ART_IMPORT" ColumnName="COD_ART_IMPORT" />
+                <ScalarProperty Name="NUMERO_DOCUMENTO" ColumnName="NUMERO_DOCUMENTO" />
+                <ScalarProperty Name="CANTIDADES" ColumnName="CANTIDADES" />
+                <ScalarProperty Name="TOTAL_AL_DIA" ColumnName="TOTAL_AL_DIA" />
+                <ScalarProperty Name="DESCRIP_MOV" ColumnName="DESCRIP_MOV" />
+                <ScalarProperty Name="PC_CLIENTE" ColumnName="PC_CLIENTE" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

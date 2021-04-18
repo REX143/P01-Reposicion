@@ -120,6 +120,9 @@
       <Private>True</Private>
       <HintPath>..\packages\Antlr.3.5.0.2\lib\Antlr3.Runtime.dll</HintPath>
     </Reference>
+    <Reference Include="X.PagedList, Version=8.0.7.0, Culture=neutral, PublicKeyToken=525ccaa9023f010c, processorArchitecture=MSIL">
+      <HintPath>..\packages\X.PagedList.8.0.7\lib\netstandard2.0\X.PagedList.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Reference Include="Microsoft.CodeDom.Providers.DotNetCompilerPlatform">
@@ -179,6 +182,9 @@
     <Compile Include="Models\sp_ObtenerHistorialKardexxAticulo_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_ObtenerHistorialKardex_Result.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Stock.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
@@ -186,6 +192,7 @@
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\ViewModels\ColaboradorViewModel.cs" />
+    <Compile Include="Models\ViewModels\KardexViewModel.cs" />
     <Compile Include="Models\ViewModels\RecoveryPasswordViewModel.cs" />
     <Compile Include="Models\ViewModels\RecoveryViewModel.cs" />
     <Compile Include="Models\ViewModels\RolViewModel.cs" />
@@ -5491,6 +5498,7 @@
     <Content Include="Content\bower_components\jquery-ui\UI\WIDGET.JS" />
     <Content Include="Content\bower_components\JQUERY\AUTHORS.TXT" />
     <Content Include="Content\bower_components\JQUERY\DIST\CORE.JS" />
+    <Content Include="Content\bower_components\JQUERY\DIST\jquery-3.6.0.min.js" />
     <Content Include="Content\bower_components\JQUERY\DIST\JQUERY.JS" />
     <Content Include="Content\bower_components\JQUERY\DIST\jquery.min.js" />
     <Content Include="Content\bower_components\JQUERY\DIST\jquery.slim.js" />
@@ -6549,6 +6557,7 @@
     <Content Include="Content\dist\JS\ADMINLTE.JS" />
     <Content Include="Content\dist\JS\adminlte.min.js" />
     <Content Include="Content\dist\JS\DEMO.JS" />
+    <Content Include="Content\dist\JS\jquery-3.6.0.min.js" />
     <Content Include="Content\dist\JS\PAGES\dashboard.js" />
     <Content Include="Content\dist\JS\PAGES\dashboard2.js" />
     <Content Include="favicon.ico" />

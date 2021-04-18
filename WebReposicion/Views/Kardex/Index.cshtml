@@ -1,28 +1,42 @@
 ﻿
+@model List<WebReposicion.Models.ViewModels.KardexViewModel>
+
 @{
     ViewBag.Title = "SISTEMA DE GESTIÓN DE STOCK";
 }
 
-<h2 style="text-align:center">@ViewBag.Title</h2>
+
+<h3 style="text-align:center;color:dimgrey"><B>@ViewBag.Title</B></h3>
 
 
 @using (Html.BeginForm("Index", "Kardex", FormMethod.Post))
 {
     <div class="panel panel-default">
         <div class="panel panel-heading" style="background-color:#3c8dbc">
-            <b style="color:aliceblue">  <span class="glyphicon glyphicon-search"> </span>  CONSULTA DE MOVIMIENTOS</b>
+            <b style="color:aliceblue">  <span class="glyphicon glyphicon-search"> </span>  Consulta de historial de movimientos</b>
         </div>
         <div class="panel-body">
-            <div>@Html.TextBox("Cadena", "", new { @class = "form-control" })</div>
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+
+                @Html.TextBox("Cadena", "", new { @class = "form-control", @style = "text-align:right", @placeholder = "INGRESE EL CÓDIGO DEL PRODUCTO PARA VER SU HISTORIAL" })
+                <br />
+                <div style="text-align:right">
+                    <input type="date" name="FechaMov" id="FechaMov" value="@DateTime.Today.ToString("yyyy-MM-dd")">
+                </div>
+                <div style="text-align:right">
+                    <br />
+                    <button type="submit" class="btn btn-success">Buscar</button>
+                </div>
+            </div>
+
+
 
             @*<div>
                     <input type="text" class="form-control" name="Cadena" placeholder="Ingrese nombre del cliente" required autofocus>
                 </div>*@
 
-            <br>
-            <div style="text-align:right">
-                <button type="submit" class="btn btn-success">Buscar</button>
-            </div>
+
             @*<button id="btnTodo" type="submit" class="btn btn-default" >Cargar todo</button>*@
         </div>
     </div>
@@ -30,45 +44,64 @@
 
 
 <div class="panel panel-default">
-    <div class="panel panel-heading" style="background-color:#3c8dbc">
-        <b style="color:aliceblue">   <span class="glyphicon glyphicon-blackboard"> </span>  RESULTADO DE BÚSQUEDA</b>
-    </div>
+    @*<div class="panel panel-heading" style="background-color:#3c8dbc">
+            <b style="color:aliceblue">   <span class="glyphicon glyphicon-blackboard"> </span>  Historial del artículo</b>
+        </div>*@
     <div class="panel-body">
-        <div class="panel panel-default">
-            <div class="panel panel-heading" style="background-color:#3c8dbc">
-                <b style="color:aliceblue">Información del artículo</b>
-                <div class="panel-body">
-                    <table class="table" style="background-color:#ecf0f5">
+
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">
+                <span class="glyphicon glyphicon-file"> </span>
+                <h3 class="box-title"><b>Stock acumulado al iniciar el día:  @ViewBag.StockActual</b></h3>
+                <div class="box-tools pull-right">
+
+                </div><!-- /.box-tools -->
+            </div><!-- /.box-header -->
+
+
+            <div>
+                <table id="myTable" class="table table-bordered table-hover table-striped">
+                    <tr style="background-color:lightblue;">
+                        <th>@Html.DisplayNameFor(model => model.First().FECHA_MOV)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().COD_ART_IMPORT)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().NUMERO_DOCUMENTO)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().CANTIDADES)</th>
+                        @*<th>@Html.DisplayNameFor(model => model.First().TOTAL_AL_DIA)</th>*@
+                        <th>@Html.DisplayNameFor(model => model.First().DESCRIP_MOV)</th>
+                        <th>@Html.DisplayNameFor(model => model.First().PC_CLIENTE)</th>
+
+                    </tr>
+
+                    @foreach (var oElemento in Model)
+                    {
                         <tr>
-                            <th>Fecha</th>
-                            <th>Cantidad</th>
-                            <th>Tipo</th>
-                           
+
+                            <td>@oElemento.FECHA_MOV</td>
+                            <td>@oElemento.COD_ART_IMPORT</td>
+                            <td>@oElemento.NUMERO_DOCUMENTO</td>
+                            <td>@oElemento.CANTIDADES</td>
+                            @*<td>@oElemento.TOTAL_AL_DIA</td>*@
+                            <td>@oElemento.DESCRIP_MOV</td>
+                            <td>@oElemento.PC_CLIENTE</td>
+
+
+
                         </tr>
-                          <tr>
-
-                                <td>
-                                    @*@using (Html.BeginForm("Editar", "Historial", FormMethod.Post))
-                                    {
-                                        @Html.Hidden("Correlativo", oElement.Correlativo)
-                                        <button type="submit"> <span class="glyphicon glyphicon-edit" value="oElement.Correlativo"></span></button>
-                                    }*@
-                                </td>
-
-                               
-                               
-
-                            </tr>
-                        
-
-
-
-
-                    </table>
-                </div>
-
+                    }
+                </table>
 
             </div>
+            <div class="box-footer" style="background-color:lightblue;">
+
+                <h4 class="box-title"> <span class="glyphicon glyphicon-filter"> </span><b>Stock acumulado al finalizar el día:  @ViewBag.totalDia</b></h4>
+                <div class="box-tools pull-right">
+
+                </div><!-- /.box-tools -->
+            </div>
+
+
+
         </div>
 
-
+    </div>
+</div>

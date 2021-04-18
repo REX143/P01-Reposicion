@@ -112,5 +112,18 @@ namespace WebReposicion.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUsuarios_Result>("sp_GetUsuarios");
         }
+    
+        public virtual ObjectResult<sp_ObtenerHistorialKardex_Result> sp_ObtenerHistorialKardex(Nullable<System.DateTime> fECHA_MOV, string cODIGO)
+        {
+            var fECHA_MOVParameter = fECHA_MOV.HasValue ?
+                new ObjectParameter("FECHA_MOV", fECHA_MOV) :
+                new ObjectParameter("FECHA_MOV", typeof(System.DateTime));
+    
+            var cODIGOParameter = cODIGO != null ?
+                new ObjectParameter("CODIGO", cODIGO) :
+                new ObjectParameter("CODIGO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerHistorialKardex_Result>("sp_ObtenerHistorialKardex", fECHA_MOVParameter, cODIGOParameter);
+        }
     }
 }
