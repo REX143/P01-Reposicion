@@ -11,22 +11,26 @@ using System.Net.Http;
 using System.Net.Http.Headers;
 using System.Text;
 using System.Threading.Tasks;
-
-
+using System.Data;
 
 namespace WebReposicion.Controllers
 {
     public class StockController : Controller
     {
         // GET: Stock
-        
+        //public ActionResult Index()
+        //{
+        //    return View();
+        //}
+
+        //[HttpPost]
         public ActionResult Index(string cadena)
         {
             List<StockViewModel> articulos;
 
             using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())
             {
-                if (cadena !="")
+                if (cadena !="" || cadena !=null)
                 {
                     articulos = (from d in db.sp_obtenerConsultaStock(cadena)
                                  select new StockViewModel
@@ -47,10 +51,11 @@ namespace WebReposicion.Controllers
                                      Ruta = d.Ruta
 
                                  }).ToList();
+                   
                              return View(articulos);
                 }
-
-                return Redirect("~/Home/Index");
+                              
+                return Redirect("~/Stock/Index");
             }
                 
         }

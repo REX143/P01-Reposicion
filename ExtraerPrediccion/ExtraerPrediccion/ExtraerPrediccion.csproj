@@ -153,6 +153,24 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>DBCarga.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\pa_stockPorArticulo_Result.cs">
+      <DependentUpon>DBCarga.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_Consolidar_Ventas_Result.cs">
+      <DependentUpon>DBCarga.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_GetUsuarios_Result.cs">
+      <DependentUpon>DBCarga.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_obtenerConsultaStock_Result.cs">
+      <DependentUpon>DBCarga.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_ObtenerHistorialKardexxAticulo_Result.cs">
+      <DependentUpon>DBCarga.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_ObtenerHistorialKardex_Result.cs">
+      <DependentUpon>DBCarga.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\Stock.cs">
       <DependentUpon>DBCarga.tt</DependentUpon>
     </Compile>

@@ -84,6 +84,7 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Parameter Name="CodigoArticulo" Type="int" Mode="In" />
         </Function>
         <Function Name="sp_Consolidar_Ventas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ExtraerDataHistorica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_obtenerConsultaStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CodigoArticulo" Type="varchar" Mode="In" />
@@ -96,6 +97,8 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Parameter Name="FECHA_MOV" Type="datetime" Mode="In" />
           <Parameter Name="CODIGO" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_ObtenerStockPredictivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_PrepararDataHistorica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DBPREDICTIVOModelStoreContainer">
           <EntitySet Name="CargaTemporal" EntityType="Self.CargaTemporal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Colaborador" EntityType="Self.Colaborador" Schema="dbo" store:Type="Tables" />
@@ -150,6 +153,9 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
             <Parameter Name="FECHA_MOV" Mode="In" Type="DateTime" />
             <Parameter Name="CODIGO" Mode="In" Type="String" />
           </FunctionImport>
+          <FunctionImport Name="sp_ExtraerDataHistorica" />
+          <FunctionImport Name="sp_PrepararDataHistorica" />
+          <FunctionImport Name="sp_ObtenerStockPredictivo" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockPredictivo_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_obtenerConsultaStock_Result">
           <Property Type="Int32" Name="Pk" Nullable="false" />
@@ -284,6 +290,12 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Property Type="Int32" Name="TOTAL_AL_DIA" Nullable="true" />
           <Property Type="String" Name="DESCRIP_MOV" Nullable="false" MaxLength="50" />
           <Property Type="String" Name="PC_CLIENTE" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerStockPredictivo_Result">
+          <Property Type="Int32" Name="PK_MAESTRO_ARTICULOS" Nullable="false" />
+          <Property Type="String" Name="COD_ART_IMPORT" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="StockFisico" Nullable="true" />
+          <Property Type="Int32" Name="StockPredictivo" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -458,6 +470,18 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
                 <ScalarProperty Name="TOTAL_AL_DIA" ColumnName="TOTAL_AL_DIA" />
                 <ScalarProperty Name="DESCRIP_MOV" ColumnName="DESCRIP_MOV" />
                 <ScalarProperty Name="PC_CLIENTE" ColumnName="PC_CLIENTE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ExtraerDataHistorica" FunctionName="DBPREDICTIVOModel.Store.sp_ExtraerDataHistorica" />
+          <FunctionImportMapping FunctionImportName="sp_PrepararDataHistorica" FunctionName="DBPREDICTIVOModel.Store.sp_PrepararDataHistorica" />
+          <FunctionImportMapping FunctionImportName="sp_ObtenerStockPredictivo" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerStockPredictivo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerStockPredictivo_Result">
+                <ScalarProperty Name="PK_MAESTRO_ARTICULOS" ColumnName="PK_MAESTRO_ARTICULOS" />
+                <ScalarProperty Name="COD_ART_IMPORT" ColumnName="COD_ART_IMPORT" />
+                <ScalarProperty Name="StockFisico" ColumnName="StockFisico" />
+                <ScalarProperty Name="StockPredictivo" ColumnName="StockPredictivo" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

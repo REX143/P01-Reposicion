@@ -125,5 +125,20 @@ namespace WebReposicion.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerHistorialKardex_Result>("sp_ObtenerHistorialKardex", fECHA_MOVParameter, cODIGOParameter);
         }
+    
+        public virtual int sp_ExtraerDataHistorica()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ExtraerDataHistorica");
+        }
+    
+        public virtual int sp_PrepararDataHistorica()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PrepararDataHistorica");
+        }
+    
+        public virtual ObjectResult<sp_ObtenerStockPredictivo_Result> sp_ObtenerStockPredictivo()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerStockPredictivo_Result>("sp_ObtenerStockPredictivo");
+        }
     }
 }

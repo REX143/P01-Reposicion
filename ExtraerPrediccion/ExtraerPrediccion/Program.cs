@@ -9,6 +9,8 @@ using System.Linq;
 using Newtonsoft.Json;
 using System.Data;
 using ExtraerPrediccion.Models;
+using System.Diagnostics;
+using System.Net.Mail;
 
 namespace CallRequestResponseService
 {
@@ -42,6 +44,9 @@ namespace CallRequestResponseService
             }
 
             // Por cada código enviado de procesará la interconexión y envío y consumo de data
+            int IndexCodigo = 0;
+            Stopwatch timeMeasure = new Stopwatch();
+            timeMeasure.Start();
             foreach (var item in lst)
             {
 
@@ -105,9 +110,9 @@ namespace CallRequestResponseService
 
                         //Extraemos el resultado predictivo para cargarlo a la base BDPREDICTIVA de la empresa
                         Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(result);
-                        var score = myDeserializedClass.Results.output1.value.Values.ElementAt(0).ElementAt(12).Substring(0, 4).Replace('.', ',');
+                        var score = myDeserializedClass.Results.output1.value.Values.ElementAt(0).ElementAt(12).Substring(0, 4);//.Replace('.', ';');
                         // Formateamos el valor
-                        decimal stockPredictivo = decimal.Parse(score);
+                        decimal stockPredictivo = Convert.ToDecimal(score);
                         var codigoArticulo = myDeserializedClass.Results.output1.value.Values.ElementAt(0).ElementAt(0);
 
                         //Actualizamos los resultados en la tabla Stock de la empresa
@@ -117,9 +122,10 @@ namespace CallRequestResponseService
 
                             db.sp_cargarStockPredictivo(oStock, Convert.ToInt32(codigoArticulo));
                             db.SaveChanges();
-
+                            
                         }
-
+                        IndexCodigo++;
+                        Console.WriteLine(string.Format("Actualizando y cargando predicción- Artículo [" + IndexCodigo + "]-"+ codigoArticulo, response.StatusCode));
                     }
                     else
                     {
@@ -135,14 +141,39 @@ namespace CallRequestResponseService
 
             }
 
+            
+            SendEmail("HERALDAVA@GMAIL.COM");
             Console.WriteLine("Stock predictivo actualizado");
-
+            Console.ReadLine();
+            timeMeasure.Stop();
+            Console.WriteLine($"Tiempo: {timeMeasure.Elapsed.TotalMinutes} min");
 
 
 
         }
 
 
+
+
+        static void SendEmail(string EmailDestino)
+        {
+            string EmailOrigen = "HERALDAVA@GMAIL.COM";
+            string Contraseña = "/HERBERTSRS";
+            //string url = UrlDomain + "/Acceso/Recovery/?token=" + Token;
+            MailMessage oMailMessage = new MailMessage(EmailOrigen, EmailDestino, "GRUPO GALDIAZ-STOCK PREDICTIVO",
+                                     "<p>Correo de confirmación de ejecución de demanda predictiva-stock de artículos.</p>" +
+                                     "" + DateTime.Now + "'>Actualización exitosa.</a>");
+
+            oMailMessage.IsBodyHtml = true;
+            SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
+            oSmtpClient.EnableSsl = true;
+            oSmtpClient.UseDefaultCredentials = false;
+            oSmtpClient.Port = 587;
+            oSmtpClient.Credentials = new System.Net.NetworkCredential(EmailOrigen, Contraseña);
+
+            oSmtpClient.Send(oMailMessage);
+            oSmtpClient.Dispose();
+        }
 
         // Root myDeserializedClass = JsonConvert.DeserializeObject<Root>(myJsonResponse); 
         // Clases para los resultados predictivos que serán consumidos desde Azure

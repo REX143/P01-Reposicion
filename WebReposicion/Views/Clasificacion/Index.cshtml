@@ -1,0 +1,111 @@
+﻿
+
+@{
+    ViewBag.Title = "Clasificación";
+}
+
+<h3 style="text-align:center;color:dimgrey"><b>  <span class="fa fa-inbox"> </span> CLASIFICACIÓN DE ARTÍCULOS</b></h3>
+
+
+
+
+@using (Html.BeginForm("Index", "Prediccion", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel panel-heading" style="background-color:#3c8dbc">
+            <b style="color:aliceblue">  <span class="fa fa-tag"> </span>  </b>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+
+                <br />
+                <div>
+                    <div class="small-box bg-aqua-active">
+                        <div class="inner">
+                            <h3><font style="vertical-align: inherit;"><font style="align-content:flex-start">ABC/XYZ </font></font></h3>
+
+                            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Nivel de venta/ Nivel de rotación</font></font></p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-tags"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    Más información
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </font>
+                            </font>
+                        </a>
+                    </div>
+                </div>
+                <div style="text-align:right">
+
+
+
+                    <button id="btnExcelDescargar" class="btn btn-app" runat="server">
+                        <span class="badge bg-red-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*.xls</font></font></span>
+                        <i class="fa fa-file-excel-o"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                @Html.ActionLink("Descargar archivo", "btnExcelDescargar", "Clasificacion", 0, null)
+                            </font>
+                        </font>
+                    </button>
+
+
+
+
+                    <button type="button" class="btn btn-app" data-toggle="modal" data-target="#okmodal">
+                        <span class="badge bg-red-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar</font></font></span>
+                        <i class="fa fa-tags"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Clasificar artículos
+                            </font>
+                        </font>
+                    </button>
+                </div>
+            </div>
+
+
+        </div>
+        <br />
+        <div class="panel-body">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <p style="color:darkblue">@ViewBag.Confirmacion </p>
+            </div>
+        </div>
+    </div>
+
+
+
+
+    <div class="container">
+        <div class="modal fade" tabindex="-1" id="okmodal">
+            <div class="modal-dialog modal-sm modal-dialog center-block">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#3c8dbc">
+                        <b style="color:aliceblue">
+                            <span class="glyphicon glyphicon-alert">..</span>GRUPO Galdiaz
+                        </b>
+                        <button class="close" data-dismiss="modal">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+                        ¿Confirmar inicio ?
+                        <div class="cke_loader">
+
+                        </div>
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">OK</button>
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+

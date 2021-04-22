@@ -4,7 +4,7 @@
   <edmx:Runtime>
     <!-- SSDL content -->
     <edmx:StorageModels>
-      <Schema Namespace="DBPREDICTIVOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+    <Schema Namespace="DBPREDICTIVOModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
         <EntityType Name="CargaTemporal">
           <Key>
             <PropertyRef Name="PK" />
@@ -40,10 +40,32 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Property Name="StockMaximo" Type="int" />
           <Property Name="PrioridadReposicion" Type="varchar" MaxLength="50" />
         </EntityType>
+        <Function Name="pa_stockPorArticulo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="pa_updateStockTda" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_AsignarClasificacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_AsignarClasificacionABC" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_AsignarClasificacionXYZ" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_AsignarPrioridadReposicion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_AsignarStockSeguridad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_cargarStockPredictivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="StockPredictivo" Type="int" Mode="In" />
           <Parameter Name="CodigoArticulo" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_Consolidar_Ventas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ExtraerDataHistorica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GetUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_obtenerConsultaStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CodigoArticulo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ObtenerHistorialKardex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FECHA_MOV" Type="datetime" Mode="In" />
+          <Parameter Name="CODIGO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ObtenerHistorialKardexxAticulo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="FECHA_MOV" Type="datetime" Mode="In" />
+          <Parameter Name="CODIGO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_PrepararDataHistorica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DBPREDICTIVOModelStoreContainer">
           <EntitySet Name="CargaTemporal" EntityType="Self.CargaTemporal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stock" EntityType="Self.Stock" store:Type="Tables" store:Schema="dbo">
@@ -61,8 +83,7 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
     FROM [dbo].[Stock] AS [Stock]</DefiningQuery>
           </EntitySet>
         </EntityContainer>
-      </Schema>
-    </edmx:StorageModels>
+      </Schema></edmx:StorageModels>
     <!-- CSDL content -->
     <edmx:ConceptualModels>
       <Schema Namespace="DBPREDICTIVOModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
@@ -106,7 +127,98 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
             <Parameter Name="StockPredictivo" Mode="In" Type="Int32" />
             <Parameter Name="CodigoArticulo" Mode="In" Type="Int32" />
           </FunctionImport>
+          <FunctionImport Name="pa_stockPorArticulo" ReturnType="Collection(DBPREDICTIVOModel.pa_stockPorArticulo_Result)" />
+          <FunctionImport Name="pa_updateStockTda" />
+          <FunctionImport Name="sp_AsignarClasificacion" />
+          <FunctionImport Name="sp_AsignarClasificacionABC" />
+          <FunctionImport Name="sp_AsignarClasificacionXYZ" />
+          <FunctionImport Name="sp_AsignarPrioridadReposicion" />
+          <FunctionImport Name="sp_AsignarStockSeguridad" />
+          <FunctionImport Name="sp_Consolidar_Ventas" ReturnType="Collection(DBPREDICTIVOModel.sp_Consolidar_Ventas_Result)" />
+          <FunctionImport Name="sp_ExtraerDataHistorica" />
+          <FunctionImport Name="sp_GetUsuarios" ReturnType="Collection(DBPREDICTIVOModel.sp_GetUsuarios_Result)" />
+          <FunctionImport Name="sp_obtenerConsultaStock" ReturnType="Collection(DBPREDICTIVOModel.sp_obtenerConsultaStock_Result)">
+            <Parameter Name="CodigoArticulo" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerHistorialKardex" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerHistorialKardex_Result)">
+            <Parameter Name="FECHA_MOV" Mode="In" Type="DateTime" />
+            <Parameter Name="CODIGO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerHistorialKardexxAticulo" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerHistorialKardexxAticulo_Result)">
+            <Parameter Name="FECHA_MOV" Mode="In" Type="DateTime" />
+            <Parameter Name="CODIGO" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_PrepararDataHistorica" />
         </EntityContainer>
+        <ComplexType Name="pa_stockPorArticulo_Result">
+          <Property Type="Int32" Name="PK_MAESTRO_ARTICULOS" Nullable="false" />
+          <Property Type="Int32" Name="STOCK" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_Consolidar_Ventas_Result">
+          <Property Type="Int32" Name="CODIGO" Nullable="false" />
+          <Property Type="Int32" Name="DIA1" Nullable="true" />
+          <Property Type="Int32" Name="DIA2" Nullable="true" />
+          <Property Type="Int32" Name="DIA3" Nullable="true" />
+          <Property Type="Int32" Name="DIA4" Nullable="true" />
+          <Property Type="Int32" Name="DIA5" Nullable="true" />
+          <Property Type="Int32" Name="DIA6" Nullable="true" />
+          <Property Type="Int32" Name="DIA7" Nullable="true" />
+          <Property Type="Int32" Name="DIA8" Nullable="true" />
+          <Property Type="Int32" Name="DIA9" Nullable="true" />
+          <Property Type="Int32" Name="DIA10" Nullable="true" />
+          <Property Type="Int32" Name="DIA11" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_GetUsuarios_Result">
+          <Property Type="Int32" Name="IDColaborador" Nullable="false" />
+          <Property Type="String" Name="Nombres" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Apellidos" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="DNI" Nullable="true" MaxLength="8" />
+          <Property Type="String" Name="Telefono" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="Correo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Cargo_Asignado" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Token_Security" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="IDRol" Nullable="false" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="Observacion" Nullable="true" MaxLength="200" />
+          <Property Type="Int32" Name="IDUsuario" Nullable="false" />
+          <Property Type="String" Name="Nombre_usuario" Nullable="true" MaxLength="60" />
+          <Property Type="String" Name="Password" Nullable="true" MaxLength="100" />
+          <Property Type="String" Name="Observaciones" Nullable="true" MaxLength="100" />
+        </ComplexType>
+        <ComplexType Name="sp_obtenerConsultaStock_Result">
+          <Property Type="Int32" Name="Pk" Nullable="false" />
+          <Property Type="String" Name="Codigo" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="Nombre" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="Categoria" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
+          <Property Type="Int32" Name="Comprometido" Nullable="true" />
+          <Property Type="Int32" Name="Disponible" Nullable="true" />
+          <Property Type="String" Name="ABC" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="XYZ" Nullable="true" MaxLength="10" />
+          <Property Type="Int32" Name="Predictivo" Nullable="true" />
+          <Property Type="Int32" Name="Minimo" Nullable="true" />
+          <Property Type="Int32" Name="Maximo" Nullable="true" />
+          <Property Type="String" Name="PrioridadReposicion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Ruta" Nullable="true" MaxLength="300" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerHistorialKardex_Result">
+          <Property Type="DateTime" Name="FECHA_MOV" Nullable="false" />
+          <Property Type="String" Name="COD_ART_IMPORT" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NUMERO_DOCUMENTO" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CANTIDADES" Nullable="false" />
+          <Property Type="Int32" Name="TOTAL_AL_DIA" Nullable="true" />
+          <Property Type="String" Name="DESCRIP_MOV" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PC_CLIENTE" Nullable="true" MaxLength="20" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerHistorialKardexxAticulo_Result">
+          <Property Type="DateTime" Name="FECHA_MOV" Nullable="false" />
+          <Property Type="String" Name="COD_ART_IMPORT" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NUMERO_DOCUMENTO" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="CANTIDADES" Nullable="false" />
+          <Property Type="Int32" Name="TOTAL_AL_DIA" Nullable="true" />
+          <Property Type="String" Name="DESCRIP_MOV" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="PC_CLIENTE" Nullable="true" MaxLength="20" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -149,6 +261,107 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
             </EntityTypeMapping>
           </EntitySetMapping>
           <FunctionImportMapping FunctionImportName="sp_cargarStockPredictivo" FunctionName="DBPREDICTIVOModel.Store.sp_cargarStockPredictivo" />
+          <FunctionImportMapping FunctionImportName="pa_stockPorArticulo" FunctionName="DBPREDICTIVOModel.Store.pa_stockPorArticulo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.pa_stockPorArticulo_Result">
+                <ScalarProperty Name="PK_MAESTRO_ARTICULOS" ColumnName="PK_MAESTRO_ARTICULOS" />
+                <ScalarProperty Name="STOCK" ColumnName="STOCK" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="pa_updateStockTda" FunctionName="DBPREDICTIVOModel.Store.pa_updateStockTda" />
+          <FunctionImportMapping FunctionImportName="sp_AsignarClasificacion" FunctionName="DBPREDICTIVOModel.Store.sp_AsignarClasificacion" />
+          <FunctionImportMapping FunctionImportName="sp_AsignarClasificacionABC" FunctionName="DBPREDICTIVOModel.Store.sp_AsignarClasificacionABC" />
+          <FunctionImportMapping FunctionImportName="sp_AsignarClasificacionXYZ" FunctionName="DBPREDICTIVOModel.Store.sp_AsignarClasificacionXYZ" />
+          <FunctionImportMapping FunctionImportName="sp_AsignarPrioridadReposicion" FunctionName="DBPREDICTIVOModel.Store.sp_AsignarPrioridadReposicion" />
+          <FunctionImportMapping FunctionImportName="sp_AsignarStockSeguridad" FunctionName="DBPREDICTIVOModel.Store.sp_AsignarStockSeguridad" />
+          <FunctionImportMapping FunctionImportName="sp_Consolidar_Ventas" FunctionName="DBPREDICTIVOModel.Store.sp_Consolidar_Ventas">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_Consolidar_Ventas_Result">
+                <ScalarProperty Name="CODIGO" ColumnName="CODIGO" />
+                <ScalarProperty Name="DIA1" ColumnName="DIA1" />
+                <ScalarProperty Name="DIA2" ColumnName="DIA2" />
+                <ScalarProperty Name="DIA3" ColumnName="DIA3" />
+                <ScalarProperty Name="DIA4" ColumnName="DIA4" />
+                <ScalarProperty Name="DIA5" ColumnName="DIA5" />
+                <ScalarProperty Name="DIA6" ColumnName="DIA6" />
+                <ScalarProperty Name="DIA7" ColumnName="DIA7" />
+                <ScalarProperty Name="DIA8" ColumnName="DIA8" />
+                <ScalarProperty Name="DIA9" ColumnName="DIA9" />
+                <ScalarProperty Name="DIA10" ColumnName="DIA10" />
+                <ScalarProperty Name="DIA11" ColumnName="DIA11" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ExtraerDataHistorica" FunctionName="DBPREDICTIVOModel.Store.sp_ExtraerDataHistorica" />
+          <FunctionImportMapping FunctionImportName="sp_GetUsuarios" FunctionName="DBPREDICTIVOModel.Store.sp_GetUsuarios">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_GetUsuarios_Result">
+                <ScalarProperty Name="IDColaborador" ColumnName="IDColaborador" />
+                <ScalarProperty Name="Nombres" ColumnName="Nombres" />
+                <ScalarProperty Name="Apellidos" ColumnName="Apellidos" />
+                <ScalarProperty Name="DNI" ColumnName="DNI" />
+                <ScalarProperty Name="Telefono" ColumnName="Telefono" />
+                <ScalarProperty Name="Correo" ColumnName="Correo" />
+                <ScalarProperty Name="Cargo_Asignado" ColumnName="Cargo_Asignado" />
+                <ScalarProperty Name="Token_Security" ColumnName="Token_Security" />
+                <ScalarProperty Name="IDRol" ColumnName="IDRol" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Observacion" ColumnName="Observacion" />
+                <ScalarProperty Name="IDUsuario" ColumnName="IDUsuario" />
+                <ScalarProperty Name="Nombre_usuario" ColumnName="Nombre_usuario" />
+                <ScalarProperty Name="Password" ColumnName="Password" />
+                <ScalarProperty Name="Observaciones" ColumnName="Observaciones" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_obtenerConsultaStock" FunctionName="DBPREDICTIVOModel.Store.sp_obtenerConsultaStock">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_obtenerConsultaStock_Result">
+                <ScalarProperty Name="Pk" ColumnName="Pk" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="Comprometido" ColumnName="Comprometido" />
+                <ScalarProperty Name="Disponible" ColumnName="Disponible" />
+                <ScalarProperty Name="ABC" ColumnName="ABC" />
+                <ScalarProperty Name="XYZ" ColumnName="XYZ" />
+                <ScalarProperty Name="Predictivo" ColumnName="Predictivo" />
+                <ScalarProperty Name="Minimo" ColumnName="Minimo" />
+                <ScalarProperty Name="Maximo" ColumnName="Maximo" />
+                <ScalarProperty Name="PrioridadReposicion" ColumnName="PrioridadReposicion" />
+                <ScalarProperty Name="Ruta" ColumnName="Ruta" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerHistorialKardex" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerHistorialKardex">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerHistorialKardex_Result">
+                <ScalarProperty Name="FECHA_MOV" ColumnName="FECHA_MOV" />
+                <ScalarProperty Name="COD_ART_IMPORT" ColumnName="COD_ART_IMPORT" />
+                <ScalarProperty Name="NUMERO_DOCUMENTO" ColumnName="NUMERO_DOCUMENTO" />
+                <ScalarProperty Name="CANTIDADES" ColumnName="CANTIDADES" />
+                <ScalarProperty Name="TOTAL_AL_DIA" ColumnName="TOTAL_AL_DIA" />
+                <ScalarProperty Name="DESCRIP_MOV" ColumnName="DESCRIP_MOV" />
+                <ScalarProperty Name="PC_CLIENTE" ColumnName="PC_CLIENTE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerHistorialKardexxAticulo" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerHistorialKardexxAticulo">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerHistorialKardexxAticulo_Result">
+                <ScalarProperty Name="FECHA_MOV" ColumnName="FECHA_MOV" />
+                <ScalarProperty Name="COD_ART_IMPORT" ColumnName="COD_ART_IMPORT" />
+                <ScalarProperty Name="NUMERO_DOCUMENTO" ColumnName="NUMERO_DOCUMENTO" />
+                <ScalarProperty Name="CANTIDADES" ColumnName="CANTIDADES" />
+                <ScalarProperty Name="TOTAL_AL_DIA" ColumnName="TOTAL_AL_DIA" />
+                <ScalarProperty Name="DESCRIP_MOV" ColumnName="DESCRIP_MOV" />
+                <ScalarProperty Name="PC_CLIENTE" ColumnName="PC_CLIENTE" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_PrepararDataHistorica" FunctionName="DBPREDICTIVOModel.Store.sp_PrepararDataHistorica" />
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

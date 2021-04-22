@@ -42,5 +42,95 @@ namespace ExtraerPrediccion.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_cargarStockPredictivo", stockPredictivoParameter, codigoArticuloParameter);
         }
+    
+        public virtual ObjectResult<pa_stockPorArticulo_Result> pa_stockPorArticulo()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<pa_stockPorArticulo_Result>("pa_stockPorArticulo");
+        }
+    
+        public virtual int pa_updateStockTda()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("pa_updateStockTda");
+        }
+    
+        public virtual int sp_AsignarClasificacion()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AsignarClasificacion");
+        }
+    
+        public virtual int sp_AsignarClasificacionABC()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AsignarClasificacionABC");
+        }
+    
+        public virtual int sp_AsignarClasificacionXYZ()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AsignarClasificacionXYZ");
+        }
+    
+        public virtual int sp_AsignarPrioridadReposicion()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AsignarPrioridadReposicion");
+        }
+    
+        public virtual int sp_AsignarStockSeguridad()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AsignarStockSeguridad");
+        }
+    
+        public virtual ObjectResult<sp_Consolidar_Ventas_Result> sp_Consolidar_Ventas()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_Consolidar_Ventas_Result>("sp_Consolidar_Ventas");
+        }
+    
+        public virtual int sp_ExtraerDataHistorica()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ExtraerDataHistorica");
+        }
+    
+        public virtual ObjectResult<sp_GetUsuarios_Result> sp_GetUsuarios()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_GetUsuarios_Result>("sp_GetUsuarios");
+        }
+    
+        public virtual ObjectResult<sp_obtenerConsultaStock_Result> sp_obtenerConsultaStock(string codigoArticulo)
+        {
+            var codigoArticuloParameter = codigoArticulo != null ?
+                new ObjectParameter("CodigoArticulo", codigoArticulo) :
+                new ObjectParameter("CodigoArticulo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_obtenerConsultaStock_Result>("sp_obtenerConsultaStock", codigoArticuloParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerHistorialKardex_Result> sp_ObtenerHistorialKardex(Nullable<System.DateTime> fECHA_MOV, string cODIGO)
+        {
+            var fECHA_MOVParameter = fECHA_MOV.HasValue ?
+                new ObjectParameter("FECHA_MOV", fECHA_MOV) :
+                new ObjectParameter("FECHA_MOV", typeof(System.DateTime));
+    
+            var cODIGOParameter = cODIGO != null ?
+                new ObjectParameter("CODIGO", cODIGO) :
+                new ObjectParameter("CODIGO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerHistorialKardex_Result>("sp_ObtenerHistorialKardex", fECHA_MOVParameter, cODIGOParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerHistorialKardexxAticulo_Result> sp_ObtenerHistorialKardexxAticulo(Nullable<System.DateTime> fECHA_MOV, string cODIGO)
+        {
+            var fECHA_MOVParameter = fECHA_MOV.HasValue ?
+                new ObjectParameter("FECHA_MOV", fECHA_MOV) :
+                new ObjectParameter("FECHA_MOV", typeof(System.DateTime));
+    
+            var cODIGOParameter = cODIGO != null ?
+                new ObjectParameter("CODIGO", cODIGO) :
+                new ObjectParameter("CODIGO", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerHistorialKardexxAticulo_Result>("sp_ObtenerHistorialKardexxAticulo", fECHA_MOVParameter, cODIGOParameter);
+        }
+    
+        public virtual int sp_PrepararDataHistorica()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_PrepararDataHistorica");
+        }
     }
 }

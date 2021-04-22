@@ -13,26 +13,40 @@
 {
 <div class="panel panel-default">
     <div class="panel panel-heading" style="background-color:#3c8dbc">
-        <b style="color:aliceblue">  <span class="glyphicon glyphicon-search"> </span>  CONSULTA DE STOCK DE ARTÍCULOS</b>
+        <b style="color:aliceblue">  <span class="glyphicon glyphicon-inbox"> </span>  Consulta de stock de artículos</b>
     </div>
 
     @using (Html.BeginForm("Index", "Home", FormMethod.Post))
     {
+   
         <div class="panel-body">
-            <div class="col-md-3"></div>
-            <div class="col-md-6">
-                <div>@Html.TextBox("cadena", "", new { @class = "form-control" })</div>
+                <div class="col-md-3"></div>
+                <div class="col-md-6">
+                    <br />
+                    <div>@Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:right", @placeholder = "INGRESE EL CÓDIGO DEL PRODUCTO PARA INICIAR BUSQUEDA" })</div>
 
 
-                <br>
-                <div style="text-align:right">
-                    <button type="submit" class="btn btn-success">Buscar</button>
+                    <br>
+                    <div style="text-align:right">
+
+
+                        <button type="submit" class="btn btn-app">
+                            <span class="badge bg-green-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar</font></font></span>
+                            <i class="fa fa-search-plus"></i><font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    Buscar producto
+                                </font>
+                            </font>
+                        </button>
+
+
+                    </div>
+
 
                 </div>
-
             </div>
-        </div>
-    }
+
+ }
         <div class="panel-body">
 
             @foreach (var oElement in Model)
