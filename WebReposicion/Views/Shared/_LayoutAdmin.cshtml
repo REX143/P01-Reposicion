@@ -157,25 +157,29 @@
                         <ul class="treeview-menu">
                             <li><a href="@Url.Action("Index","Stock","")"><i class="fa fa-circle-o"></i>Consultar Stock</a></li>
                             <li><a href="@Url.Action("Index","Kardex","")"><i class="fa fa-circle-o"></i> Movimiento kardex</a></li>
+                            <li><a href="@Url.Action("Index","StockReposicion","")"><i class="fa fa-circle-o"></i> Artículos a reponer</a></li>
+                            <li><a href="@Url.Action("Index","Listar","")"><i class="fa fa-circle-o"></i> Listar Pedidos</a></li>
                         </ul>
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-dashboard"></i> <spa>Módulo de reposición</spa>
+                            <i class="fa fa-laptop"></i> <spa>Módulo de reposición</spa>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
                         </a>
                         <ul class="treeview-menu">
                             <li><a href="@Url.Action("Index","Historial","")"><i class="fa fa-circle-o"></i> Generar pedido</a></li>
-                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Editar reposición</a></li>
+                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Editar pedido</a></li>
+                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Recepcionar pedido</a></li>
                             <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Registrar devolución </a></li>
-                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Prioridad de reposición</a></li>
+
                         </ul>
                     </li>
+
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-dashboard"></i> <spa>Módulo predictivo</spa>
+                            <i class="fa fa-pie-chart"></i> <spa>Módulo predictivo</spa>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>
@@ -189,7 +193,21 @@
                     </li>
                     <li class="treeview">
                         <a href="#">
-                            <i class="fa fa-dashboard"></i> <spa>Seguridad</spa>
+                            <i class="fa fa-book"></i> <spa>Reportes</spa>
+                            <span class="pull-right-container">
+                                <i class="fa fa-angle-left pull-right"></i>
+                            </span>
+                        </a>
+                        <ul class="treeview-menu">
+                            <li><a href="@Url.Action("Index","Historial","")"><i class="fa fa-circle-o"></i> Artículos sin stock</a></li>
+                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Artículos sin rotación</a></li>
+                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Clasificación de artículos</a></li>
+                            
+                        </ul>
+                    </li>
+                    <li class="treeview">
+                        <a href="#">
+                            <i class="fa fa-unlock-alt"></i> <spa>Seguridad</spa>
                             <span class="pull-right-container">
                                 <i class="fa fa-angle-left pull-right"></i>
                             </span>

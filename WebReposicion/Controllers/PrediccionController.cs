@@ -27,9 +27,11 @@ namespace WebReposicion.Controllers
         {
             using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())
             {
-                // Extracción y preparación de la data  
-                db.sp_ExtraerDataHistorica();// Primero se prepara para clasificar
-                db.sp_PrepararDataHistorica(); // Primero se prepara para clasificar
+                // Extracción y preparación de la data ver condicion 
+                db.Database.CommandTimeout = 300;
+                // Se realiza la clasificación a la data obtenida
+                db.sp_AsignarClasificacion();
+
                 response = true;
             }
             if (response==true)

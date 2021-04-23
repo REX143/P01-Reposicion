@@ -9,7 +9,7 @@
 
 
 
-@using (Html.BeginForm("Index", "Prediccion", FormMethod.Post))
+@using (Html.BeginForm("Index", "Clasificacion", FormMethod.Post))
 {
     <div class="panel panel-default">
         <div class="panel panel-heading" style="background-color:#3c8dbc">
@@ -44,14 +44,14 @@
 
 
 
-                    <button id="btnExcelDescargar" class="btn btn-app" runat="server">
+                    <div class="btn btn-app" runat="server">
                         <span class="badge bg-red-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*.xls</font></font></span>
                         <i class="fa fa-file-excel-o"></i><font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;">
                                 @Html.ActionLink("Descargar archivo", "btnExcelDescargar", "Clasificacion", 0, null)
                             </font>
                         </font>
-                    </button>
+                    </div>
 
 
 

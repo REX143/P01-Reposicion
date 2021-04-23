@@ -9,7 +9,7 @@
 
 
 
-@using (Html.BeginForm("Index", "Prediccion", FormMethod.Post))
+@using (Html.BeginForm("Index", "StockSeguridad", FormMethod.Post))
 {
     <div class="panel panel-default">
         <div class="panel panel-heading" style="background-color:#3c8dbc">
@@ -43,21 +43,21 @@
                 <div style="text-align:right">
 
 
-                    <button id="btnExcelDescargar" class="btn btn-app" runat="server">
+                    <div  class="btn btn-app" runat="server">
                         <span class="badge bg-red-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*.xls</font></font></span>
                         <i class="fa fa-file-excel-o"></i><font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;">
                                 @Html.ActionLink("Descargar archivo", "btnExcelDescargar", "StockSeguridad", 0, null)
                             </font>
                         </font>
-                    </button>
+                    </div>
 
 
                     <button type="button" class="btn btn-app" data-toggle="modal" data-target="#okmodal">
                         <span class="badge bg-red-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar</font></font></span>
                         <i class="fa fa-expeditedssl"></i><font style="vertical-align: inherit;">
                             <font style="vertical-align: inherit;">
-                                Clasificar artículos
+                                Stock de seguridad
                             </font>
                         </font>
                     </button>
@@ -93,13 +93,12 @@
                     </div>
                     <div class="modal-body">
                         ¿Confirmar inicio ?
-                        <div class="cke_loader">
-
-                        </div>
+                     
+                        
                     </div>
 
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">OK</button>
+                      <button type="submit" class="btn btn-primary">OK</button>
 
                     </div>
                 </div>
