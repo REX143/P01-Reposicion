@@ -157,7 +157,7 @@
                         <ul class="treeview-menu">
                             <li><a href="@Url.Action("Index","Stock","")"><i class="fa fa-circle-o"></i>Consultar Stock</a></li>
                             <li><a href="@Url.Action("Index","Kardex","")"><i class="fa fa-circle-o"></i> Movimiento kardex</a></li>
-                            <li><a href="@Url.Action("Index","StockReposicion","")"><i class="fa fa-circle-o"></i> Artículos a reponer</a></li>
+                            <li><a href="@Url.Action("ArticulosaReponer","Stock","")"><i class="fa fa-circle-o"></i> Artículos a reponer</a></li>
                             <li><a href="@Url.Action("Index","Listar","")"><i class="fa fa-circle-o"></i> Listar Pedidos</a></li>
                         </ul>
                     </li>
@@ -199,9 +199,9 @@
                             </span>
                         </a>
                         <ul class="treeview-menu">
-                            <li><a href="@Url.Action("Index","Historial","")"><i class="fa fa-circle-o"></i> Artículos sin stock</a></li>
-                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Artículos sin rotación</a></li>
-                            <li><a href="../../index2.html"><i class="fa fa-circle-o"></i> Clasificación de artículos</a></li>
+                            <li><a href="@Url.Action("ReporteStockCero","Reporte","")"><i class="fa fa-circle-o"></i> Artículos sin stock</a></li>
+                            <li><a href="@Url.Action("ReporteStockSinRotacion","Reporte","")"><i class="fa fa-circle-o"></i> Artículos sin rotación</a></li>
+                            <li><a href="@Url.Action("ReporteStockClasificacion","Reporte","")"><i class="fa fa-circle-o"></i> Clasificación de artículos</a></li>
                             
                         </ul>
                     </li>

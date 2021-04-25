@@ -125,7 +125,7 @@ namespace CallRequestResponseService
                             
                         }
                         IndexCodigo++;
-                        Console.WriteLine(string.Format("Actualizando y cargando predicción- Artículo [" + IndexCodigo + "]-"+ codigoArticulo, response.StatusCode));
+                        Console.WriteLine(string.Format("Actualizando y cargando predicción- Artículo [" + IndexCodigo + "]-"+ codigoArticulo + "Stock Predictivo: ["+ Convert.ToString(Convert.ToInt16(Math.Ceiling(stockPredictivo))) + "]", response.StatusCode));
                     }
                     else
                     {

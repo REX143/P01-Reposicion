@@ -1,0 +1,76 @@
+﻿
+@{
+    ViewBag.Title = "Stock con 0 unidades";
+}
+
+<h3 style="text-align:center;color:dimgrey"><b>  <span class="fa fa-file-text-o"> </span> REPORTE DE ARTÍCULOS SIN STOCK</b></h3>
+
+
+
+
+@using (Html.BeginForm("ReporteStockCero", "Reporte", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        <div class="panel panel-heading" style="background-color:#3c8dbc">
+            <b style="color:aliceblue">  <span class="fa fa-file-archive-o"> </span>  </b>
+        </div>
+        <div class="panel-body">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+
+                <br />
+                <div>
+                    <div class="small-box bg-green-gradient">
+                        <div class="inner">
+                            <h3><font style="vertical-align: inherit;"><font style="align-content:flex-start">Artículos stock 0 </font></font></h3>
+
+                            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Revisar la prioridad asignada para una optima reposición.</font></font></p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-battery-0"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;">
+                                    Clic en el boton obtener reporte para iniciar la descarga
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </font>
+                            </font>
+                        </a>
+                    </div>
+                </div>
+                <div style="text-align:right">
+
+
+                    <div class="btn btn-app">
+                        <span class="badge bg-red-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*.xls</font></font></span>
+                        <i class="fa fa-file-excel-o"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                @Html.ActionLink("Obtener reporte ", "btnExcelReporteStocCero", "Reporte", 0, null)
+                            </font>
+                        </font>
+                    </div>
+
+
+
+                </div>
+            </div>
+
+
+        </div>
+        <br />
+        <div class="panel-body">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <p style="color:darkblue">@ViewBag.Confirmacion </p>
+            </div>
+        </div>
+    </div>
+
+
+
+}
+
+
+
+

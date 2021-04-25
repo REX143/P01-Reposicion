@@ -59,6 +59,38 @@ namespace WebReposicion.Controllers
             }
                 
         }
+
+        // GET: Artículos a reponer
+        public ActionResult ArticulosaReponer()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        public ActionResult btnExcelReporteaReponer()
+        {
+
+            DataTable dt = new DataTable();
+            dt = Transversal.GeneradorDataTable.dtProcedimientoAlmacenado("sp_ObtenerArticulosaReponer");
+            Stream s = Transversal.Reporteador.DataTableToExcel(dt);
+            if (s != null)
+            {
+                MemoryStream ms = s as MemoryStream;
+                Response.AddHeader("Content-Disposition", string.Format("attachment;filename=" + HttpUtility.UrlEncode("ArticulosaReponer") + ".xlsx"));
+                Response.ContentType = "application/vnd.ms-excel";
+                Response.AddHeader("Content-Length", ms.ToArray().Length.ToString());
+                Response.BinaryWrite(ms.ToArray());
+                Response.Flush();
+                ms.Close();
+                ms.Dispose();
+            }
+
+            ViewBag.Confirmacion = "Se realizó exitosamente la descarga del reporte.";
+            return View();
+        }
+
+
+
     }
 
 

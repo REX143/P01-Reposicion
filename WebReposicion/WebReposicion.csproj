@@ -158,6 +158,7 @@
     <Compile Include="Controllers\KardexController.cs" />
     <Compile Include="Controllers\PrediccionController.cs" />
     <Compile Include="Controllers\PriorizacionController.cs" />
+    <Compile Include="Controllers\ReporteController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\StockSeguridadController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -7142,6 +7143,10 @@
     <Content Include="Views\Clasificacion\Index.cshtml" />
     <Content Include="Views\Priorizacion\Index.cshtml" />
     <Content Include="Views\StockSeguridad\Index.cshtml" />
+    <Content Include="Views\Reporte\ReporteStockCero.cshtml" />
+    <Content Include="Views\Reporte\ReporteStockSinRotacion.cshtml" />
+    <Content Include="Views\Reporte\ReporteStockClasificacion.cshtml" />
+    <Content Include="Views\Stock\ArticulosaReponer.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

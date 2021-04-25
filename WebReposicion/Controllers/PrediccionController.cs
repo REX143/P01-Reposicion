@@ -30,7 +30,7 @@ namespace WebReposicion.Controllers
                 // Extracción y preparación de la data ver condicion 
                 db.Database.CommandTimeout = 300;
                 // Se realiza la clasificación a la data obtenida
-                db.sp_AsignarClasificacion();
+               // db.sp_AsignarClasificacion();
 
                 response = true;
             }
