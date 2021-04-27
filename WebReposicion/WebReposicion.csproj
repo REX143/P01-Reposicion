@@ -159,6 +159,7 @@
     <Compile Include="Controllers\PrediccionController.cs" />
     <Compile Include="Controllers\PriorizacionController.cs" />
     <Compile Include="Controllers\ReporteController.cs" />
+    <Compile Include="Controllers\ReposicionController.cs" />
     <Compile Include="Controllers\StockController.cs" />
     <Compile Include="Controllers\StockSeguridadController.cs" />
     <Compile Include="Controllers\UsuariosController.cs" />
@@ -7147,6 +7148,11 @@
     <Content Include="Views\Reporte\ReporteStockSinRotacion.cshtml" />
     <Content Include="Views\Reporte\ReporteStockClasificacion.cshtml" />
     <Content Include="Views\Stock\ArticulosaReponer.cshtml" />
+    <Content Include="Views\Reposicion\GenerarPedido.cshtml" />
+    <Content Include="Views\Reposicion\EditarPedido.cshtml" />
+    <Content Include="Views\Reposicion\RecepcionarPedido.cshtml" />
+    <Content Include="Views\Reposicion\DevolverPedido.cshtml" />
+    <Content Include="Views\Stock\ListarPedidos.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

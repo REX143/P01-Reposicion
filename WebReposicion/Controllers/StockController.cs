@@ -91,67 +91,76 @@ namespace WebReposicion.Controllers
 
 
 
+        // GET: Listar pedidos de reposición realizados
+        public ActionResult ListarPedidos()
+        {
+            return View();
+        }
+
+
+
+
     }
 
 
 
 
 
-//    static async Task InvokeRequestResponseService()
-//    {
-//        using (var client = new HttpClient())
-//        {
-//            var s = "125555";
-//            var scoreRequest = new
-//            {
+    //    static async Task InvokeRequestResponseService()
+    //    {
+    //        using (var client = new HttpClient())
+    //        {
+    //            var s = "125555";
+    //            var scoreRequest = new
+    //            {
 
-//                Inputs = new Dictionary<string, StringTable>() {
-//                        {
+    //                Inputs = new Dictionary<string, StringTable>() {
+    //                        {
 
-//                            "input1",
-//                            new StringTable()
-//                            {
-//                                ColumnNames = new string[] {"CODIGO;", ";DIA1;", ";DIA2;", ";DIA3;", ";DIA4;", ";DIA5;", ";DIA6;", ";DIA7;", ";DIA8;", ";DIA9;", ";DIA10;", ";DIA11"},
-//                                Values = new string[,] {  { s, "0", "2", "2", "1", "8", "8", "8", "8", "8", "8", "8" }}
-//                            }
-//                        },
-//                    },
-//                GlobalParameters = new Dictionary<string, string>() {
-//        { "Account name", "" },
-//}
-//            };
-//            const string apiKey = "nOBO1gD67I9AaAN0I25pRXzCJF+nNanb4kOnxMS6zU403hJxITfWt4Y/UfFK2Eyp/Zwlkb10zJhBEexuhiqLXQ=="; // Replace this with the API key for the web service
-//            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
+    //                            "input1",
+    //                            new StringTable()
+    //                            {
+    //                                ColumnNames = new string[] {"CODIGO;", ";DIA1;", ";DIA2;", ";DIA3;", ";DIA4;", ";DIA5;", ";DIA6;", ";DIA7;", ";DIA8;", ";DIA9;", ";DIA10;", ";DIA11"},
+    //                                Values = new string[,] {  { s, "0", "2", "2", "1", "8", "8", "8", "8", "8", "8", "8" }}
+    //                            }
+    //                        },
+    //                    },
+    //                GlobalParameters = new Dictionary<string, string>() {
+    //        { "Account name", "" },
+    //}
+    //            };
+    //            const string apiKey = "nOBO1gD67I9AaAN0I25pRXzCJF+nNanb4kOnxMS6zU403hJxITfWt4Y/UfFK2Eyp/Zwlkb10zJhBEexuhiqLXQ=="; // Replace this with the API key for the web service
+    //            client.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", apiKey);
 
-//            client.BaseAddress = new Uri("https://ussouthcentral.services.azureml.net/workspaces/3c39f696d1ff4002b750eeef43304837/services/d8170eca54304ce0b9865cbc42c5ca2c/execute?api-version=2.0&details=true");
+    //            client.BaseAddress = new Uri("https://ussouthcentral.services.azureml.net/workspaces/3c39f696d1ff4002b750eeef43304837/services/d8170eca54304ce0b9865cbc42c5ca2c/execute?api-version=2.0&details=true");
 
-//            // WARNING: The 'await' statement below can result in a deadlock if you are calling this code from the UI thread of an ASP.Net application.
-//            // One way to address this would be to call ConfigureAwait(false) so that the execution does not attempt to resume on the original context.
-//            // For instance, replace code such as:
-//            //      result = await DoSomeTask()
-//            // with the following:
-//            //      result = await DoSomeTask().ConfigureAwait(false)
+    //            // WARNING: The 'await' statement below can result in a deadlock if you are calling this code from the UI thread of an ASP.Net application.
+    //            // One way to address this would be to call ConfigureAwait(false) so that the execution does not attempt to resume on the original context.
+    //            // For instance, replace code such as:
+    //            //      result = await DoSomeTask()
+    //            // with the following:
+    //            //      result = await DoSomeTask().ConfigureAwait(false)
 
 
-//            HttpResponseMessage response = await client.PostAsJsonAsync("", scoreRequest);
+    //            HttpResponseMessage response = await client.PostAsJsonAsync("", scoreRequest);
 
-//            if (response.IsSuccessStatusCode)
-//            {
-//                string result = await response.Content.ReadAsStringAsync();
-//                Console.WriteLine("Result: {0}", result);
-//            }
-//            else
-//            {
-//                Console.WriteLine(string.Format("The request failed with status code: {0}", response.StatusCode));
+    //            if (response.IsSuccessStatusCode)
+    //            {
+    //                string result = await response.Content.ReadAsStringAsync();
+    //                Console.WriteLine("Result: {0}", result);
+    //            }
+    //            else
+    //            {
+    //                Console.WriteLine(string.Format("The request failed with status code: {0}", response.StatusCode));
 
-//                // Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
-//                Console.WriteLine(response.Headers.ToString());
+    //                // Print the headers - they include the requert ID and the timestamp, which are useful for debugging the failure
+    //                Console.WriteLine(response.Headers.ToString());
 
-//                string responseContent = await response.Content.ReadAsStringAsync();
-//                Console.WriteLine(responseContent);
-//            }
-//        }
-//    }
+    //                string responseContent = await response.Content.ReadAsStringAsync();
+    //                Console.WriteLine(responseContent);
+    //            }
+    //        }
+    //    }
 
 
 
