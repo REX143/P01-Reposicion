@@ -1,6 +1,141 @@
-﻿
+﻿@model List<WebReposicion.Models.ViewModels.StockDisponibleViewModel>
 @{
     ViewBag.Title = "Generar Pedido";
 }
 
 <h3 style="text-align:center;color:dimgrey"><b>  <span class="fa fa-file-text-o"> </span> GENERAR PEDIDO </b></h3>
+
+<div class="panel panel-default">
+    <div class="panel panel-heading" style="background-color:#3c8dbc">
+        <i class="fa fa-search"></i><font style="vertical-align: inherit;"></font>
+        @*<b style="color:aliceblue">  <span class="glyphicon glyphicon-inbox"> </span>  Consulta de stock de artículos</b>*@
+    </div>
+
+
+
+    <div class="panel-body">
+        <div class="col-md-3"></div>
+        <div class="col-md-6" style="text-align:right;">
+
+            <div>
+
+                <div style="text-align:left;">
+                    <div class="small-box bg-aqua-active">
+                        <div class="inner">
+                            <h3><font style="vertical-align: inherit;"><font style="align-content:flex-start">Módulo de reposición </font></font></h3>
+
+                            <p><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Deberá agregar al listado cada artículo a reponer.</font></font></p>
+                        </div>
+                        <div class="icon">
+                            <i class="fa fa-binoculars"></i>
+                        </div>
+                        <a href="#" class="small-box-footer">
+                            <font style="vertical-align: inherit;">
+                                <font style="vertical-align: inherit;text-align:left">
+                                    Clic en el boton de busqueda de artículos para ver la disponibilidad de productos
+                                    <i class="fa fa-arrow-circle-right"></i>
+                                </font>
+                            </font>
+                        </a>
+                    </div>
+                </div>
+
+
+                <button type="button" class="btn btn-app" data-toggle="modal" data-target="#modalAdd" id="cargarArt" name="cargarArt">
+                    <span class="badge bg-red-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar</font></font></span>
+                    <i class="fa fa-search"></i><font style="vertical-align: inherit;">
+                        <font style="vertical-align: inherit;">
+                            Buscar artículos
+                        </font>
+                    </font>
+                </button>
+            </div>
+
+        </div>
+    </div>
+
+
+</div>
+
+
+@if (ViewBag.exists != null)
+{
+
+    using (Html.BeginForm("GenerarPedido", "Reposicion", FormMethod.Get))
+    {
+        <div class="container">
+            <div class="modal active" id="modalAdd">
+                <div class="modal-dialog modal-lg modal-dialog center-block">
+                    <div class="modal-content">
+                        <div class="modal-header" style="background-color:#3c8dbc">
+                            <b style="color:aliceblue">
+                                <span class="fa fa-binoculars"> </span> DISPONIBILIDAD PARA REPOSICIÓN
+                            </b>
+                            <button class="close" data-dismiss="modal">&times;</button>
+
+                        </div>
+                        <div class="modal-body">
+
+                            <div style="text-align:left;">
+                                @Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:left", @placeholder = "INGRESE EL CÓDIGO DEL PRODUCTO PARA INICIAR BUSQUEDA Y AGREGAR" })
+                                <br />
+                                <input type="submit" class="btn btn-group-lg btn-dropbox" value="Ver disponibilidad" onclick="cargarArticulo" />
+
+                            </div>
+                            <br />
+                            <div class="row">
+
+                                <div>
+                                    <table class="table table-hover table-bordered">
+                                        <tr style="background-color:lightsteelblue">
+
+                                            <th>#</th>
+                                            <th>CÓDIGO</th>
+                                            <th>DESCRIPCIÓN</th>
+                                            <th>ALMACÉN</th>
+                                            <th>STOCK</th>
+                                            <th>UNIDADES</th>
+                                            <th></th>
+
+                                        </tr>
+
+                                        @foreach (var oElemento in Model)
+                                        {
+                                            <tr>
+                                                @Html.Hidden(oElemento.Fk_ubicacion.ToString())
+                                                <td>@oElemento.Nro</td>
+                                                <td>@oElemento.Codigo</td>
+                                                <td>@oElemento.Descripcion</td>
+                                                <td>@oElemento.Almacen</td>
+                                                <td>@oElemento.Stock</td>
+                                                @*<td> @Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:right", @placeholder = "Cantidad" })</td>*@
+                                                <td><input type="number"></td>
+                                                <td> <button type="submit" class="btn btn-success"> <span class="fa fa-check-circle"> </span></button></td>
+
+
+                                            </tr>
+                                        }
+                                    </table>
+                                </div>
+
+                            </div>
+
+
+                        </div>
+
+                        <div class="modal-footer">
+
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+
+}
+    <script src="~/Content/bower_components/JQUERY/DIST/jquery.min.js"></script>
+   
+    <script>
+        $('#modalAdd').modal("show")
+    </script>

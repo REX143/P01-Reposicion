@@ -86,8 +86,15 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
         <Function Name="sp_Consolidar_Ventas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ExtraerDataHistorica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GetUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ObtenerArticulosaReponer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ObtenerArticulosClasificado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ObtenerArticulosSinRotacion" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ObtenerArticulosStockCero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_obtenerConsultaStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CodigoArticulo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ObtenerDisponiblexAlmacen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CodigoComercial" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_ObtenerHistorialKardex" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FECHA_MOV" Type="datetime" Mode="In" />
@@ -97,7 +104,10 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Parameter Name="FECHA_MOV" Type="datetime" Mode="In" />
           <Parameter Name="CODIGO" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_ObtenerStockClasificado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ObtenerStockPredictivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ObtenerStockPrioridad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ObtenerStockSeguridad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_PrepararDataHistorica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <EntityContainer Name="DBPREDICTIVOModelStoreContainer">
           <EntitySet Name="CargaTemporal" EntityType="Self.CargaTemporal" Schema="dbo" store:Type="Tables" />
@@ -156,6 +166,16 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <FunctionImport Name="sp_ExtraerDataHistorica" />
           <FunctionImport Name="sp_PrepararDataHistorica" />
           <FunctionImport Name="sp_ObtenerStockPredictivo" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockPredictivo_Result)" />
+          <FunctionImport Name="sp_ObtenerArticulosaReponer" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerArticulosaReponer_Result)" />
+          <FunctionImport Name="sp_ObtenerArticulosClasificado" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerArticulosClasificado_Result)" />
+          <FunctionImport Name="sp_ObtenerArticulosSinRotacion" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerArticulosSinRotacion_Result)" />
+          <FunctionImport Name="sp_ObtenerArticulosStockCero" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerArticulosStockCero_Result)" />
+          <FunctionImport Name="sp_ObtenerDisponiblexAlmacen" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerDisponiblexAlmacen_Result)">
+            <Parameter Name="CodigoComercial" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerStockClasificado" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockClasificado_Result)" />
+          <FunctionImport Name="sp_ObtenerStockPrioridad" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockPrioridad_Result)" />
+          <FunctionImport Name="sp_ObtenerStockSeguridad" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockSeguridad_Result)" />
         </EntityContainer>
         <ComplexType Name="sp_obtenerConsultaStock_Result">
           <Property Type="Int32" Name="Pk" Nullable="false" />
@@ -296,6 +316,94 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Property Type="String" Name="COD_ART_IMPORT" Nullable="false" MaxLength="50" />
           <Property Type="Int32" Name="StockFisico" Nullable="true" />
           <Property Type="Int32" Name="StockPredictivo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerArticulosaReponer_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="String" Name="CODIGO_COMERCIAL" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NOMBRE_VENTA" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CATEGORIA" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
+          <Property Type="Int32" Name="StockMinimo" Nullable="true" />
+          <Property Type="Int32" Name="StockMaximo" Nullable="true" />
+          <Property Type="String" Name="PrioridadReposicion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ClasificacionABC" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ClasificacionXYZ" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerArticulosClasificado_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="String" Name="CODIGO_COMERCIAL" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NOMBRE_VENTA" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CATEGORIA" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
+          <Property Type="Int32" Name="StockMinimo" Nullable="true" />
+          <Property Type="Int32" Name="StockMaximo" Nullable="true" />
+          <Property Type="Int32" Name="StockPredictivo" Nullable="true" />
+          <Property Type="String" Name="PrioridadReposicion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ClasificacionABC" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ClasificacionXYZ" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerArticulosSinRotacion_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="String" Name="CODIGO_COMERCIAL" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NOMBRE_VENTA" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CATEGORIA" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
+          <Property Type="Int32" Name="StockMinimo" Nullable="true" />
+          <Property Type="Int32" Name="StockMaximo" Nullable="true" />
+          <Property Type="Int32" Name="StockPredictivo" Nullable="true" />
+          <Property Type="String" Name="PrioridadReposicion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ClasificacionABC" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ClasificacionXYZ" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerArticulosStockCero_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="String" Name="CODIGO_COMERCIAL" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NOMBRE_VENTA" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CATEGORIA" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
+          <Property Type="Int32" Name="StockMinimo" Nullable="true" />
+          <Property Type="Int32" Name="StockMaximo" Nullable="true" />
+          <Property Type="Int32" Name="StockPredictivo" Nullable="true" />
+          <Property Type="String" Name="PrioridadReposicion" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="ClasificacionABC" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ClasificacionXYZ" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerDisponiblexAlmacen_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="Int32" Name="FK_UBICACION" Nullable="false" />
+          <Property Type="String" Name="Codigo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Almacen" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerStockClasificado_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="Int32" Name="PK_MAESTRO_ARTICULOS" Nullable="false" />
+          <Property Type="String" Name="COD_ART_IMPORT" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NOMBRE_VENTA" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NOMBRE_LINEA_ARTICULO" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="ClasificacionABC" Nullable="true" MaxLength="10" />
+          <Property Type="String" Name="ClasificacionXYZ" Nullable="true" MaxLength="10" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerStockPrioridad_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="Int32" Name="PK_MAESTRO_ARTICULOS" Nullable="false" />
+          <Property Type="String" Name="COD_ART_IMPORT" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NOMBRE_VENTA" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="NOMBRE_LINEA_ARTICULO" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="StockFisico" Nullable="true" />
+          <Property Type="String" Name="PrioridadReposicion" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerStockSeguridad_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="Int32" Name="PK_EMPRESA" Nullable="false" />
+          <Property Type="String" Name="CODIGO_COMERCIAL" Nullable="false" MaxLength="50" />
+          <Property Type="String" Name="NOMBRE_VENTA" Nullable="false" MaxLength="200" />
+          <Property Type="String" Name="CATEGORIA" Nullable="false" MaxLength="50" />
+          <Property Type="Int32" Name="StockFisico" Nullable="true" />
+          <Property Type="Int32" Name="StockMinimo" Nullable="true" />
+          <Property Type="Int32" Name="StockMaximo" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -482,6 +590,126 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
                 <ScalarProperty Name="COD_ART_IMPORT" ColumnName="COD_ART_IMPORT" />
                 <ScalarProperty Name="StockFisico" ColumnName="StockFisico" />
                 <ScalarProperty Name="StockPredictivo" ColumnName="StockPredictivo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerArticulosaReponer" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerArticulosaReponer">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerArticulosaReponer_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="CODIGO_COMERCIAL" ColumnName="CODIGO_COMERCIAL" />
+                <ScalarProperty Name="NOMBRE_VENTA" ColumnName="NOMBRE_VENTA" />
+                <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
+                <ScalarProperty Name="StockMaximo" ColumnName="StockMaximo" />
+                <ScalarProperty Name="PrioridadReposicion" ColumnName="PrioridadReposicion" />
+                <ScalarProperty Name="ClasificacionABC" ColumnName="ClasificacionABC" />
+                <ScalarProperty Name="ClasificacionXYZ" ColumnName="ClasificacionXYZ" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerArticulosClasificado" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerArticulosClasificado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerArticulosClasificado_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="CODIGO_COMERCIAL" ColumnName="CODIGO_COMERCIAL" />
+                <ScalarProperty Name="NOMBRE_VENTA" ColumnName="NOMBRE_VENTA" />
+                <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
+                <ScalarProperty Name="StockMaximo" ColumnName="StockMaximo" />
+                <ScalarProperty Name="StockPredictivo" ColumnName="StockPredictivo" />
+                <ScalarProperty Name="PrioridadReposicion" ColumnName="PrioridadReposicion" />
+                <ScalarProperty Name="ClasificacionABC" ColumnName="ClasificacionABC" />
+                <ScalarProperty Name="ClasificacionXYZ" ColumnName="ClasificacionXYZ" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerArticulosSinRotacion" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerArticulosSinRotacion">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerArticulosSinRotacion_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="CODIGO_COMERCIAL" ColumnName="CODIGO_COMERCIAL" />
+                <ScalarProperty Name="NOMBRE_VENTA" ColumnName="NOMBRE_VENTA" />
+                <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
+                <ScalarProperty Name="StockMaximo" ColumnName="StockMaximo" />
+                <ScalarProperty Name="StockPredictivo" ColumnName="StockPredictivo" />
+                <ScalarProperty Name="PrioridadReposicion" ColumnName="PrioridadReposicion" />
+                <ScalarProperty Name="ClasificacionABC" ColumnName="ClasificacionABC" />
+                <ScalarProperty Name="ClasificacionXYZ" ColumnName="ClasificacionXYZ" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerArticulosStockCero" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerArticulosStockCero">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerArticulosStockCero_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="CODIGO_COMERCIAL" ColumnName="CODIGO_COMERCIAL" />
+                <ScalarProperty Name="NOMBRE_VENTA" ColumnName="NOMBRE_VENTA" />
+                <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
+                <ScalarProperty Name="StockMaximo" ColumnName="StockMaximo" />
+                <ScalarProperty Name="StockPredictivo" ColumnName="StockPredictivo" />
+                <ScalarProperty Name="PrioridadReposicion" ColumnName="PrioridadReposicion" />
+                <ScalarProperty Name="ClasificacionABC" ColumnName="ClasificacionABC" />
+                <ScalarProperty Name="ClasificacionXYZ" ColumnName="ClasificacionXYZ" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerDisponiblexAlmacen" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerDisponiblexAlmacen">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerDisponiblexAlmacen_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="FK_UBICACION" ColumnName="FK_UBICACION" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Almacen" ColumnName="Almacen" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerStockClasificado" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerStockClasificado">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerStockClasificado_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="PK_MAESTRO_ARTICULOS" ColumnName="PK_MAESTRO_ARTICULOS" />
+                <ScalarProperty Name="COD_ART_IMPORT" ColumnName="COD_ART_IMPORT" />
+                <ScalarProperty Name="NOMBRE_VENTA" ColumnName="NOMBRE_VENTA" />
+                <ScalarProperty Name="NOMBRE_LINEA_ARTICULO" ColumnName="NOMBRE_LINEA_ARTICULO" />
+                <ScalarProperty Name="ClasificacionABC" ColumnName="ClasificacionABC" />
+                <ScalarProperty Name="ClasificacionXYZ" ColumnName="ClasificacionXYZ" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerStockPrioridad" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerStockPrioridad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerStockPrioridad_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="PK_MAESTRO_ARTICULOS" ColumnName="PK_MAESTRO_ARTICULOS" />
+                <ScalarProperty Name="COD_ART_IMPORT" ColumnName="COD_ART_IMPORT" />
+                <ScalarProperty Name="NOMBRE_VENTA" ColumnName="NOMBRE_VENTA" />
+                <ScalarProperty Name="NOMBRE_LINEA_ARTICULO" ColumnName="NOMBRE_LINEA_ARTICULO" />
+                <ScalarProperty Name="StockFisico" ColumnName="StockFisico" />
+                <ScalarProperty Name="PrioridadReposicion" ColumnName="PrioridadReposicion" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerStockSeguridad" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerStockSeguridad">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerStockSeguridad_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="PK_EMPRESA" ColumnName="PK_EMPRESA" />
+                <ScalarProperty Name="CODIGO_COMERCIAL" ColumnName="CODIGO_COMERCIAL" />
+                <ScalarProperty Name="NOMBRE_VENTA" ColumnName="NOMBRE_VENTA" />
+                <ScalarProperty Name="CATEGORIA" ColumnName="CATEGORIA" />
+                <ScalarProperty Name="StockFisico" ColumnName="StockFisico" />
+                <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
+                <ScalarProperty Name="StockMaximo" ColumnName="StockMaximo" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

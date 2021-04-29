@@ -140,5 +140,49 @@ namespace WebReposicion.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerStockPredictivo_Result>("sp_ObtenerStockPredictivo");
         }
+    
+        public virtual ObjectResult<sp_ObtenerArticulosaReponer_Result> sp_ObtenerArticulosaReponer()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerArticulosaReponer_Result>("sp_ObtenerArticulosaReponer");
+        }
+    
+        public virtual ObjectResult<sp_ObtenerArticulosClasificado_Result> sp_ObtenerArticulosClasificado()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerArticulosClasificado_Result>("sp_ObtenerArticulosClasificado");
+        }
+    
+        public virtual ObjectResult<sp_ObtenerArticulosSinRotacion_Result> sp_ObtenerArticulosSinRotacion()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerArticulosSinRotacion_Result>("sp_ObtenerArticulosSinRotacion");
+        }
+    
+        public virtual ObjectResult<sp_ObtenerArticulosStockCero_Result> sp_ObtenerArticulosStockCero()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerArticulosStockCero_Result>("sp_ObtenerArticulosStockCero");
+        }
+    
+        public virtual ObjectResult<sp_ObtenerDisponiblexAlmacen_Result> sp_ObtenerDisponiblexAlmacen(string codigoComercial)
+        {
+            var codigoComercialParameter = codigoComercial != null ?
+                new ObjectParameter("CodigoComercial", codigoComercial) :
+                new ObjectParameter("CodigoComercial", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerDisponiblexAlmacen_Result>("sp_ObtenerDisponiblexAlmacen", codigoComercialParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerStockClasificado_Result> sp_ObtenerStockClasificado()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerStockClasificado_Result>("sp_ObtenerStockClasificado");
+        }
+    
+        public virtual ObjectResult<sp_ObtenerStockPrioridad_Result> sp_ObtenerStockPrioridad()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerStockPrioridad_Result>("sp_ObtenerStockPrioridad");
+        }
+    
+        public virtual ObjectResult<sp_ObtenerStockSeguridad_Result> sp_ObtenerStockSeguridad()
+        {
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerStockSeguridad_Result>("sp_ObtenerStockSeguridad");
+        }
     }
 }
