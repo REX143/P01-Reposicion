@@ -14,5 +14,6 @@ namespace WebReposicion.Models.ViewModels
         public string Categoria { get; set; }
         public string Almacen { get; set; }
         public int Stock { get; set; }
+        public int StockSolicitar { get; set; }
     }
 }

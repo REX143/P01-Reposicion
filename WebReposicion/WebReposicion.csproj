@@ -7178,6 +7178,7 @@
     <Content Include="Views\Reposicion\RecepcionarPedido.cshtml" />
     <Content Include="Views\Reposicion\DevolverPedido.cshtml" />
     <Content Include="Views\Stock\ListarPedidos.cshtml" />
+    <Content Include="Views\Reposicion\BuscarArticulo.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -20,10 +20,12 @@ namespace WebReposicion.Controllers
         // CONTROLADORES: Generar pedido de reposición
         public ActionResult GenerarPedido()
         {
+           
             List<StockDisponibleViewModel> articulos;
             articulos = null;
             using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())
             {
+                db.Database.CommandTimeout = 300;
                 articulos = (from d in db.sp_ObtenerDisponiblexAlmacen("")
                              select new StockDisponibleViewModel
                              {
@@ -42,12 +44,25 @@ namespace WebReposicion.Controllers
             return Redirect("~/Reposicion/GenerarPedido");
         }
 
+
+        // GET: Reposicion
+        public ActionResult BuscarArticulo()
+        {
+            return View();
+        }
+
+
+
+
+
         [HttpGet]
         public ActionResult GenerarPedido(string cadena)
         {
+          
             List<StockDisponibleViewModel> articulos;
             using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
             {
+                db.Database.CommandTimeout = 300;
                 if (cadena != "" || cadena != null)
                 {
                     articulos = (from d in db.sp_ObtenerDisponiblexAlmacen(cadena)
@@ -59,11 +74,16 @@ namespace WebReposicion.Controllers
                                      Descripcion=d.Descripcion,
                                      Categoria=d.Categoria,
                                      Almacen=d.Almacen,
-                                     Stock= Convert.ToInt32(d.Stock)
+                                     Stock= Convert.ToInt32(d.Stock),
+                                     StockSolicitar=0
 
                                  }).ToList();
-
-                    ViewBag.exists = "Cargada la disponibilidad de artículos por almacén ...";
+                    if (articulos.Count>0)
+                    {
+                        ViewBag.Confirmacion = "Cargada la disponibilidad de artículos en almacén ...";
+                    }
+                
+                
                     return View(articulos);
                 }
 
@@ -74,12 +94,24 @@ namespace WebReposicion.Controllers
         }
 
 
+
         [HttpGet]
-        public ActionResult BuscarArticulo()
+        public  ActionResult GenerarTemporal(int Fk_ubicacion, int Stock, int stockSol)//(string Codigo,int Fk_ubicacion,int und)
         {
-            ViewBag.Confirmacion = "Se realizó exitosamente la descarga del reporte.";
-            return View();
+
+            if (stockSol>Stock)
+            {
+                ViewBag.Confirmacion = "Verifique la cantidad ingresada no puede ser mayor al stock disponible";
+
+               
+            }
+            //List<StockDisponibleViewModel> articulos=null;
+
+            return Redirect("~/Reposicion/GenerarPedido");
+
         }
+
+
 
 
         // GET: Editar pedido de reposición
