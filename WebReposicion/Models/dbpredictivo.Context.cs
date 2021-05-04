@@ -184,5 +184,64 @@ namespace WebReposicion.Models
         {
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerStockSeguridad_Result>("sp_ObtenerStockSeguridad");
         }
+    
+        public virtual int sp_GenerarPedidotemporal(string reponedor, string estado, Nullable<int> prioridadAtencion, Nullable<int> pkArticulo, Nullable<int> pkAlmacen, string codigoArticulo, string nombreArticulo, string categoria, Nullable<int> cantidad)
+        {
+            var reponedorParameter = reponedor != null ?
+                new ObjectParameter("Reponedor", reponedor) :
+                new ObjectParameter("Reponedor", typeof(string));
+    
+            var estadoParameter = estado != null ?
+                new ObjectParameter("Estado", estado) :
+                new ObjectParameter("Estado", typeof(string));
+    
+            var prioridadAtencionParameter = prioridadAtencion.HasValue ?
+                new ObjectParameter("PrioridadAtencion", prioridadAtencion) :
+                new ObjectParameter("PrioridadAtencion", typeof(int));
+    
+            var pkArticuloParameter = pkArticulo.HasValue ?
+                new ObjectParameter("PkArticulo", pkArticulo) :
+                new ObjectParameter("PkArticulo", typeof(int));
+    
+            var pkAlmacenParameter = pkAlmacen.HasValue ?
+                new ObjectParameter("PkAlmacen", pkAlmacen) :
+                new ObjectParameter("PkAlmacen", typeof(int));
+    
+            var codigoArticuloParameter = codigoArticulo != null ?
+                new ObjectParameter("CodigoArticulo", codigoArticulo) :
+                new ObjectParameter("CodigoArticulo", typeof(string));
+    
+            var nombreArticuloParameter = nombreArticulo != null ?
+                new ObjectParameter("NombreArticulo", nombreArticulo) :
+                new ObjectParameter("NombreArticulo", typeof(string));
+    
+            var categoriaParameter = categoria != null ?
+                new ObjectParameter("Categoria", categoria) :
+                new ObjectParameter("Categoria", typeof(string));
+    
+            var cantidadParameter = cantidad.HasValue ?
+                new ObjectParameter("Cantidad", cantidad) :
+                new ObjectParameter("Cantidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_GenerarPedidotemporal", reponedorParameter, estadoParameter, prioridadAtencionParameter, pkArticuloParameter, pkAlmacenParameter, codigoArticuloParameter, nombreArticuloParameter, categoriaParameter, cantidadParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerDisponiblesxAlmacen_Result> sp_ObtenerDisponiblesxAlmacen(string codigoComercial)
+        {
+            var codigoComercialParameter = codigoComercial != null ?
+                new ObjectParameter("CodigoComercial", codigoComercial) :
+                new ObjectParameter("CodigoComercial", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerDisponiblesxAlmacen_Result>("sp_ObtenerDisponiblesxAlmacen", codigoComercialParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerStockDisponiblesxAlmacen_Result> sp_ObtenerStockDisponiblesxAlmacen(string codigoComercial)
+        {
+            var codigoComercialParameter = codigoComercial != null ?
+                new ObjectParameter("CodigoComercial", codigoComercial) :
+                new ObjectParameter("CodigoComercial", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerStockDisponiblesxAlmacen_Result>("sp_ObtenerStockDisponiblesxAlmacen", codigoComercialParameter);
+        }
     }
 }

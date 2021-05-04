@@ -111,29 +111,34 @@
 
                                     @foreach (var oElemento in Model)
                                     {
-                                        <tr>
-                                            @Html.Hidden("Fk_ubicacion", oElemento.Fk_ubicacion.ToString())
-                                            @Html.Hidden("Stock", oElemento.Stock.ToString())
-                                            <td>@oElemento.Codigo</td>
-                                            <td>@oElemento.Descripcion</td>
-                                            <td>@oElemento.Almacen</td>
-                                            <td>@oElemento.Stock</td>
-                                            @*<td> @Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:right", @placeholder = "Cantidad" })</td>*@
-                                            <td>
+                                    <tr>
+                                        @Html.Hidden("Fk_ubicacion", oElemento.Fk_ubicacion.ToString())
+                                        @Html.Hidden("Stock", oElemento.Stock.ToString())
+                                        @Html.Hidden("PkArticulo", oElemento.PkMA.ToString())
+                                        @Html.Hidden("Codigo", oElemento.Codigo.ToString())
+                                        @Html.Hidden("Descripcion", oElemento.Descripcion.ToString())
+                                        @Html.Hidden("Categoria", oElemento.Categoria.ToString())
 
-                                                <input type="number" id="stockSol" name="stockSol" value="@oElemento.StockSolicitar">
-                                                @*@Html.TextBox("stock", "", new { @class = "form-control", @style = "text-align:left", @value = @oElemento.StockSolicitar})*@
+                                        <td>@oElemento.Codigo</td>
+                                        <td>@oElemento.Descripcion</td>
+                                        <td>@oElemento.Almacen</td>
+                                        <td>@oElemento.Stock</td>
+                                        @*<td> @Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:right", @placeholder = "Cantidad" })</td>*@
+                                        <td>
 
-                                            </td>
-                                            <td>
-                                                <button type="submit" class="btn btn-success btn-sm">
-                                                    <span class="fa fa-check-circle"> </span>
-                                                </button>
-                                                @*<a class="btn btn-success btn-sm" href="~/Reposicion/GenerarTemporal?Codigo=@oElemento.Codigo&Fk_ubicacion=@oElemento.Fk_ubicacion&und=@oElemento.StockSolicitar"><span class="fa fa-check-circle"> </span> </a>*@
-                                            </td>
+                                            <input type="number" id="stockSol" name="stockSol" value="@oElemento.StockSolicitar">
+                                            @*@Html.TextBox("stock", "", new { @class = "form-control", @style = "text-align:left", @value = @oElemento.StockSolicitar})*@
+
+                                        </td>
+                                        <td>
+                                            <button type="submit" class="btn btn-success btn-sm">
+                                                <span class="fa fa-check-circle"> </span>
+                                            </button>
+                                            @*<a class="btn btn-success btn-sm" href="~/Reposicion/GenerarTemporal?Codigo=@oElemento.Codigo&Fk_ubicacion=@oElemento.Fk_ubicacion&und=@oElemento.StockSolicitar"><span class="fa fa-check-circle"> </span> </a>*@
+                                        </td>
 
 
-                                        </tr>
+                                    </tr>
                                     }
                                 </table>
                             </div>

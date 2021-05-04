@@ -5,6 +5,10 @@ using System.Web;
 using System.Web.Mvc;
 using WebReposicion.Models;
 using WebReposicion.Models.ViewModels;
+using System.Transactions;
+using System.Data.SqlClient;
+using System.Configuration;
+using System.Data;
 
 namespace WebReposicion.Controllers
 {
@@ -65,11 +69,12 @@ namespace WebReposicion.Controllers
                 db.Database.CommandTimeout = 300;
                 if (cadena != "" || cadena != null)
                 {
-                    articulos = (from d in db.sp_ObtenerDisponiblexAlmacen(cadena)
+                    articulos = (from d in db.sp_ObtenerStockDisponiblesxAlmacen(cadena)
                                  select new StockDisponibleViewModel
                                  {
                                      Nro=Convert.ToInt32(d.Nro),
                                      Fk_ubicacion=d.FK_UBICACION,
+                                     PkMA=d.FK_MAESTRO_ARTICULOS,
                                      Codigo=d.Codigo,
                                      Descripcion=d.Descripcion,
                                      Categoria=d.Categoria,
@@ -96,16 +101,60 @@ namespace WebReposicion.Controllers
 
 
         [HttpGet]
-        public  ActionResult GenerarTemporal(int Fk_ubicacion, int Stock, int stockSol)//(string Codigo,int Fk_ubicacion,int und)
+        public  ActionResult GenerarTemporal(int PkArticulo, int Fk_ubicacion,string Codigo,string Descripcion,string Categoria, int Stock, int stockSol)
         {
 
-            if (stockSol>Stock)
+            if (stockSol <= Stock)
+            {
+                using (TransactionScope registro=new TransactionScope())
+                { // Apertura del rollback en el contexto
+                   
+
+                    try
+                    {
+                        using (SqlConnection sqlConnection1 = new SqlConnection(ConfigurationManager.ConnectionStrings["BDPREDICTIVO"].ToString()))
+                        {
+                            using (SqlCommand cmd = new SqlCommand())
+                            {
+                                // Sp creado para  cargar los pedidos temporales 
+                                cmd.CommandText = "sp_GenerarPedidotemporal";
+                                cmd.CommandType = CommandType.StoredProcedure;
+
+                                cmd.Parameters.AddWithValue("@Reponedor", Session["NameUser"].ToString());
+                                cmd.Parameters.AddWithValue("@Estado", "TEMPORAL");
+                                cmd.Parameters.AddWithValue("@PrioridadAtencion", 1);
+                                cmd.Parameters.AddWithValue("@PkArticulo", PkArticulo);
+                                cmd.Parameters.AddWithValue("@PkAlmacen", Fk_ubicacion);
+                                cmd.Parameters.AddWithValue("@CodigoArticulo", Codigo);
+                                cmd.Parameters.AddWithValue("@NombreArticulo", Descripcion);
+                                cmd.Parameters.AddWithValue("@Categoria", Categoria);
+                                cmd.Parameters.AddWithValue("@Cantidad", stockSol);
+                                cmd.Connection = sqlConnection1;
+                                sqlConnection1.Open();
+                                cmd.ExecuteNonQuery();
+
+                                registro.Complete();
+                            }
+                        }
+
+                        return Redirect("~/Reposicion/GenerarPedido");
+
+                    }
+                    catch (Exception)
+                    {
+                        registro.Dispose();
+                        throw;
+                    }
+      
+                }
+            }
+
+            else
             {
                 ViewBag.Confirmacion = "Verifique la cantidad ingresada no puede ser mayor al stock disponible";
-
-               
             }
-            //List<StockDisponibleViewModel> articulos=null;
+               
+           //List<StockDisponibleViewModel> articulos=null;
 
             return Redirect("~/Reposicion/GenerarPedido");
 

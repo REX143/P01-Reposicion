@@ -9,6 +9,7 @@ namespace WebReposicion.Models.ViewModels
     {
         public int Nro { get; set; }
         public int Fk_ubicacion { get; set; }
+        public int PkMA { get; set; }
         public string Codigo { get; set; }
         public string Descripcion { get; set; }
         public string Categoria { get; set; }

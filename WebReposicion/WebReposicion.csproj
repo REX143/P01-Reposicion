@@ -77,6 +77,7 @@
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.Security" />
+    <Reference Include="System.Transactions" />
     <Reference Include="System.Web.DynamicData" />
     <Reference Include="System.Web.Entity" />
     <Reference Include="System.Web.ApplicationServices" />
@@ -191,6 +192,7 @@
     <Compile Include="Models\pa_stockPorArticulo_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\ReposicionDetViewModel.cs" />
     <Compile Include="Models\Rol.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
@@ -215,6 +217,9 @@
     <Compile Include="Models\sp_obtenerConsultaStock_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_ObtenerDisponiblesxAlmacen_Result.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_ObtenerDisponiblexAlmacen_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
@@ -225,6 +230,9 @@
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_ObtenerStockClasificado_Result.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_ObtenerStockDisponiblesxAlmacen_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_ObtenerStockPredictivo_Result.cs">
@@ -246,6 +254,7 @@
     <Compile Include="Models\ViewModels\KardexViewModel.cs" />
     <Compile Include="Models\ViewModels\RecoveryPasswordViewModel.cs" />
     <Compile Include="Models\ViewModels\RecoveryViewModel.cs" />
+    <Compile Include="Models\ViewModels\ReposicionViewModel.cs" />
     <Compile Include="Models\ViewModels\RolViewModel.cs" />
     <Compile Include="Models\ViewModels\StockDisponibleViewModel.cs" />
     <Compile Include="Models\ViewModels\StockViewModel.cs" />

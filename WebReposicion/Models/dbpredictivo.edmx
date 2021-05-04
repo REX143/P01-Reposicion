@@ -85,6 +85,17 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
         </Function>
         <Function Name="sp_Consolidar_Ventas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ExtraerDataHistorica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_GenerarPedidotemporal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Reponedor" Type="varchar" Mode="In" />
+          <Parameter Name="Estado" Type="varchar" Mode="In" />
+          <Parameter Name="PrioridadAtencion" Type="int" Mode="In" />
+          <Parameter Name="PkArticulo" Type="int" Mode="In" />
+          <Parameter Name="PkAlmacen" Type="int" Mode="In" />
+          <Parameter Name="CodigoArticulo" Type="varchar" Mode="In" />
+          <Parameter Name="NombreArticulo" Type="varchar" Mode="In" />
+          <Parameter Name="Categoria" Type="varchar" Mode="In" />
+          <Parameter Name="Cantidad" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_GetUsuarios" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ObtenerArticulosaReponer" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ObtenerArticulosClasificado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -92,6 +103,9 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
         <Function Name="sp_ObtenerArticulosStockCero" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_obtenerConsultaStock" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CodigoArticulo" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ObtenerDisponiblesxAlmacen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CodigoComercial" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_ObtenerDisponiblexAlmacen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="CodigoComercial" Type="varchar" Mode="In" />
@@ -105,6 +119,9 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Parameter Name="CODIGO" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_ObtenerStockClasificado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+        <Function Name="sp_ObtenerStockDisponiblesxAlmacen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="CodigoComercial" Type="varchar" Mode="In" />
+        </Function>
         <Function Name="sp_ObtenerStockPredictivo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ObtenerStockPrioridad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ObtenerStockSeguridad" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
@@ -171,11 +188,28 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <FunctionImport Name="sp_ObtenerArticulosSinRotacion" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerArticulosSinRotacion_Result)" />
           <FunctionImport Name="sp_ObtenerArticulosStockCero" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerArticulosStockCero_Result)" />
           <FunctionImport Name="sp_ObtenerDisponiblexAlmacen" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerDisponiblexAlmacen_Result)">
-            <Parameter Name="CodigoComercial" Mode="In" Type="String" />
+          <Parameter Name="CodigoComercial" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ObtenerStockClasificado" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockClasificado_Result)" />
           <FunctionImport Name="sp_ObtenerStockPrioridad" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockPrioridad_Result)" />
           <FunctionImport Name="sp_ObtenerStockSeguridad" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockSeguridad_Result)" />
+          <FunctionImport Name="sp_GenerarPedidotemporal">
+            <Parameter Name="Reponedor" Mode="In" Type="String" />
+            <Parameter Name="Estado" Mode="In" Type="String" />
+            <Parameter Name="PrioridadAtencion" Mode="In" Type="Int32" />
+            <Parameter Name="PkArticulo" Mode="In" Type="Int32" />
+            <Parameter Name="PkAlmacen" Mode="In" Type="Int32" />
+            <Parameter Name="CodigoArticulo" Mode="In" Type="String" />
+            <Parameter Name="NombreArticulo" Mode="In" Type="String" />
+            <Parameter Name="Categoria" Mode="In" Type="String" />
+            <Parameter Name="Cantidad" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerDisponiblesxAlmacen" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerDisponiblesxAlmacen_Result)">
+          <Parameter Name="CodigoComercial" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerStockDisponiblesxAlmacen" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockDisponiblesxAlmacen_Result)">
+            <Parameter Name="CodigoComercial" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_obtenerConsultaStock_Result">
           <Property Type="Int32" Name="Pk" Nullable="false" />
@@ -404,6 +438,25 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Property Type="Int32" Name="StockFisico" Nullable="true" />
           <Property Type="Int32" Name="StockMinimo" Nullable="true" />
           <Property Type="Int32" Name="StockMaximo" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerDisponiblesxAlmacen_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="Int32" Name="FK_UBICACION" Nullable="false" />
+          <Property Type="String" Name="Codigo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Almacen" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerStockDisponiblesxAlmacen_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="Int32" Name="FK_MAESTRO_ARTICULOS" Nullable="false" />
+          <Property Type="Int32" Name="FK_UBICACION" Nullable="false" />
+          <Property Type="String" Name="Codigo" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Descripcion" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="Almacen" Nullable="true" MaxLength="50" />
+          <Property Type="Int32" Name="Stock" Nullable="true" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -710,6 +763,34 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
                 <ScalarProperty Name="StockFisico" ColumnName="StockFisico" />
                 <ScalarProperty Name="StockMinimo" ColumnName="StockMinimo" />
                 <ScalarProperty Name="StockMaximo" ColumnName="StockMaximo" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_GenerarPedidotemporal" FunctionName="DBPREDICTIVOModel.Store.sp_GenerarPedidotemporal" />
+          <FunctionImportMapping FunctionImportName="sp_ObtenerDisponiblesxAlmacen" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerDisponiblesxAlmacen">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerDisponiblesxAlmacen_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="FK_UBICACION" ColumnName="FK_UBICACION" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Almacen" ColumnName="Almacen" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerStockDisponiblesxAlmacen" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerStockDisponiblesxAlmacen">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerStockDisponiblesxAlmacen_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="FK_MAESTRO_ARTICULOS" ColumnName="FK_MAESTRO_ARTICULOS" />
+                <ScalarProperty Name="FK_UBICACION" ColumnName="FK_UBICACION" />
+                <ScalarProperty Name="Codigo" ColumnName="Codigo" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Almacen" ColumnName="Almacen" />
+                <ScalarProperty Name="Stock" ColumnName="Stock" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
