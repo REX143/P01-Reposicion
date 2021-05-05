@@ -1,6 +1,7 @@
 ﻿@model List<WebReposicion.Models.ViewModels.StockDisponibleViewModel>
 @{
     ViewBag.Title = "Generar Pedido";
+    List<WebReposicion.Models.ReposicionDetViewModel> detallePedido = (List<WebReposicion.Models.ReposicionDetViewModel>)ViewBag.detallePedido;
 }
 
 <h3 style="text-align:center;color:dimgrey"><b>  <span class="fa fa-file-text-o"> </span> GENERAR PEDIDO </b></h3>
@@ -41,8 +42,8 @@
                 </div>
 
 
-                <button type="button" class="btn btn-app" data-toggle="modal" data-target="#modalAdd">
-                    <span class="badge bg-red-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">*.xls</font></font></span>
+                <button type="button" class="btn btn-app btn-sm" data-toggle="modal" data-target="#modalAdd">
+                    <span class="badge bg-red-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Módulo</font></font></span>
                     <i class="fa fa-search"></i><font style="vertical-align: inherit;">
                         <font style="vertical-align: inherit;">
                             Buscar Artículos
@@ -111,34 +112,34 @@
 
                                     @foreach (var oElemento in Model)
                                     {
-                                    <tr>
-                                        @Html.Hidden("Fk_ubicacion", oElemento.Fk_ubicacion.ToString())
-                                        @Html.Hidden("Stock", oElemento.Stock.ToString())
-                                        @Html.Hidden("PkArticulo", oElemento.PkMA.ToString())
-                                        @Html.Hidden("Codigo", oElemento.Codigo.ToString())
-                                        @Html.Hidden("Descripcion", oElemento.Descripcion.ToString())
-                                        @Html.Hidden("Categoria", oElemento.Categoria.ToString())
+                                        <tr>
+                                            @Html.Hidden("Fk_ubicacion", oElemento.Fk_ubicacion.ToString())
+                                            @Html.Hidden("Stock", oElemento.Stock.ToString())
+                                            @Html.Hidden("PkArticulo", oElemento.PkMA.ToString())
+                                            @Html.Hidden("Codigo", oElemento.Codigo.ToString())
+                                            @Html.Hidden("Descripcion", oElemento.Descripcion.ToString())
+                                            @Html.Hidden("Categoria", oElemento.Categoria.ToString())
 
-                                        <td>@oElemento.Codigo</td>
-                                        <td>@oElemento.Descripcion</td>
-                                        <td>@oElemento.Almacen</td>
-                                        <td>@oElemento.Stock</td>
-                                        @*<td> @Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:right", @placeholder = "Cantidad" })</td>*@
-                                        <td>
+                                            <td>@oElemento.Codigo</td>
+                                            <td>@oElemento.Descripcion</td>
+                                            <td>@oElemento.Almacen</td>
+                                            <td>@oElemento.Stock</td>
+                                            @*<td> @Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:right", @placeholder = "Cantidad" })</td>*@
+                                            <td>
 
-                                            <input type="number" id="stockSol" name="stockSol" value="@oElemento.StockSolicitar">
-                                            @*@Html.TextBox("stock", "", new { @class = "form-control", @style = "text-align:left", @value = @oElemento.StockSolicitar})*@
+                                                <input type="number" id="stockSol" name="stockSol" value="@oElemento.StockSolicitar">
+                                                @*@Html.TextBox("stock", "", new { @class = "form-control", @style = "text-align:left", @value = @oElemento.StockSolicitar})*@
 
-                                        </td>
-                                        <td>
-                                            <button type="submit" class="btn btn-success btn-sm">
-                                                <span class="fa fa-check-circle"> </span>
-                                            </button>
-                                            @*<a class="btn btn-success btn-sm" href="~/Reposicion/GenerarTemporal?Codigo=@oElemento.Codigo&Fk_ubicacion=@oElemento.Fk_ubicacion&und=@oElemento.StockSolicitar"><span class="fa fa-check-circle"> </span> </a>*@
-                                        </td>
+                                            </td>
+                                            <td>
+                                                <button type="submit" class="btn btn-success btn-sm">
+                                                    <span class="fa fa-check-circle"> </span>
+                                                </button>
+                                                @*<a class="btn btn-success btn-sm" href="~/Reposicion/GenerarTemporal?Codigo=@oElemento.Codigo&Fk_ubicacion=@oElemento.Fk_ubicacion&und=@oElemento.StockSolicitar"><span class="fa fa-check-circle"> </span> </a>*@
+                                            </td>
 
 
-                                    </tr>
+                                        </tr>
                                     }
                                 </table>
                             </div>
@@ -149,7 +150,7 @@
                 </div>
 
                 <div class="modal-footer">
-               
+
 
                 </div>
             </div>
@@ -157,6 +158,75 @@
     </div>
 </div>
 
+
+@using (Html.BeginForm("ConfirmarPedido", "Reposicion", FormMethod.Post))
+{
+    <div class="panel panel-default">
+        @*<div class="panel panel-heading" style="background-color:#3c8dbc">
+                <b style="color:aliceblue">   <span class="glyphicon glyphicon-blackboard"> </span>  Historial del artículo</b>
+            </div>*@
+        <div class="panel-body">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <span class="glyphicon glyphicon-bookmark"> </span>
+                    <h3 class="box-title"><b>Lista temporal de artículos - Pedido Nro:  @ViewBag.NroReposicion  </b></h3>
+                    <div class="box-tools pull-right">
+
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+
+
+                <div>
+                    <table id="myTable" class="table table-bordered table-hover table-striped">
+                        <tr style="background-color:lightblue;">
+                            <th>@Html.DisplayNameFor(d => detallePedido.First().IdDetalle)</th>
+                            @*<th>@Html.DisplayNameFor(d => detallePedido.First().NroReposicion)</th>
+                                <th>@Html.DisplayNameFor(d => detallePedido.First().PkArticulo)</th>
+                                <th>@Html.DisplayNameFor(d => detallePedido.First().Almacen)</th>*@
+                            @*<th>@Html.DisplayNameFor(model => model.First().TOTAL_AL_DIA)</th>*@
+                            <th>@Html.DisplayNameFor(d => detallePedido.First().CodigoArticulo)</th>
+                            <th>@Html.DisplayNameFor(d => detallePedido.First().NombreArticulo)</th>
+                            <th>@Html.DisplayNameFor(d => detallePedido.First().Categoria)</th>
+                            <th>@Html.DisplayNameFor(d => detallePedido.First().Cantidad)</th>
+                        </tr>
+
+                        @foreach (var oElemento in detallePedido)
+                        {
+                            <tr>
+                                @Html.Hidden("NroReposicion", oElemento.NroReposicion.ToString())
+                                <td>@oElemento.IdDetalle</td>
+                                @*<td>@oElemento.NroReposicion</td>
+                                    <td>@oElemento.PkArticulo</td>
+                                    <td>@oElemento.Almacen</td>*@
+                                @*<td>@oElemento.TOTAL_AL_DIA</td>*@
+                                <td>@oElemento.CodigoArticulo</td>
+                                <td>@oElemento.NombreArticulo</td>
+                                <td>@oElemento.Categoria</td>
+                                <td>@oElemento.Cantidad</td>
+
+
+
+                            </tr>
+                        }
+                    </table>
+
+                </div>
+                <div class="box-footer" style="background-color:gainsboro;">
+
+                    <div class="box-tools pull-right">
+
+                        <h4 class="box-title">  <input type="submit" class="btn btn-danger" value="Confirmar pedido" onclick="cargarArticulo" /> </h4>
+                    </div><!-- /.box-tools -->
+                </div>
+
+
+
+            </div>
+
+        </div>
+    </div>
+}
 
 
 

@@ -189,10 +189,16 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>dbpredictivo.edmx</DependentUpon>
     </Compile>
+    <Compile Include="Models\DetalleReposicion.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\pa_stockPorArticulo_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
-    <Compile Include="Models\ReposicionDetViewModel.cs" />
+    <Compile Include="Models\Reposicion.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\ViewModels\ReposicionDetViewModel.cs" />
     <Compile Include="Models\Rol.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>

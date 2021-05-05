@@ -43,9 +43,11 @@ namespace WebReposicion.Controllers
 
                              }).ToList();
 
-                return View(articulos);
+               
             }
-            return Redirect("~/Reposicion/GenerarPedido");
+
+            return View(articulos);
+            //return Redirect("~/Reposicion/GenerarPedido");
         }
 
 
@@ -87,8 +89,35 @@ namespace WebReposicion.Controllers
                     {
                         ViewBag.Confirmacion = "Cargada la disponibilidad de artículos en almacén ...";
                     }
-                
-                
+
+                    // Lista temporal de pedidos
+                    List<ReposicionDetViewModel> detallePedido;
+                    using (DBPREDICTIVOEntities dba=new DBPREDICTIVOEntities())
+                    {
+                        detallePedido = (from d in dba.DetalleReposicion
+                                         select new ReposicionDetViewModel
+                                         {
+                                             IdDetalle=d.IdDetalle,
+                                             NroReposicion=(d.NroReposicion.Value),
+                                             PkArticulo= (d.PkArticulo.Value),
+                                             Almacen=d.Almacen.Value,
+                                             CodigoArticulo=d.CodigoArticulo,
+                                             NombreArticulo=d.NombreArticulo,
+                                             Categoria=d.Categoria,
+                                             Cantidad= (d.Cantidad.Value)
+
+                                         }).ToList();
+
+                        if (detallePedido.Count>0)
+                        {
+
+                            ViewBag.NroReposicion = detallePedido.FirstOrDefault().NroReposicion;
+                        }
+
+                    }
+
+                    ViewBag.detallePedido = detallePedido;
+
                     return View(articulos);
                 }
 
@@ -159,6 +188,17 @@ namespace WebReposicion.Controllers
             return Redirect("~/Reposicion/GenerarPedido");
 
         }
+
+
+        [HttpPost]
+        public ActionResult ConfirmarPedido(int NroReposicion)
+        {
+
+            ViewBag.Confirmacion = "Se ha generado el pedido en almacenes.";
+            return Redirect("~/Reposicion/GenerarPedido");
+        }
+
+
 
 
 

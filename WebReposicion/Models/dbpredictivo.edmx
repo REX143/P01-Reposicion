@@ -36,6 +36,29 @@
           <Property Name="Cargo_Asignado" Type="varchar" MaxLength="100" />
           <Property Name="Token_Security" Type="varchar" MaxLength="100" />
         </EntityType>
+        <EntityType Name="DetalleReposicion">
+          <Key>
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdDetalle" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NroReposicion" Type="int" />
+          <Property Name="PkArticulo" Type="int" />
+          <Property Name="Almacen" Type="int" />
+          <Property Name="CodigoArticulo" Type="varchar" MaxLength="150" />
+          <Property Name="NombreArticulo" Type="varchar" MaxLength="200" />
+          <Property Name="Categoria" Type="varchar" MaxLength="100" />
+          <Property Name="Cantidad" Type="int" />
+        </EntityType>
+        <EntityType Name="Reposicion">
+          <Key>
+            <PropertyRef Name="NroReposicion" />
+          </Key>
+          <Property Name="NroReposicion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="NombreReponedor" Type="varchar" MaxLength="150" />
+          <Property Name="Fecha" Type="datetime" />
+          <Property Name="Estado" Type="varchar" MaxLength="50" />
+          <Property Name="PrioridadAtencion" Type="int" />
+        </EntityType>
         <EntityType Name="Rol">
           <Key>
             <PropertyRef Name="IDRol" />
@@ -129,6 +152,8 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
         <EntityContainer Name="DBPREDICTIVOModelStoreContainer">
           <EntitySet Name="CargaTemporal" EntityType="Self.CargaTemporal" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Colaborador" EntityType="Self.Colaborador" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="DetalleReposicion" EntityType="Self.DetalleReposicion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Reposicion" EntityType="Self.Reposicion" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Rol" EntityType="Self.Rol" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Usuario" EntityType="Self.Usuario" Schema="dbo" store:Type="Tables" />
           <EntitySet Name="Stock" EntityType="Self.Stock" store:Type="Tables" store:Schema="dbo">
@@ -208,8 +233,10 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Parameter Name="CodigoComercial" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ObtenerStockDisponiblesxAlmacen" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerStockDisponiblesxAlmacen_Result)">
-            <Parameter Name="CodigoComercial" Mode="In" Type="String" />
+          <Parameter Name="CodigoComercial" Mode="In" Type="String" />
           </FunctionImport>
+          <EntitySet Name="DetalleReposicion" EntityType="DBPREDICTIVOModel.DetalleReposicion" />
+          <EntitySet Name="Reposicion" EntityType="DBPREDICTIVOModel.Reposicion" />
         </EntityContainer>
         <ComplexType Name="sp_obtenerConsultaStock_Result">
           <Property Type="Int32" Name="Pk" Nullable="false" />
@@ -458,6 +485,29 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Property Type="String" Name="Almacen" Nullable="true" MaxLength="50" />
           <Property Type="Int32" Name="Stock" Nullable="true" />
         </ComplexType>
+        <EntityType Name="DetalleReposicion">
+          <Key>
+            <PropertyRef Name="IdDetalle" />
+          </Key>
+          <Property Name="IdDetalle" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NroReposicion" Type="Int32" />
+          <Property Name="PkArticulo" Type="Int32" />
+          <Property Name="Almacen" Type="Int32" />
+          <Property Name="CodigoArticulo" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="NombreArticulo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
+          <Property Name="Categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
+          <Property Name="Cantidad" Type="Int32" />
+        </EntityType>
+        <EntityType Name="Reposicion">
+          <Key>
+            <PropertyRef Name="NroReposicion" />
+          </Key>
+          <Property Name="NroReposicion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="NombreReponedor" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+          <Property Name="Fecha" Type="DateTime" Precision="3" />
+          <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="PrioridadAtencion" Type="Int32" />
+        </EntityType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -794,6 +844,31 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>
+          <EntitySetMapping Name="DetalleReposicion">
+            <EntityTypeMapping TypeName="DBPREDICTIVOModel.DetalleReposicion">
+              <MappingFragment StoreEntitySet="DetalleReposicion">
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="NombreArticulo" ColumnName="NombreArticulo" />
+                <ScalarProperty Name="CodigoArticulo" ColumnName="CodigoArticulo" />
+                <ScalarProperty Name="Almacen" ColumnName="Almacen" />
+                <ScalarProperty Name="PkArticulo" ColumnName="PkArticulo" />
+                <ScalarProperty Name="NroReposicion" ColumnName="NroReposicion" />
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Reposicion">
+            <EntityTypeMapping TypeName="DBPREDICTIVOModel.Reposicion">
+              <MappingFragment StoreEntitySet="Reposicion">
+                <ScalarProperty Name="PrioridadAtencion" ColumnName="PrioridadAtencion" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="NombreReponedor" ColumnName="NombreReponedor" />
+                <ScalarProperty Name="NroReposicion" ColumnName="NroReposicion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

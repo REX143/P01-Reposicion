@@ -32,6 +32,8 @@ namespace WebReposicion.Models
         public virtual DbSet<Rol> Rol { get; set; }
         public virtual DbSet<Usuario> Usuario { get; set; }
         public virtual DbSet<Stock> Stock { get; set; }
+        public virtual DbSet<DetalleReposicion> DetalleReposicion { get; set; }
+        public virtual DbSet<Reposicion> Reposicion { get; set; }
     
         public virtual ObjectResult<sp_obtenerConsultaStock_Result> sp_obtenerConsultaStock(string codigoArticulo)
         {
