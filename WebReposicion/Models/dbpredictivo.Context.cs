@@ -245,5 +245,32 @@ namespace WebReposicion.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerStockDisponiblesxAlmacen_Result>("sp_ObtenerStockDisponiblesxAlmacen", codigoComercialParameter);
         }
+    
+        public virtual int sp_ConfirmarPedido(Nullable<int> nroReposicion)
+        {
+            var nroReposicionParameter = nroReposicion.HasValue ?
+                new ObjectParameter("NroReposicion", nroReposicion) :
+                new ObjectParameter("NroReposicion", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ConfirmarPedido", nroReposicionParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerPedidoTemporal_Result> sp_ObtenerPedidoTemporal(string reponedor)
+        {
+            var reponedorParameter = reponedor != null ?
+                new ObjectParameter("Reponedor", reponedor) :
+                new ObjectParameter("Reponedor", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerPedidoTemporal_Result>("sp_ObtenerPedidoTemporal", reponedorParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerPedidoGTemporal_Result> sp_ObtenerPedidoGTemporal(string reponedor)
+        {
+            var reponedorParameter = reponedor != null ?
+                new ObjectParameter("Reponedor", reponedor) :
+                new ObjectParameter("Reponedor", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerPedidoGTemporal_Result>("sp_ObtenerPedidoGTemporal", reponedorParameter);
+        }
     }
 }

@@ -198,6 +198,12 @@
     <Compile Include="Models\Reposicion.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_ObtenerPedidoGTemporal_Result.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_ObtenerPedidoTemporal_Result.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\ViewModels\ReposicionDetViewModel.cs" />
     <Compile Include="Models\Rol.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>

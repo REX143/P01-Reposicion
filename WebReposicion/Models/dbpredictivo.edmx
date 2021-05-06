@@ -48,6 +48,7 @@
           <Property Name="NombreArticulo" Type="varchar" MaxLength="200" />
           <Property Name="Categoria" Type="varchar" MaxLength="100" />
           <Property Name="Cantidad" Type="int" />
+          <Property Name="NroDocumentoKardex" Type="varchar" MaxLength="50" />
         </EntityType>
         <EntityType Name="Reposicion">
           <Key>
@@ -58,6 +59,7 @@
           <Property Name="Fecha" Type="datetime" />
           <Property Name="Estado" Type="varchar" MaxLength="50" />
           <Property Name="PrioridadAtencion" Type="int" />
+          <Property Name="FechaConfirmacion" Type="datetime" />
         </EntityType>
         <EntityType Name="Rol">
           <Key>
@@ -106,6 +108,9 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Parameter Name="StockPredictivo" Type="int" Mode="In" />
           <Parameter Name="CodigoArticulo" Type="int" Mode="In" />
         </Function>
+        <Function Name="sp_ConfirmarPedido" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NroReposicion" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_Consolidar_Ventas" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ExtraerDataHistorica" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_GenerarPedidotemporal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -140,6 +145,12 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
         <Function Name="sp_ObtenerHistorialKardexxAticulo" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="FECHA_MOV" Type="datetime" Mode="In" />
           <Parameter Name="CODIGO" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ObtenerPedidoGTemporal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Reponedor" Type="varchar" Mode="In" />
+        </Function>
+        <Function Name="sp_ObtenerPedidoTemporal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="Reponedor" Type="varchar" Mode="In" />
         </Function>
         <Function Name="sp_ObtenerStockClasificado" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
         <Function Name="sp_ObtenerStockDisponiblesxAlmacen" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
@@ -237,6 +248,15 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           </FunctionImport>
           <EntitySet Name="DetalleReposicion" EntityType="DBPREDICTIVOModel.DetalleReposicion" />
           <EntitySet Name="Reposicion" EntityType="DBPREDICTIVOModel.Reposicion" />
+          <FunctionImport Name="sp_ConfirmarPedido">
+          <Parameter Name="NroReposicion" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerPedidoTemporal" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerPedidoTemporal_Result)">
+          <Parameter Name="Reponedor" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerPedidoGTemporal" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerPedidoGTemporal_Result)">
+            <Parameter Name="Reponedor" Mode="In" Type="String" />
+          </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_obtenerConsultaStock_Result">
           <Property Type="Int32" Name="Pk" Nullable="false" />
@@ -497,6 +517,7 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Property Name="NombreArticulo" Type="String" MaxLength="200" FixedLength="false" Unicode="false" />
           <Property Name="Categoria" Type="String" MaxLength="100" FixedLength="false" Unicode="false" />
           <Property Name="Cantidad" Type="Int32" />
+          <Property Name="NroDocumentoKardex" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
         </EntityType>
         <EntityType Name="Reposicion">
           <Key>
@@ -507,7 +528,30 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Property Name="Fecha" Type="DateTime" Precision="3" />
           <Property Name="Estado" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
           <Property Name="PrioridadAtencion" Type="Int32" />
+          <Property Name="FechaConfirmacion" Type="DateTime" Precision="3" />
         </EntityType>
+        <ComplexType Name="sp_ObtenerPedidoTemporal_Result">
+          <Property Type="Int32" Name="IdDetalle" Nullable="false" />
+          <Property Type="Int32" Name="NroReposicion" Nullable="true" />
+          <Property Type="Int32" Name="PkArticulo" Nullable="true" />
+          <Property Type="Int32" Name="Almacen" Nullable="true" />
+          <Property Type="String" Name="CodigoArticulo" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="NombreArticulo" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+          <Property Type="String" Name="NroDocumentoKardex" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerPedidoGTemporal_Result">
+          <Property Type="Int64" Name="IdDetalle" Nullable="true" />
+          <Property Type="Int32" Name="NroReposicion" Nullable="true" />
+          <Property Type="Int32" Name="PkArticulo" Nullable="true" />
+          <Property Type="Int32" Name="Almacen" Nullable="true" />
+          <Property Type="String" Name="CodigoArticulo" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="NombreArticulo" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+          <Property Type="String" Name="NroDocumentoKardex" Nullable="true" MaxLength="50" />
+        </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
     <!-- C-S mapping content -->
@@ -847,6 +891,7 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <EntitySetMapping Name="DetalleReposicion">
             <EntityTypeMapping TypeName="DBPREDICTIVOModel.DetalleReposicion">
               <MappingFragment StoreEntitySet="DetalleReposicion">
+                <ScalarProperty Name="NroDocumentoKardex" ColumnName="NroDocumentoKardex" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="Categoria" ColumnName="Categoria" />
                 <ScalarProperty Name="NombreArticulo" ColumnName="NombreArticulo" />
@@ -861,6 +906,7 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <EntitySetMapping Name="Reposicion">
             <EntityTypeMapping TypeName="DBPREDICTIVOModel.Reposicion">
               <MappingFragment StoreEntitySet="Reposicion">
+                <ScalarProperty Name="FechaConfirmacion" ColumnName="FechaConfirmacion" />
                 <ScalarProperty Name="PrioridadAtencion" ColumnName="PrioridadAtencion" />
                 <ScalarProperty Name="Estado" ColumnName="Estado" />
                 <ScalarProperty Name="Fecha" ColumnName="Fecha" />
@@ -869,6 +915,37 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
               </MappingFragment>
             </EntityTypeMapping>
           </EntitySetMapping>
+          <FunctionImportMapping FunctionImportName="sp_ConfirmarPedido" FunctionName="DBPREDICTIVOModel.Store.sp_ConfirmarPedido" />
+          <FunctionImportMapping FunctionImportName="sp_ObtenerPedidoTemporal" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerPedidoTemporal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerPedidoTemporal_Result">
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+                <ScalarProperty Name="NroReposicion" ColumnName="NroReposicion" />
+                <ScalarProperty Name="PkArticulo" ColumnName="PkArticulo" />
+                <ScalarProperty Name="Almacen" ColumnName="Almacen" />
+                <ScalarProperty Name="CodigoArticulo" ColumnName="CodigoArticulo" />
+                <ScalarProperty Name="NombreArticulo" ColumnName="NombreArticulo" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="NroDocumentoKardex" ColumnName="NroDocumentoKardex" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerPedidoGTemporal" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerPedidoGTemporal">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerPedidoGTemporal_Result">
+                <ScalarProperty Name="IdDetalle" ColumnName="IdDetalle" />
+                <ScalarProperty Name="NroReposicion" ColumnName="NroReposicion" />
+                <ScalarProperty Name="PkArticulo" ColumnName="PkArticulo" />
+                <ScalarProperty Name="Almacen" ColumnName="Almacen" />
+                <ScalarProperty Name="CodigoArticulo" ColumnName="CodigoArticulo" />
+                <ScalarProperty Name="NombreArticulo" ColumnName="NombreArticulo" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="NroDocumentoKardex" ColumnName="NroDocumentoKardex" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
         </EntityContainerMapping>
       </Mapping>
     </edmx:Mappings>

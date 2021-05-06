@@ -10,11 +10,10 @@
 namespace WebReposicion.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class DetalleReposicion
+    public partial class sp_ObtenerPedidoGTemporal_Result
     {
-        public int IdDetalle { get; set; }
+        public Nullable<long> IdDetalle { get; set; }
         public Nullable<int> NroReposicion { get; set; }
         public Nullable<int> PkArticulo { get; set; }
         public Nullable<int> Almacen { get; set; }

@@ -19,5 +19,6 @@ namespace WebReposicion.Models
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Estado { get; set; }
         public Nullable<int> PrioridadAtencion { get; set; }
+        public Nullable<System.DateTime> FechaConfirmacion { get; set; }
     }
 }

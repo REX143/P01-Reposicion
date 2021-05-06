@@ -94,25 +94,38 @@ namespace WebReposicion.Controllers
                     List<ReposicionDetViewModel> detallePedido;
                     using (DBPREDICTIVOEntities dba=new DBPREDICTIVOEntities())
                     {
-                        detallePedido = (from d in dba.DetalleReposicion
-                                         select new ReposicionDetViewModel
-                                         {
-                                             IdDetalle=d.IdDetalle,
-                                             NroReposicion=(d.NroReposicion.Value),
-                                             PkArticulo= (d.PkArticulo.Value),
-                                             Almacen=d.Almacen.Value,
-                                             CodigoArticulo=d.CodigoArticulo,
-                                             NombreArticulo=d.NombreArticulo,
-                                             Categoria=d.Categoria,
-                                             Cantidad= (d.Cantidad.Value)
+                        //try
+                        //{
+                        //    var NroReposicion = (from d in db.Reposicion where d.Estado == "TEMPORAL" select d).First();
 
-                                         }).ToList();
+                            detallePedido = (from d in db.sp_ObtenerPedidoGTemporal(Session["NameUser"].ToString()) 
+                                             select new ReposicionDetViewModel
+                                             {
+                                                 IdDetalle = Convert.ToInt32(d.IdDetalle.Value),
+                                                 NroReposicion = (d.NroReposicion.Value),
+                                                 PkArticulo = (d.PkArticulo.Value),
+                                                 Almacen = d.Almacen.Value,
+                                                 CodigoArticulo = d.CodigoArticulo,
+                                                 NombreArticulo = d.NombreArticulo,
+                                                 Categoria = d.Categoria,
+                                                 Cantidad = (d.Cantidad.Value)
 
-                        if (detallePedido.Count>0)
-                        {
+                                             }).ToList();
 
-                            ViewBag.NroReposicion = detallePedido.FirstOrDefault().NroReposicion;
-                        }
+                            if (detallePedido.Count > 0)
+                            {
+
+                                ViewBag.NroReposicion = detallePedido.FirstOrDefault().NroReposicion;
+                            }
+
+                        //}
+                        //catch (Exception)
+                        //{
+
+
+                        //  detallePedido = null;
+                        //}
+               
 
                     }
 
@@ -193,9 +206,42 @@ namespace WebReposicion.Controllers
         [HttpPost]
         public ActionResult ConfirmarPedido(int NroReposicion)
         {
+            using (TransactionScope registro = new TransactionScope())
+            { // Apertura del rollback en el contexto
 
-            ViewBag.Confirmacion = "Se ha generado el pedido en almacenes.";
-            return Redirect("~/Reposicion/GenerarPedido");
+
+                try
+                {
+                    using (SqlConnection sqlConnection1 = new SqlConnection(ConfigurationManager.ConnectionStrings["BDPREDICTIVO"].ToString()))
+                    {
+                        using (SqlCommand cmd = new SqlCommand())
+                        {
+                            // Sp creado para  cargar los pedidos temporales 
+                            cmd.CommandText = "sp_ConfirmarPedido";
+                            cmd.CommandType = CommandType.StoredProcedure;
+
+                            cmd.Parameters.AddWithValue("@NroReposicion", NroReposicion);
+                          
+                            cmd.Connection = sqlConnection1;
+                            sqlConnection1.Open();
+                            cmd.ExecuteNonQuery();
+
+                            registro.Complete();
+                        }
+                    }
+                    ViewBag.Confirmacion = "Se ha generado el pedido en almacenes.";
+
+                    return Redirect("~/Reposicion/GenerarPedido");
+
+                }
+                catch (Exception)
+                {
+                    registro.Dispose();
+                    throw;
+                }
+
+            }
+
         }
 
 
