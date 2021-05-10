@@ -272,5 +272,39 @@ namespace WebReposicion.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerPedidoGTemporal_Result>("sp_ObtenerPedidoGTemporal", reponedorParameter);
         }
+    
+        public virtual ObjectResult<sp_ObtenerListadoPedidos_Result> sp_ObtenerListadoPedidos(Nullable<int> nroReposicion, string codigo, Nullable<int> op)
+        {
+            var nroReposicionParameter = nroReposicion.HasValue ?
+                new ObjectParameter("NroReposicion", nroReposicion) :
+                new ObjectParameter("NroReposicion", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var opParameter = op.HasValue ?
+                new ObjectParameter("Op", op) :
+                new ObjectParameter("Op", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerListadoPedidos_Result>("sp_ObtenerListadoPedidos", nroReposicionParameter, codigoParameter, opParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerListadoPedidoDet_Result> sp_ObtenerListadoPedidoDet(Nullable<int> nroReposicion, string codigo, Nullable<int> op)
+        {
+            var nroReposicionParameter = nroReposicion.HasValue ?
+                new ObjectParameter("NroReposicion", nroReposicion) :
+                new ObjectParameter("NroReposicion", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var opParameter = op.HasValue ?
+                new ObjectParameter("Op", op) :
+                new ObjectParameter("Op", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerListadoPedidoDet_Result>("sp_ObtenerListadoPedidoDet", nroReposicionParameter, codigoParameter, opParameter);
+        }
     }
 }

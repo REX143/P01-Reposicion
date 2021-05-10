@@ -1,5 +1,203 @@
-﻿@{
+﻿@model List<WebReposicion.Models.ViewModels.ListaPedidoViewModel>
+
+@{
     ViewBag.Title = "Listar Pedido";
+ 
 }
 
 <h3 style="text-align:center;color:dimgrey"><b>  <span class="fa  fa-file-text"> </span> PEDIDOS REALIZADOS</b></h3>
+
+<div class="panel panel-default">
+    <div class="panel panel-heading" style="background-color:#3c8dbc">
+        <i class="fa fa-search"></i><font style="vertical-align: inherit;"></font>
+        @*<b style="color:aliceblue">  <span class="glyphicon glyphicon-inbox"> </span>  Consulta de stock de artículos</b>*@
+    </div>
+    @using (Html.BeginForm("ListarPedidos", "Stock", FormMethod.Post))
+    {
+
+        <div class="panel-body">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <br />
+                <div>@Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:right", @placeholder = "INGRESE EL # DEL PEDIDO O DEL PRODUCTO PARA INICIAR UNA BUSQUEDA ESPECÍFICA" })</div>
+
+
+                <br>
+                <div style="text-align:right">
+
+
+                    <button type="submit" class="btn btn-app">
+                        <span class="badge bg-green-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar</font></font></span>
+                        <i class="fa fa-search"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Buscar pedido
+                            </font>
+                        </font>
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+<div class="panel panel-default">
+    @*<div class="panel panel-heading" style="background-color:#3c8dbc">
+            <b style="color:aliceblue">   <span class="glyphicon glyphicon-blackboard"> </span>  Historial del artículo</b>
+        </div>*@
+    <div class="panel-body">
+
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">
+                <span class="glyphicon glyphicon-bookmark"> </span>
+                <h3 class="box-title"><b>Lista de pedidos realizados </b></h3>
+                <div class="box-tools pull-right">
+
+                </div><!-- /.box-tools -->
+            </div><!-- /.box-header -->
+
+
+            <div>
+                @*@using (Html.BeginForm("ListarPedidoDet", "Stock", FormMethod.Get))
+                {*@
+
+                    <table id="myTable" class="table table-bordered table-hover table-striped">
+                        <tr style="background-color:lightblue;">
+                            <th>Nro Reposición</th>
+                            <th>Fecha Reposición</th>
+                            <th>Estado Reposición</th>
+                            <th>Reponedor</th>
+                            <th>Ver Detalle</th>
+                        </tr>
+
+                        @foreach (var oElemento in Model)
+                        {
+                            <tr>
+                                @*@Html.Hidden("NroReposicion", oElemento.NroReposicion.ToString())*@
+                                <td>@oElemento.NroReposicion</td>
+                                <td>@oElemento.Fecha</td>
+                                <td>@oElemento.Estado</td>
+                                <td>@oElemento.NombreReponedor</td>
+                                <td>
+
+                                    @Html.ActionLink("Listar", "ListarPedidoDet", new { NroReposicion = oElemento.NroReposicion }) |
+                                    @Html.ActionLink("Codigo", "ListarCodigoDet", new { NroReposicion = Session["Codigo"] }) |
+                                    <button data-toggle="modal" data-target="#modalAdd"><span class="fa fa-eye"> </span></button>
+
+
+                                </td>
+
+
+                            </tr>
+                        }
+                    </table>
+                @*}*@
+                </div>
+            <div class="box-footer" style="background-color:gainsboro;">
+
+                <div class="box-tools pull-right">
+
+                </div><!-- /.box-tools -->
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>
+
+
+
+
+
+
+
+
+
+
+<div class="container">
+    <div class="modal fade" id="modalAdd" tabindex="-1">
+        <div class="modal-dialog modal-lg modal-dialog center-block">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#3c8dbc">
+                    <b style="color:aliceblue">
+                        <span class="fa fa-binoculars"> </span> DETALLE DE LA REPOSICIÓN
+                    </b>
+                    <button class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+             
+
+                    <br />
+
+                    @using (Html.BeginForm("GenerarTemporal", "Reposicion", FormMethod.Get))
+
+                        
+                     
+                    {
+                        <div class="row">
+
+                            <div>
+                                <table class="table table-hover table-bordered">
+                                    <tr style="background-color:lightsteelblue">
+
+                                        <th># PED.</th>
+                                        <th>CÓDIGO</th>
+                                        <th>ARTÍCULO</th>
+                                        <th>CATEGORÍA</th>
+                                        <th>CANTIDAD</th>
+                                        <th>ALMACÉN</th>
+
+
+                                    </tr>
+                                    @if (ViewBag.detallePedido != null)
+                                    {
+
+                                        List<WebReposicion.Models.ViewModels.ListaPedidoDetViewModel> detallePedido = (List<WebReposicion.Models.ViewModels.ListaPedidoDetViewModel>)ViewBag.detallePedido;
+
+                               
+
+                                    foreach (var oElemento in detallePedido)
+                                    {
+                                        <tr>
+                                            @*@Html.Hidden("Fk_ubicacion", oElemento.Fk_ubicacion.ToString())
+                @Html.Hidden("Stock", oElemento.Stock.ToString())
+                @Html.Hidden("PkArticulo", oElemento.PkMA.ToString())
+                @Html.Hidden("Codigo", oElemento.Codigo.ToString())
+                @Html.Hidden("Descripcion", oElemento.Descripcion.ToString())
+                @Html.Hidden("Categoria", oElemento.Categoria.ToString())*@
+
+                                            <td>@oElemento.Nro</td>
+                                            <td>@oElemento.CodigoArticulo</td>
+                                            <td>@oElemento.NombreArticulo</td>
+                                            <td>@oElemento.Categoria</td>
+                                            <td>@oElemento.Cantidad</td>
+                                            <td>@oElemento.Almacen</td>
+
+
+                                        </tr>
+                                    }
+                                    }
+                                </table>
+                            </div>
+
+                        </div>
+                    }
+
+                </div>
+
+                <div class="modal-footer">
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+

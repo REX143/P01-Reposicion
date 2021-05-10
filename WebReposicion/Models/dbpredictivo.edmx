@@ -146,6 +146,16 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Parameter Name="FECHA_MOV" Type="datetime" Mode="In" />
           <Parameter Name="CODIGO" Type="varchar" Mode="In" />
         </Function>
+        <Function Name="sp_ObtenerListadoPedidoDet" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NroReposicion" Type="int" Mode="In" />
+          <Parameter Name="Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="Op" Type="int" Mode="In" />
+        </Function>
+        <Function Name="sp_ObtenerListadoPedidos" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+          <Parameter Name="NroReposicion" Type="int" Mode="In" />
+          <Parameter Name="Codigo" Type="varchar" Mode="In" />
+          <Parameter Name="Op" Type="int" Mode="In" />
+        </Function>
         <Function Name="sp_ObtenerPedidoGTemporal" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
           <Parameter Name="Reponedor" Type="varchar" Mode="In" />
         </Function>
@@ -255,7 +265,17 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Parameter Name="Reponedor" Mode="In" Type="String" />
           </FunctionImport>
           <FunctionImport Name="sp_ObtenerPedidoGTemporal" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerPedidoGTemporal_Result)">
-            <Parameter Name="Reponedor" Mode="In" Type="String" />
+          <Parameter Name="Reponedor" Mode="In" Type="String" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerListadoPedidos" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerListadoPedidos_Result)">
+            <Parameter Name="NroReposicion" Mode="In" Type="Int32" />
+            <Parameter Name="Codigo" Mode="In" Type="String" />
+            <Parameter Name="Op" Mode="In" Type="Int32" />
+          </FunctionImport>
+          <FunctionImport Name="sp_ObtenerListadoPedidoDet" ReturnType="Collection(DBPREDICTIVOModel.sp_ObtenerListadoPedidoDet_Result)">
+            <Parameter Name="NroReposicion" Mode="In" Type="Int32" />
+            <Parameter Name="Codigo" Mode="In" Type="String" />
+            <Parameter Name="Op" Mode="In" Type="Int32" />
           </FunctionImport>
         </EntityContainer>
         <ComplexType Name="sp_obtenerConsultaStock_Result">
@@ -551,6 +571,21 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
           <Property Type="String" Name="Categoria" Nullable="true" MaxLength="100" />
           <Property Type="Int32" Name="Cantidad" Nullable="true" />
           <Property Type="String" Name="NroDocumentoKardex" Nullable="true" MaxLength="50" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerListadoPedidos_Result">
+          <Property Type="Int32" Name="NroReposicion" Nullable="false" />
+          <Property Type="DateTime" Name="Fecha" Nullable="true" Precision="23" />
+          <Property Type="String" Name="Estado" Nullable="true" MaxLength="50" />
+          <Property Type="String" Name="NombreReponedor" Nullable="true" MaxLength="150" />
+        </ComplexType>
+        <ComplexType Name="sp_ObtenerListadoPedidoDet_Result">
+          <Property Type="Int64" Name="Nro" Nullable="true" />
+          <Property Type="Int32" Name="NroReposicion" Nullable="true" />
+          <Property Type="String" Name="CodigoArticulo" Nullable="true" MaxLength="150" />
+          <Property Type="String" Name="NombreArticulo" Nullable="true" MaxLength="200" />
+          <Property Type="String" Name="Categoria" Nullable="true" MaxLength="100" />
+          <Property Type="Int32" Name="Cantidad" Nullable="true" />
+          <Property Type="String" Name="Almacen" Nullable="false" MaxLength="50" />
         </ComplexType>
       </Schema>
     </edmx:ConceptualModels>
@@ -943,6 +978,29 @@ advertencia 6002: La tabla o vista 'DBPREDICTIVO.dbo.Stock' no tiene definida ni
                 <ScalarProperty Name="Categoria" ColumnName="Categoria" />
                 <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
                 <ScalarProperty Name="NroDocumentoKardex" ColumnName="NroDocumentoKardex" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerListadoPedidos" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerListadoPedidos">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerListadoPedidos_Result">
+                <ScalarProperty Name="NroReposicion" ColumnName="NroReposicion" />
+                <ScalarProperty Name="Fecha" ColumnName="Fecha" />
+                <ScalarProperty Name="Estado" ColumnName="Estado" />
+                <ScalarProperty Name="NombreReponedor" ColumnName="NombreReponedor" />
+              </ComplexTypeMapping>
+            </ResultMapping>
+          </FunctionImportMapping>
+          <FunctionImportMapping FunctionImportName="sp_ObtenerListadoPedidoDet" FunctionName="DBPREDICTIVOModel.Store.sp_ObtenerListadoPedidoDet">
+            <ResultMapping>
+              <ComplexTypeMapping TypeName="DBPREDICTIVOModel.sp_ObtenerListadoPedidoDet_Result">
+                <ScalarProperty Name="Nro" ColumnName="Nro" />
+                <ScalarProperty Name="NroReposicion" ColumnName="NroReposicion" />
+                <ScalarProperty Name="CodigoArticulo" ColumnName="CodigoArticulo" />
+                <ScalarProperty Name="NombreArticulo" ColumnName="NombreArticulo" />
+                <ScalarProperty Name="Categoria" ColumnName="Categoria" />
+                <ScalarProperty Name="Cantidad" ColumnName="Cantidad" />
+                <ScalarProperty Name="Almacen" ColumnName="Almacen" />
               </ComplexTypeMapping>
             </ResultMapping>
           </FunctionImportMapping>

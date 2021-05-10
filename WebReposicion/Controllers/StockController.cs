@@ -26,6 +26,7 @@ namespace WebReposicion.Controllers
         //[HttpPost]
         public ActionResult Index(string cadena)
         {
+            Session["NroReposicion"] = "0";
             List<StockViewModel> articulos;
 
             using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())
@@ -92,9 +93,151 @@ namespace WebReposicion.Controllers
 
 
         // GET: Listar pedidos de reposición realizados
-        public ActionResult ListarPedidos()
+        //public ActionResult ListarPedidos()
+        //{
+        //    List<ListaPedidoViewModel> lista = new List<ListaPedidoViewModel>();
+        //    using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())
+        //    {
+        //        lista = (from d in db.Reposicion
+        //                 select new ListaPedidoViewModel
+        //                 {
+        //                     NroReposicion=d.NroReposicion,
+        //                     Fecha=d.Fecha.Value,
+        //                     Estado=d.Estado,
+        //                     NombreReponedor=d.NombreReponedor
+        //                 }).ToList();
+
+        //    }
+
+        //    ViewBag.detallePedido = Session["DetallePedido"];
+        //    return View(lista);
+        //}
+
+        // POST: Listar pedidos de reposición realizados
+        //[HttpPost]
+        public ActionResult ListarPedidos(string cadena)
         {
-            return View();
+           
+            int Opcion = 1;
+
+            if (cadena == "" || cadena == null)
+            {
+                cadena = Session["NroReposicion"].ToString();
+                if (cadena == "0")
+                {
+                    Opcion = 0;
+                }
+                //cadena = "0";
+                //Opcion = 0;
+
+            }
+            else
+            {
+                Session["NroReposicion"] = cadena;
+            }
+
+            int NroRe = 0;
+            string Codigo = null;
+
+            if (cadena.All(char.IsDigit))
+            {
+                NroRe = Convert.ToInt32(cadena);
+            }
+            else
+            {
+                Codigo = cadena;
+                Session["Codigo"] = Codigo;
+            }
+
+            List<ListaPedidoViewModel> lista = new List<ListaPedidoViewModel>();
+            using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
+            {
+           
+                lista = (from d in db.sp_ObtenerListadoPedidos(NroRe, Codigo,Opcion)
+                         select new ListaPedidoViewModel
+                         {
+                             NroReposicion = d.NroReposicion,
+                             Fecha = d.Fecha.Value,
+                             Estado = d.Estado,
+                             NombreReponedor = d.NombreReponedor
+                         }).ToList();
+
+            }
+
+            ViewBag.detallePedido = Session["DetallePedido"];
+            return View(lista);
+        }
+
+
+
+
+        // POST: Listar pedidos de reposición realizados
+        //[HttpPost]
+        public ActionResult ListarPedidoDet(int? NroReposicion)
+        {
+
+            int Opcion = 2;
+            int NroRe = Convert.ToInt32(NroReposicion);
+            string Codigo = null;
+
+         
+            List<ListaPedidoDetViewModel> detallePedido = new List<ListaPedidoDetViewModel>();
+            using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
+            {
+
+                detallePedido = (from d in db.sp_ObtenerListadoPedidoDet(NroRe, Codigo, Opcion)
+                         select new ListaPedidoDetViewModel
+                         {
+                             Nro=Convert.ToInt32(d.Nro),
+                             NroReposicion = Convert.ToInt32(d.NroReposicion),
+                             CodigoArticulo=d.CodigoArticulo,
+                             NombreArticulo=d.NombreArticulo,
+                             Categoria=d.Categoria,
+                             Cantidad= Convert.ToInt32(d.Cantidad),
+                             Almacen=d.Almacen
+                          }).ToList();
+
+            }
+
+
+            Session["DetallePedido"] = detallePedido;
+            ViewBag.detallePedido = Session["DetallePedido"];
+            return Redirect("~/Stock/ListarPedidos");
+            //return View();
+        }
+
+
+        public ActionResult ListarCodigoDet(string cadena)
+        {
+
+            int Opcion = 2;
+            int NroRe = 0;
+            string Codigo = Session["Codigo"].ToString();
+
+
+            List<ListaPedidoDetViewModel> detallePedido = new List<ListaPedidoDetViewModel>();
+            using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
+            {
+
+                detallePedido = (from d in db.sp_ObtenerListadoPedidoDet(NroRe, Codigo, Opcion)
+                                 select new ListaPedidoDetViewModel
+                                 {
+                                     Nro = Convert.ToInt32(d.Nro),
+                                     NroReposicion = Convert.ToInt32(d.NroReposicion),
+                                     CodigoArticulo = d.CodigoArticulo,
+                                     NombreArticulo = d.NombreArticulo,
+                                     Categoria = d.Categoria,
+                                     Cantidad = Convert.ToInt32(d.Cantidad),
+                                     Almacen = d.Almacen
+                                 }).ToList();
+
+            }
+
+
+            Session["DetallePedido"] = detallePedido;
+            ViewBag.detallePedido = Session["DetallePedido"];
+            return Redirect("~/Stock/ListarPedidos");
+            //return View();
         }
 
 
