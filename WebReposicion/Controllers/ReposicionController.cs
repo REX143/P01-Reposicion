@@ -252,11 +252,113 @@ namespace WebReposicion.Controllers
         // GET: Editar pedido de reposición
         public ActionResult EditarPedido()
         {
+            ViewBag.detallePedido = Session["DetallePedidoEdicion"];
+            ViewBag.NroRe =Session["NroPedidoEditar"];
             return View();
         }
 
 
+        public ActionResult ListarPedidoDet(string cadena)
+        {
+            if (cadena==null || cadena=="")
+            {
+                cadena = "0";
+            }
+
+            int Opcion = 2;
+            int NroRe = Convert.ToInt32(cadena);
+            string Codigo = null;
+
+
+            List<ListaPedidoDetViewModel> detallePedido = new List<ListaPedidoDetViewModel>();
+            using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
+            {
+
+                detallePedido = (from d in db.sp_ObtenerListadoPedidoDet(NroRe, Codigo, Opcion)
+                                 select new ListaPedidoDetViewModel
+                                 {
+                                     Nro = Convert.ToInt32(d.Nro),
+                                     NroReposicion = Convert.ToInt32(d.NroReposicion),
+                                     CodigoArticulo = d.CodigoArticulo,
+                                     NombreArticulo = d.NombreArticulo,
+                                     Categoria = d.Categoria,
+                                     Cantidad = Convert.ToInt32(d.Cantidad),
+                                     Almacen = d.Almacen
+                                 }).ToList();
+
+                if (detallePedido.Count > 0)
+                {
+
+                    ViewBag.NroRe = detallePedido.FirstOrDefault().NroReposicion;
+                }
+
+            }
+
+            Session["NroPedidoEditar"] = NroRe;
+            Session["DetallePedidoEdicion"] = detallePedido;
+            ViewBag.detallePedido = Session["DetallePedidoEdicion"];
+            return Redirect("~/Reposicion/EditarPedido");
+            //return View();
+        }
+
+
+        [HttpGet]
+        public ActionResult Eliminar(string CodigoArticulo)
+        {
+            int NroReposicion =Convert.ToInt32(Session["NroPedidoEditar"].ToString());
+            List<ListaPedidoDetViewModel> detallePedido = new List<ListaPedidoDetViewModel>();
+            using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
+            {
+                detallePedido = (from d in db.sp_EliminarArticuloDelPedidoReposicion(NroReposicion,CodigoArticulo)
+                                 select new ListaPedidoDetViewModel
+                                 {
+                                     Nro = Convert.ToInt32(d.Nro),
+                                     NroReposicion = Convert.ToInt32(d.NroReposicion),
+                                     CodigoArticulo = d.CodigoArticulo,
+                                     NombreArticulo = d.NombreArticulo,
+                                     Categoria = d.Categoria,
+                                     Cantidad = Convert.ToInt32(d.Cantidad),
+                                     Almacen = d.Almacen
+                                 }).ToList();
+
+              
+            }
+            return
+            ListarPedidoDet(NroReposicion.ToString());
         
+        }
+
+
+
+        [HttpGet]
+        public ActionResult Editar(string Codigo, int stockSol)
+        {
+            int NroReposicion = Convert.ToInt32(Session["NroPedidoEditar"].ToString());
+            List<ListaPedidoDetViewModel> detallePedido = new List<ListaPedidoDetViewModel>();
+            using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
+            {
+                detallePedido = (from d in db.sp_ActualizarArticuloDelPedidoReposicion(NroReposicion, Codigo, stockSol)
+                                 select new ListaPedidoDetViewModel
+                                 {
+                                     Nro = Convert.ToInt32(d.Nro),
+                                     NroReposicion = Convert.ToInt32(d.NroReposicion),
+                                     CodigoArticulo = d.CodigoArticulo,
+                                     NombreArticulo = d.NombreArticulo,
+                                     Categoria = d.Categoria,
+                                     Cantidad = Convert.ToInt32(d.Cantidad),
+                                     Almacen = d.Almacen
+                                 }).ToList();
+
+
+            }
+            return
+            ListarPedidoDet(NroReposicion.ToString());
+
+        }
+
+
+
+
         // GET: Recepcionar pedido de reposición
         public ActionResult RecepcionarPedido()
         {

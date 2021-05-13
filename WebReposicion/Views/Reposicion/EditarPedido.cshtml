@@ -3,4 +3,156 @@
     ViewBag.Title = "Editar Pedido";
 }
 
-<h3 style="text-align:center;color:dimgrey"><b>  <span class="fa fa-pencil-square-o"> </span> EDITAR PEDIDOS</b></h3>
+<h3 style="text-align:center;color:dimgrey"><b>  <span class="fa fa-pencil-square-o" > </span> EDITAR PEDIDOS</b></h3>
+
+<div class="panel panel-default">
+    <div class="panel panel-heading" style="background-color:#3c8dbc">
+        <i class="fa fa-search"></i><font style="vertical-align: inherit;"></font>
+        @*<b style="color:aliceblue">  <span class="glyphicon glyphicon-inbox"> </span>  Consulta de stock de artículos</b>*@
+    </div>
+    @using (Html.BeginForm("ListarPedidoDet", "Reposicion", FormMethod.Post))
+    {
+
+        <div class="panel-body">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <br />
+                <div>@Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:right", @type = "number", @placeholder = "INGRESE EL # DEL PEDIDO A EDITAR" })</div>
+
+
+                <br>
+                <div style="text-align:right">
+
+
+                    <button type="submit" class="btn btn-app">
+                        <span class="badge bg-green-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar</font></font></span>
+                        <i class="fa fa-search"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Buscar pedido
+                            </font>
+                        </font>
+                    </button>
+
+
+                </div>
+            </div>
+        </div>
+    }
+</div>
+
+
+
+
+
+
+
+<div class="panel panel-default">
+    @*<div class="panel panel-heading" style="background-color:#3c8dbc">
+            <b style="color:aliceblue">   <span class="glyphicon glyphicon-blackboard"> </span>  Historial del artículo</b>
+        </div>*@
+    <div class="panel-body">
+
+        <div class="box box-solid box-primary">
+            <div class="box-header with-border">
+                <span class="glyphicon glyphicon-bookmark"> </span>
+                <h3 class="box-title"><b>Lista de productos solicitados - Nro Pedido: @ViewBag.NroRe  </b></h3>
+                <div class="box-tools pull-right">
+
+                </div><!-- /.box-tools -->
+            </div><!-- /.box-header -->
+
+            <div class="modal-body">
+
+
+
+                <br />
+
+                @*@using (Html.BeginForm("Eliminar", "Reposicion", FormMethod.Get))
+                {*@
+                    <div class="row">
+
+                        <div>
+                            <table class="table table-hover table-bordered">
+                                <tr style="background-color:lightsteelblue">
+
+                                    <th>ITEM</th>
+                                    <th>CÓDIGO</th>
+                                    <th>ARTÍCULO</th>
+                                    <th>CATEGORÍA</th>
+                                    <th>CANTIDAD</th>
+                                    <th>ALMACÉN</th>
+                                    <th></th>
+
+
+                                </tr>
+                                @if (ViewBag.detallePedido != null)
+                                {
+
+                                    List<WebReposicion.Models.ViewModels.ListaPedidoDetViewModel> detallePedido = (List<WebReposicion.Models.ViewModels.ListaPedidoDetViewModel>)ViewBag.detallePedido;
+
+
+
+                                    foreach (var oElemento in detallePedido)
+                                    {
+                                <tr>
+                                    @*@Html.Hidden("Fk_ubicacion", oElemento.Fk_ubicacion.ToString())
+        @Html.Hidden("Stock", oElemento.Stock.ToString())
+
+        @Html.Hidden("Descripcion", oElemento.Descripcion.ToString())
+        @Html.Hidden("Categoria", oElemento.Categoria.ToString())*@
+                                    @*@Html.Hidden("PkArticulo", oElemento.PkMA.ToString())*@
+
+                                    <td>@oElemento.Nro</td>
+                                    <td>@oElemento.CodigoArticulo</td>
+                                    <td>@oElemento.NombreArticulo</td>
+                                    <td>@oElemento.Categoria</td>
+                                    @using (Html.BeginForm("Editar", "Reposicion", FormMethod.Get))
+                                    {
+                                        @Html.Hidden("Codigo", oElemento.CodigoArticulo.ToString())
+                                        <td><input type="number" id="stockSol" name="stockSol" value="@oElemento.Cantidad" style="text-size-adjust:auto"></td>
+                                        @*<td> @oElemento.Cantidad</td>*@
+                                        <td>@oElemento.Almacen</td>
+                                        <td>
+
+                                            <button type="submit"><span class="fa fa-floppy-o"> </span></button>
+                                            |
+                                        
+                                                <span class="glyphicon glyphicon-trash"> </span>
+                                                    @Html.ActionLink("Delete", "Eliminar", new { CodigoArticulo = oElemento.CodigoArticulo })
+                                               
+                                      
+
+                                        </td>
+
+                                    }
+                                </tr>
+                                    }
+                                }
+                            </table>
+                        </div>
+
+                    </div>
+                @*}*@
+            </div>
+
+
+            <div class="modal-footer">
+
+
+            </div>
+
+
+
+            <div class="box-footer" style="background-color:gainsboro;">
+
+                <div class="box-tools pull-right">
+
+                </div><!-- /.box-tools -->
+            </div>
+
+
+
+        </div>
+
+    </div>
+</div>

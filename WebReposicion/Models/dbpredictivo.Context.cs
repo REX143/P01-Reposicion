@@ -306,5 +306,65 @@ namespace WebReposicion.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerListadoPedidoDet_Result>("sp_ObtenerListadoPedidoDet", nroReposicionParameter, codigoParameter, opParameter);
         }
+    
+        public virtual int sp_ActualizarArticuloDelPedido(Nullable<int> nroPedido, string codigo, Nullable<int> cantidad)
+        {
+            var nroPedidoParameter = nroPedido.HasValue ?
+                new ObjectParameter("NroPedido", nroPedido) :
+                new ObjectParameter("NroPedido", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var cantidadParameter = cantidad.HasValue ?
+                new ObjectParameter("Cantidad", cantidad) :
+                new ObjectParameter("Cantidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ActualizarArticuloDelPedido", nroPedidoParameter, codigoParameter, cantidadParameter);
+        }
+    
+        public virtual int sp_EliminarArticuloDelPedido(Nullable<int> nroPedido, string codigo)
+        {
+            var nroPedidoParameter = nroPedido.HasValue ?
+                new ObjectParameter("NroPedido", nroPedido) :
+                new ObjectParameter("NroPedido", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_EliminarArticuloDelPedido", nroPedidoParameter, codigoParameter);
+        }
+    
+        public virtual ObjectResult<sp_EliminarArticuloDelPedidoReposicion_Result> sp_EliminarArticuloDelPedidoReposicion(Nullable<int> nroPedido, string codigo)
+        {
+            var nroPedidoParameter = nroPedido.HasValue ?
+                new ObjectParameter("NroPedido", nroPedido) :
+                new ObjectParameter("NroPedido", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_EliminarArticuloDelPedidoReposicion_Result>("sp_EliminarArticuloDelPedidoReposicion", nroPedidoParameter, codigoParameter);
+        }
+    
+        public virtual ObjectResult<sp_ActualizarArticuloDelPedidoReposicion_Result> sp_ActualizarArticuloDelPedidoReposicion(Nullable<int> nroPedido, string codigo, Nullable<int> cantidad)
+        {
+            var nroPedidoParameter = nroPedido.HasValue ?
+                new ObjectParameter("NroPedido", nroPedido) :
+                new ObjectParameter("NroPedido", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var cantidadParameter = cantidad.HasValue ?
+                new ObjectParameter("Cantidad", cantidad) :
+                new ObjectParameter("Cantidad", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ActualizarArticuloDelPedidoReposicion_Result>("sp_ActualizarArticuloDelPedidoReposicion", nroPedidoParameter, codigoParameter, cantidadParameter);
+        }
     }
 }

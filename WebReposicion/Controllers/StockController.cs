@@ -230,6 +230,11 @@ namespace WebReposicion.Controllers
                                      Cantidad = Convert.ToInt32(d.Cantidad),
                                      Almacen = d.Almacen
                                  }).ToList();
+                if (detallePedido.Count > 0)
+                {
+
+                    ViewBag.NroReposicion = detallePedido.FirstOrDefault().NroReposicion;
+                }
 
             }
 
