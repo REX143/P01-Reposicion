@@ -67,7 +67,7 @@
                     <table id="myTable" class="table table-bordered table-hover table-striped">
                         <tr style="background-color:lightblue;">
                             <th>Nro Reposición</th>
-                            <th>Fecha Reposición</th>
+                            <th>Fecha Creación</th>
                             <th>Estado Reposición</th>
                             <th>Reponedor</th>
                             <th>Ver Detalle</th>
@@ -75,23 +75,51 @@
 
                         @foreach (var oElemento in Model)
                         {
-                            <tr>
-                                @*@Html.Hidden("NroReposicion", oElemento.NroReposicion.ToString())*@
-                                <td>@oElemento.NroReposicion</td>
-                                <td>@oElemento.Fecha</td>
-                                <td>@oElemento.Estado</td>
-                                <td>@oElemento.NombreReponedor</td>
-                                <td>
+                        <tr>
+                            @*@Html.Hidden("NroReposicion", oElemento.NroReposicion.ToString())*@
 
-                                    @Html.ActionLink("Listar", "ListarPedidoDet", new { NroReposicion = oElemento.NroReposicion }) |
-                                    @Html.ActionLink("Codigo", "ListarCodigoDet", new { NroReposicion = Session["Codigo"] }) |
-                                    <button data-toggle="modal" data-target="#modalAdd"><span class="fa fa-eye"> </span></button>
+                            @if (@oElemento.Estado == "RECEPCIONADO")
+                            {
+                                <td><font color="#32B744"> @oElemento.NroReposicion</font></td>
+                                <td><font color="#32B744"> @oElemento.Fecha</font></td>
+                                <td><font color="#32B744"> @oElemento.Estado</font></td>
+                                <td><font color="#32B744"> @oElemento.NombreReponedor</font></td>
+                            }
+                            else if (@oElemento.Estado == "ATENDIDO")
+                            {
+                                <td><font color="#F3C807"> @oElemento.NroReposicion</font></td>
+                                <td><font color="#F3C807"> @oElemento.Fecha</font></td>
+                                <td><font color="#F3C807"> @oElemento.Estado</font></td>
+                                <td><font color="#F3C807"> @oElemento.NombreReponedor</font></td>
+                            }
+                            else if (@oElemento.Estado == "ANULADO")
+                            {
+                                <td><font color="#E7160C">@oElemento.NroReposicion</font></td>
+                                <td><font color="#E7160C">@oElemento.Fecha</font></td>
+                                <td><font color="#E7160C">@oElemento.Estado</font></td>
+                                <td><font color="#E7160C">@oElemento.NombreReponedor</font></td>
+                            }
+                            else
+                            {
+                                <td><font color="#0548F9"> @oElemento.NroReposicion</font></td>
+                                <td><font color="#0548F9"> @oElemento.Fecha</font></td>
+                                <td><font color="#0548F9"> @oElemento.Estado</font></td>
+                                <td><font color="#0548F9"> @oElemento.NombreReponedor</font></td>
+
+                            }
 
 
-                                </td>
+                            <td>
+
+                                @Html.ActionLink("Listar", "ListarPedidoDet", new { NroReposicion = oElemento.NroReposicion }) |
+                                @Html.ActionLink("Codigo", "ListarCodigoDet", new { NroReposicion = Session["Codigo"] }) |
+                                <button data-toggle="modal" data-target="#modalAdd"><span class="fa fa-eye"> </span></button>
 
 
-                            </tr>
+                            </td>
+
+
+                        </tr>
                         }
                     </table>
                 @*}*@

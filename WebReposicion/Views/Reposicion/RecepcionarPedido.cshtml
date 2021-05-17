@@ -75,10 +75,10 @@
                     {
                         <tr>
                             @*@Html.Hidden("NroReposicion", oElemento.NroReposicion.ToString())*@
-                            <td>@oElemento.NroReposicion</td>
-                            <td>@oElemento.Fecha</td>
-                            <td>@oElemento.Estado</td>
-                            <td>@oElemento.NombreReponedor</td>
+                            <td><font color="#F3C807">@oElemento.NroReposicion</font></td>
+                            <td><font color="#F3C807">@oElemento.Fecha</font></td>
+                            <td><font color="#F3C807">@oElemento.Estado</font></td>
+                            <td><font color="#F3C807">@oElemento.NombreReponedor</font></td>
                             <td>
 
                                 @Html.ActionLink("Listar", "ListarDetPedidoRecepcion", new { NroReposicion = oElemento.NroReposicion }) |
@@ -97,7 +97,14 @@
             <div class="box-footer" style="background-color:gainsboro;">
 
                 <div class="box-tools pull-right">
-
+                    @if (ViewBag.ConfirmarRecepcion == "OK")
+                    {
+                        <p style="color:green">Pedido correctamente ingresado a la tienda </p>
+                    }
+                    else if (ViewBag.ConfirmarRecepcion == "404")
+                    {
+                        <p style="color:red">Seleccione un pedido con "Listar" para verificar su pedido y realizar la operación. </p>
+                    }
                 </div><!-- /.box-tools -->
             </div>
 
@@ -134,11 +141,7 @@
 
                     <br />
 
-                    @using (Html.BeginForm("GenerarTemporal", "Reposicion", FormMethod.Get))
-
-
-
-                    {
+              
                         <div class="row">
 
                             <div>
@@ -186,7 +189,7 @@
                             </div>
 
                         </div>
-                    }
+                    
 
                 </div>
 
@@ -225,11 +228,12 @@
                 </div>
 
                 <div class="modal-footer" style="background-color:lightgray">
-                    @using (Html.BeginForm("ListarDetPedidoRecepcion", "Reposicion", FormMethod.Get))
+                    @using (Html.BeginForm("RecepcionarPedidoAtendido", "Reposicion", FormMethod.Get))
 
                     {
-                        <button class="btn btn-danger"> NO</button>
-                        <button class="btn btn-primary"> SI</button>
+                        @Html.Hidden("NroReposicion", Session["NroReposicionRecepcionar"].ToString())
+                        @*<button class="btn btn-danger"> NO</button>*@
+                        <button class="btn btn-success"> RECEPCIONAR</button>
 
                     }
 

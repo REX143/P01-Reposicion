@@ -129,6 +129,8 @@ namespace WebReposicion.Controllers
 
                     }
 
+                   ViewBag.ConfirmacionG = Session["ErrorGenerar"];
+                    Session["ErrorGenerar"]=null;
                     ViewBag.detallePedido = detallePedido;
 
                     return View(articulos);
@@ -193,7 +195,8 @@ namespace WebReposicion.Controllers
 
             else
             {
-                ViewBag.Confirmacion = "Verifique la cantidad ingresada no puede ser mayor al stock disponible";
+                Session["ErrorGenerar"]= "Verifique, la cantidad ingresada no puede ser mayor al stock disponible.";
+               
             }
                
            //List<StockDisponibleViewModel> articulos=null;
@@ -254,13 +257,16 @@ namespace WebReposicion.Controllers
         {
             ViewBag.detallePedido = Session["DetallePedidoEdicion"];
             ViewBag.NroRe =Session["NroPedidoEditar"];
+            ViewBag.MensajeDetPedido=Session["MensajeDetPedido"];
+            Session["MensajeDetPedido"]=null;
+            ViewBag.ConfirmarAnulacion = Session["ConfirmarAnulacion"];
+            Session["ConfirmarAnulacion"] = null;
             return View();
         }
 
-
-        public ActionResult ListarPedidoDet(string cadena)
+        public ActionResult ListarPedidoDetEditar(string cadena)
         {
-            if (cadena==null || cadena=="")
+            if (cadena == null || cadena == "")
             {
                 cadena = "0";
             }
@@ -274,7 +280,7 @@ namespace WebReposicion.Controllers
             using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
             {
 
-                detallePedido = (from d in db.sp_ObtenerListadoPedidoDet(NroRe, Codigo, Opcion)
+                detallePedido = (from d in db.sp_ObtenerListadoPedidoDetEditar(NroRe, Codigo, Opcion)
                                  select new ListaPedidoDetViewModel
                                  {
                                      Nro = Convert.ToInt32(d.Nro),
@@ -291,6 +297,10 @@ namespace WebReposicion.Controllers
 
                     ViewBag.NroRe = detallePedido.FirstOrDefault().NroReposicion;
                 }
+                else
+                {
+                    Session["MensajeDetPedido"] = "El pedido ya no puede ser editado.";
+                }
 
             }
 
@@ -300,6 +310,7 @@ namespace WebReposicion.Controllers
             return Redirect("~/Reposicion/EditarPedido");
             //return View();
         }
+
 
 
         [HttpGet]
@@ -398,7 +409,7 @@ namespace WebReposicion.Controllers
             using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
             {
 
-                lista = (from d in db.sp_ObtenerListadoPedidos(NroRe, Codigo, Opcion)
+                lista = (from d in db.sp_ObtenerListadoPedidosRecepcionar(NroRe, Codigo, Opcion)
                          select new ListaPedidoViewModel
                          {
                              NroReposicion = d.NroReposicion,
@@ -409,6 +420,9 @@ namespace WebReposicion.Controllers
 
             }
 
+            ViewBag.ConfirmarRecepcion = Session["ConfirmarRecepcion"];
+            Session["ConfirmarRecepcion"]="";
+            //Session["NroReposicionRecepcionar"] = "";
             ViewBag.detallePedido = Session["DetallePedido"];
             return View(lista);
             
@@ -441,6 +455,7 @@ namespace WebReposicion.Controllers
             }
 
 
+            Session["NroReposicionRecepcionar"] = NroRe;
             Session["DetallePedido"] = detallePedido;
             ViewBag.detallePedido = Session["DetallePedido"];
             return Redirect("~/Reposicion/RecepcionarPedido");
@@ -449,12 +464,123 @@ namespace WebReposicion.Controllers
 
 
 
+        public ActionResult RecepcionarPedidoAtendido(int? NroReposicion)
+        {
+
+            bool response = true;
+            List<ListaPedidoDetViewModel> detallePedido = new List<ListaPedidoDetViewModel>();
+            using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
+            {
+                db.Database.CommandTimeout = 300;
+                string user = Session["NameUser"].ToString();
+                var responseSP=db.sp_ConfirmarRecepcionPedReposicion(NroReposicion, user);
+                if (responseSP==0)
+                {
+                    response = false;
+                }
+               
+            }
+            if (response==true)
+            {
+                Session["ConfirmarRecepcion"] = "OK";
+
+            }
+            else
+            {
+                Session["ConfirmarRecepcion"] = "404";
+            }
+
+            ViewBag.ConfirmarRecepcion = Session["ConfirmarRecepcion"];
+
+            return Redirect("~/Reposicion/RecepcionarPedido");
+            //return View();
+        }
+
+
+        // GET: Anular pedido de reposición
+        public ActionResult AnularPedido()
+        {
+            int NroPedido =Convert.ToInt32(Session["NroPedidoEditar"].ToString());
+            string User = Session["NameUser"].ToString();
+            bool response = true;
+            using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())
+            {
+                db.Database.CommandTimeout = 300;
+                var responseSP = db.sp_AnularPedidoReposicion(NroPedido,User);
+                if (responseSP == 0)
+                {
+                    response = false;
+                }
+            }
+
+            if (response == true)
+            {
+                Session["ConfirmarAnulacion"] = "OK";
+
+            }
+         
+
+            return Redirect("~/Reposicion/EditarPedido");
+            //return View();
+        }
+
+
         // GET: Devolver pedido de reposición
         public ActionResult DevolverPedido()
         {
             return View();
         }
 
+
+
+
+
+        public ActionResult ListarPedidoDet(string cadena)
+        {
+            if (cadena == null || cadena == "")
+            {
+                cadena = "0";
+            }
+
+            int Opcion = 2;
+            int NroRe = Convert.ToInt32(cadena);
+            string Codigo = null;
+
+
+            List<ListaPedidoDetViewModel> detallePedido = new List<ListaPedidoDetViewModel>();
+            using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
+            {
+
+                detallePedido = (from d in db.sp_ObtenerListadoPedidoDet(NroRe, Codigo, Opcion)
+                                 select new ListaPedidoDetViewModel
+                                 {
+                                     Nro = Convert.ToInt32(d.Nro),
+                                     NroReposicion = Convert.ToInt32(d.NroReposicion),
+                                     CodigoArticulo = d.CodigoArticulo,
+                                     NombreArticulo = d.NombreArticulo,
+                                     Categoria = d.Categoria,
+                                     Cantidad = Convert.ToInt32(d.Cantidad),
+                                     Almacen = d.Almacen
+                                 }).ToList();
+
+                if (detallePedido.Count > 0)
+                {
+
+                    ViewBag.NroRe = detallePedido.FirstOrDefault().NroReposicion;
+                }
+                else
+                {
+                    Session["MensajeDetPedido"] = "El pedido ya no puede ser editado.";
+                }
+
+            }
+
+            Session["NroPedidoEditar"] = NroRe;
+            Session["DetallePedidoEdicion"] = detallePedido;
+            ViewBag.detallePedido = Session["DetallePedidoEdicion"];
+            return Redirect("~/Reposicion/EditarPedido");
+            //return View();
+        }
 
 
 

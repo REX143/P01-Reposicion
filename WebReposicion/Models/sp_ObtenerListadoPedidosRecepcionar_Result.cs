@@ -10,18 +10,12 @@
 namespace WebReposicion.Models
 {
     using System;
-    using System.Collections.Generic;
     
-    public partial class Reposicion
+    public partial class sp_ObtenerListadoPedidosRecepcionar_Result
     {
         public int NroReposicion { get; set; }
-        public string NombreReponedor { get; set; }
         public Nullable<System.DateTime> Fecha { get; set; }
         public string Estado { get; set; }
-        public Nullable<int> PrioridadAtencion { get; set; }
-        public Nullable<System.DateTime> FechaConfirmacion { get; set; }
-        public Nullable<System.DateTime> FechaRecepcion { get; set; }
-        public string UsuarioAnulacion { get; set; }
-        public Nullable<System.DateTime> FechaAnulacion { get; set; }
+        public string NombreReponedor { get; set; }
     }
 }

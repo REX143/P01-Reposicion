@@ -204,7 +204,13 @@
     <Compile Include="Models\sp_EliminarArticuloDelPedidoReposicion_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\sp_ObtenerListadoPedidoDetEditar_Result.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
     <Compile Include="Models\sp_ObtenerListadoPedidoDet_Result.cs">
+      <DependentUpon>dbpredictivo.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Models\sp_ObtenerListadoPedidosRecepcionar_Result.cs">
       <DependentUpon>dbpredictivo.tt</DependentUpon>
     </Compile>
     <Compile Include="Models\sp_ObtenerListadoPedidos_Result.cs">

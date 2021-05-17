@@ -27,6 +27,7 @@ namespace WebReposicion.Controllers
         public ActionResult Index(string cadena)
         {
             Session["NroReposicion"] = "0";
+            Session["NroReposicionRecepcionar"] = "0";
             List<StockViewModel> articulos;
 
             using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())

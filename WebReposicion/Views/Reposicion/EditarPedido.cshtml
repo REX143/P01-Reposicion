@@ -3,14 +3,14 @@
     ViewBag.Title = "Editar Pedido";
 }
 
-<h3 style="text-align:center;color:dimgrey"><b>  <span class="fa fa-pencil-square-o" > </span> EDITAR PEDIDOS</b></h3>
+<h3 style="text-align:center;color:dimgrey"><b>  <span class="fa fa-pencil-square-o"> </span> EDITAR PEDIDOS</b></h3>
 
 <div class="panel panel-default">
     <div class="panel panel-heading" style="background-color:#3c8dbc">
         <i class="fa fa-search"></i><font style="vertical-align: inherit;"></font>
         @*<b style="color:aliceblue">  <span class="glyphicon glyphicon-inbox"> </span>  Consulta de stock de artículos</b>*@
     </div>
-    @using (Html.BeginForm("ListarPedidoDet", "Reposicion", FormMethod.Post))
+    @using (Html.BeginForm("ListarPedidoDetEditar", "Reposicion", FormMethod.Post))
     {
 
         <div class="panel-body">
@@ -68,76 +68,87 @@
                 <br />
 
                 @*@using (Html.BeginForm("Eliminar", "Reposicion", FormMethod.Get))
-                {*@
-                    <div class="row">
+                    {*@
+                <div class="row">
 
-                        <div>
-                            <table class="table table-hover table-bordered">
-                                <tr style="background-color:lightsteelblue">
+                    <div>
+                        <table class="table table-hover table-bordered table-responsive">
+                            <tr style="background-color:lightsteelblue">
 
-                                    <th>ITEM</th>
-                                    <th>CÓDIGO</th>
-                                    <th>ARTÍCULO</th>
-                                    <th>CATEGORÍA</th>
-                                    <th>CANTIDAD</th>
-                                    <th>ALMACÉN</th>
-                                    <th></th>
+                                <th>ITEM</th>
+                                <th>CÓDIGO</th>
+                                <th>ARTÍCULO</th>
+                                <th>CATEGORÍA</th>
+                                <th>CANTIDAD</th>
+                                <th>ALMACÉN</th>
+                                <th></th>
 
 
-                                </tr>
-                                @if (ViewBag.detallePedido != null)
+                            </tr>
+                            @if (ViewBag.detallePedido != null)
+                            {
+
+                                List<WebReposicion.Models.ViewModels.ListaPedidoDetViewModel> detallePedido = (List<WebReposicion.Models.ViewModels.ListaPedidoDetViewModel>)ViewBag.detallePedido;
+
+
+
+                                foreach (var oElemento in detallePedido)
                                 {
+                                    <tr>
+                                        @*@Html.Hidden("Fk_ubicacion", oElemento.Fk_ubicacion.ToString())
+                                            @Html.Hidden("Stock", oElemento.Stock.ToString())
 
-                                    List<WebReposicion.Models.ViewModels.ListaPedidoDetViewModel> detallePedido = (List<WebReposicion.Models.ViewModels.ListaPedidoDetViewModel>)ViewBag.detallePedido;
+                                            @Html.Hidden("Descripcion", oElemento.Descripcion.ToString())
+                                            @Html.Hidden("Categoria", oElemento.Categoria.ToString())*@
+                                        @*@Html.Hidden("PkArticulo", oElemento.PkMA.ToString())*@
 
+                                        <td>@oElemento.Nro</td>
+                                        <td>@oElemento.CodigoArticulo</td>
+                                        <td>@oElemento.NombreArticulo</td>
+                                        <td>@oElemento.Categoria</td>
+                                        @using (Html.BeginForm("Editar", "Reposicion", FormMethod.Get))
+                                        {
+                                            @Html.Hidden("Codigo", oElemento.CodigoArticulo.ToString())
+                                            <td><input type="number" id="stockSol" name="stockSol" value="@oElemento.Cantidad" style="text-size-adjust:auto"></td>
 
+                                            @*<td> @oElemento.Cantidad</td>*@
+                                            <td>@oElemento.Almacen</td>
+                                            <td>
 
-                                    foreach (var oElemento in detallePedido)
-                                    {
-                                <tr>
-                                    @*@Html.Hidden("Fk_ubicacion", oElemento.Fk_ubicacion.ToString())
-        @Html.Hidden("Stock", oElemento.Stock.ToString())
+                                                <button type="submit" onclick=""><span class="fa fa-floppy-o"> </span></button>
+                                                |
 
-        @Html.Hidden("Descripcion", oElemento.Descripcion.ToString())
-        @Html.Hidden("Categoria", oElemento.Categoria.ToString())*@
-                                    @*@Html.Hidden("PkArticulo", oElemento.PkMA.ToString())*@
-
-                                    <td>@oElemento.Nro</td>
-                                    <td>@oElemento.CodigoArticulo</td>
-                                    <td>@oElemento.NombreArticulo</td>
-                                    <td>@oElemento.Categoria</td>
-                                    @using (Html.BeginForm("Editar", "Reposicion", FormMethod.Get))
-                                    {
-                                        @Html.Hidden("Codigo", oElemento.CodigoArticulo.ToString())
-                                        <td><input type="number" id="stockSol" name="stockSol" value="@oElemento.Cantidad" style="text-size-adjust:auto"></td>
-                                        @*<td> @oElemento.Cantidad</td>*@
-                                        <td>@oElemento.Almacen</td>
-                                        <td>
-
-                                            <button type="submit"><span class="fa fa-floppy-o"> </span></button>
-                                            |
-                                        
                                                 <span class="glyphicon glyphicon-trash"> </span>
-                                                    @Html.ActionLink("Delete", "Eliminar", new { CodigoArticulo = oElemento.CodigoArticulo })
-                                               
-                                      
+                                                @Html.ActionLink("Delete", "Eliminar", new { CodigoArticulo = oElemento.CodigoArticulo })
 
-                                        </td>
 
-                                    }
-                                </tr>
-                                    }
+
+                                            </td>
+
+                                        }
+                                    </tr>
                                 }
-                            </table>
-                        </div>
-
+                                Session["DetallePedidoEdicion"] = null;
+                            }
+                        </table>
                     </div>
+
+                </div>
                 @*}*@
             </div>
 
 
             <div class="modal-footer">
 
+
+                @if (ViewBag.MensajeDetPedido != null)
+                {
+                    <button class="btn btn-danger" disabled>Anular Pedido <span class="fa fa-calendar-times-o"> </span></button>
+                }
+                else
+                {
+                    <button class="btn btn-danger" data-toggle="modal" data-target="#modalAdd2">Anular Pedido <span class="fa fa-calendar-times-o"> </span></button>
+                }
 
             </div>
 
@@ -146,7 +157,15 @@
             <div class="box-footer" style="background-color:gainsboro;">
 
                 <div class="box-tools pull-right">
+                    @if (ViewBag.MensajeDetPedido != null)
+                    {
+                        <p style="color:red">@ViewBag.MensajeDetPedido </p>
+                    }
+                    @if (ViewBag.ConfirmarAnulacion != null)
+                    {
+                        <p style="color:green"> Se realizo con exito la anulación del Nro de Reposición @ViewBag.NroRe en el sistema. </p>
 
+                    }
                 </div><!-- /.box-tools -->
             </div>
 
@@ -156,3 +175,47 @@
 
     </div>
 </div>
+
+
+
+@*Confirmación de anulación*@
+<div class="container">
+    <div class="modal fade" id="modalAdd2" tabindex="-1">
+        <div class="modal-dialog modal-sm modal-dialog center-block">
+            <div class="modal-content">
+                <div class="modal-header" style="background-color:#3c8dbc">
+                    <b style="color:aliceblue">
+                        <span class="fa fa-calendar-check-o"> </span> ANULACIÓN DEL PEDIDO
+                    </b>
+                    <button class="close" data-dismiss="modal">&times;</button>
+
+                </div>
+                <div class="modal-body">
+
+                    ¿Desea anular el pedido registrado?
+                    <br />
+
+
+
+
+                </div>
+
+                <div class="modal-footer" style="background-color:lightgray">
+                    @using (Html.BeginForm("AnularPedido", "Reposicion", FormMethod.Get))
+
+                    {
+
+                        @*<button class="btn btn-danger"> NO</button>*@
+                        <button class="btn btn-danger"> ANULAR <span class="fa fa-calendar-times-o"> </span> </button>
+
+                    }
+
+
+
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+

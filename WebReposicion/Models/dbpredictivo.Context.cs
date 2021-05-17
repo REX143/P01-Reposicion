@@ -366,5 +366,65 @@ namespace WebReposicion.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ActualizarArticuloDelPedidoReposicion_Result>("sp_ActualizarArticuloDelPedidoReposicion", nroPedidoParameter, codigoParameter, cantidadParameter);
         }
+    
+        public virtual int sp_ConfirmarRecepcionPedReposicion(Nullable<int> nroReposicion, string nombreReponedor)
+        {
+            var nroReposicionParameter = nroReposicion.HasValue ?
+                new ObjectParameter("NroReposicion", nroReposicion) :
+                new ObjectParameter("NroReposicion", typeof(int));
+    
+            var nombreReponedorParameter = nombreReponedor != null ?
+                new ObjectParameter("NombreReponedor", nombreReponedor) :
+                new ObjectParameter("NombreReponedor", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ConfirmarRecepcionPedReposicion", nroReposicionParameter, nombreReponedorParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerListadoPedidosRecepcionar_Result> sp_ObtenerListadoPedidosRecepcionar(Nullable<int> nroReposicion, string codigo, Nullable<int> op)
+        {
+            var nroReposicionParameter = nroReposicion.HasValue ?
+                new ObjectParameter("NroReposicion", nroReposicion) :
+                new ObjectParameter("NroReposicion", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var opParameter = op.HasValue ?
+                new ObjectParameter("Op", op) :
+                new ObjectParameter("Op", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerListadoPedidosRecepcionar_Result>("sp_ObtenerListadoPedidosRecepcionar", nroReposicionParameter, codigoParameter, opParameter);
+        }
+    
+        public virtual int sp_AnularPedidoReposicion(Nullable<int> nroReposicion, string usuarioAnulacion)
+        {
+            var nroReposicionParameter = nroReposicion.HasValue ?
+                new ObjectParameter("NroReposicion", nroReposicion) :
+                new ObjectParameter("NroReposicion", typeof(int));
+    
+            var usuarioAnulacionParameter = usuarioAnulacion != null ?
+                new ObjectParameter("UsuarioAnulacion", usuarioAnulacion) :
+                new ObjectParameter("UsuarioAnulacion", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_AnularPedidoReposicion", nroReposicionParameter, usuarioAnulacionParameter);
+        }
+    
+        public virtual ObjectResult<sp_ObtenerListadoPedidoDetEditar_Result> sp_ObtenerListadoPedidoDetEditar(Nullable<int> nroReposicion, string codigo, Nullable<int> op)
+        {
+            var nroReposicionParameter = nroReposicion.HasValue ?
+                new ObjectParameter("NroReposicion", nroReposicion) :
+                new ObjectParameter("NroReposicion", typeof(int));
+    
+            var codigoParameter = codigo != null ?
+                new ObjectParameter("Codigo", codigo) :
+                new ObjectParameter("Codigo", typeof(string));
+    
+            var opParameter = op.HasValue ?
+                new ObjectParameter("Op", op) :
+                new ObjectParameter("Op", typeof(int));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerListadoPedidoDetEditar_Result>("sp_ObtenerListadoPedidoDetEditar", nroReposicionParameter, codigoParameter, opParameter);
+        }
     }
 }
