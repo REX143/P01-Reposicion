@@ -1,7 +1,176 @@
 ﻿
 @{
-    ViewBag.Title = "Devolver Pedido";
+                /**/
+
+                ViewBag.Title = "Devolver Pedido";
+                List<WebReposicion.Models.ViewModels.ArticuloDevViewModel> detallePedido = (List<WebReposicion.Models.ViewModels.ArticuloDevViewModel>)ViewBag.detallePedido;
+
 }
 
 <h3 style="text-align:center;color:dimgrey"><b>  <span class="fa fa-chain-broken"> </span> DEVOLUCIÓN DE ARTÍCULOS</b></h3>
 
+<div class="panel panel-default">
+    <div class="panel panel-heading" style="background-color:#3c8dbc">
+        <b style="color:aliceblue">  <span class="glyphicon glyphicon-inbox"> </span>  CONSULTAR ARTÍCULO</b>
+    </div>
+
+    @using (Html.BeginForm("ObtenerArticuloReponer", "Reposicion", FormMethod.Post))
+    {
+
+        <div class="panel-body">
+            <div class="col-md-3"></div>
+            <div class="col-md-6">
+                <br />
+                <div>@Html.TextBox("cadena", "", new { @class = "form-control", @style = "text-align:right", @placeholder = "INGRESE EL CÓDIGO DEL PRODUCTO PARA INICIAR BUSQUEDA" })</div>
+
+
+                <br>
+                <div style="text-align:right">
+
+
+                    <button type="submit" class="btn btn-app">
+                        <span class="badge bg-green-active"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Iniciar</font></font></span>
+                        <i class="fa fa-search"></i><font style="vertical-align: inherit;">
+                            <font style="vertical-align: inherit;">
+                                Buscar producto
+                            </font>
+                        </font>
+                    </button>
+
+
+                </div>
+
+
+            </div>
+        </div>
+
+    }
+
+</div>
+
+
+@using (Html.BeginForm("ConfirmarDevolucion", "Reposicion", FormMethod.Get))
+
+{
+    <div class="panel panel-default">
+        @*<div class="panel panel-heading" style="background-color:#3c8dbc">
+                <b style="color:aliceblue">   <span class="glyphicon glyphicon-blackboard"> </span>  Historial del artículo</b>
+            </div>*@
+        <div class="panel-body">
+
+            <div class="box box-solid box-primary">
+                <div class="box-header with-border">
+                    <span class="glyphicon glyphicon-bookmark"> </span>
+                    <h3 class="box-title"><b>Detalle del producto </b></h3>
+                    <div class="box-tools pull-right">
+
+                    </div><!-- /.box-tools -->
+                </div><!-- /.box-header -->
+
+
+                <div>
+                    <table id="myTable" class="table table-bordered table-hover table-striped">
+                        <tr style="background-color:lightblue;">
+
+                            @*<th>@Html.DisplayNameFor(d => detallePedido.First().NroReposicion)</th>
+                                <th>@Html.DisplayNameFor(d => detallePedido.First().PkArticulo)</th>
+                                <th>@Html.DisplayNameFor(d => detallePedido.First().Almacen)</th>*@
+                            @*<th>@Html.DisplayNameFor(model => model.First().TOTAL_AL_DIA)</th>*@
+                            <th>CÓDIGO</th>
+                            <th>DESCRIPCIÓN</th>
+                            <th>STOCK TDA</th>
+                            <th>ALMACÉN</th>
+                            <th>UND. DEVOLVER</th>
+                        </tr>
+                        @if (ViewBag.detallePedido != null)
+                        {
+                            foreach (var oElemento in detallePedido)
+                            {
+                                <tr>
+                                    @Html.Hidden("Pk_ma", oElemento.Pk_ma)
+                                    @Html.Hidden("Pk_ubc", oElemento.Pk_ubc)
+
+                                    <td>@oElemento.Codigo</td>
+                                    <td>@oElemento.Descripcion</td>
+                                    <td>@oElemento.StockTDA</td>
+                                    <td>@oElemento.Almacen</td>
+                                    <td>
+                                        <input type="number" id="stockDev" name="stockDev" value="@oElemento.Und">
+                                    </td>
+
+
+
+                                </tr>
+                            }
+                        }
+                    </table>
+
+                </div>
+
+                <div class="box-footer" style="background-color:gainsboro;">
+
+                    <div class="box-tools pull-right">
+                        @if (ViewBag.detallePedido != null)
+                        {
+                            <input type="button" class="btn btn-danger" value="Confirmar devolución" data-toggle="modal" data-target="#modalAdd2" />
+                        }
+                        else
+                        {
+                            <input type="button" class="btn btn-danger" value="Confirmar devolución" onclick="cargarArticulo" disabled />
+                        }
+                        <b></b>
+                        <b></b>
+
+                    </div><!-- /.box-tools -->
+                </div>
+
+            </div>
+
+        </div>
+    </div>
+
+
+
+    <div class="container">
+        <div class="modal fade" id="modalAdd2" tabindex="-1">
+            <div class="modal-dialog modal-sm modal-dialog center-block">
+                <div class="modal-content">
+                    <div class="modal-header" style="background-color:#3c8dbc">
+                        <b style="color:aliceblue">
+                            <span class="fa fa-calendar-check-o"> </span> DEVOLUCIÓN DE MERCADERÍA
+                        </b>
+                        <button class="close" data-dismiss="modal">&times;</button>
+
+                    </div>
+                    <div class="modal-body">
+
+                        ¿Desea confirmar la devolución del artículo al almacén?
+                        <br />
+
+                    </div>
+
+                    <div class="modal-footer" style="background-color:lightgray">
+
+
+                        <button type="submit" class="btn btn-danger"> DEVOLVER </button>
+
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+
+
+@if (ViewBag.ConfirmarDevolucion != null)
+{
+    if (ViewBag.ConfirmarDevolucion == "OK")
+    {
+        <div class="box-footer" style="background-color:aliceblue;">
+            <p style="color:green">Devolución correctamente realizada en el sistema.</p>
+         </div>
+    }
+
+}

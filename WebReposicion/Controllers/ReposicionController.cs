@@ -528,13 +528,74 @@ namespace WebReposicion.Controllers
         // GET: Devolver pedido de reposición
         public ActionResult DevolverPedido()
         {
+            
+            ViewBag.detallePedido = Session["ArticuloDevolver"];
+            ViewBag.ConfirmarDevolucion= Session["ConfirmarDevolucion"];
+            Session["ConfirmarDevolucion"] = null;
+            Session["ArticuloDevolver"] = null;
             return View();
         }
 
+         // POST: Obtener artículo a reponer
+         public ActionResult ObtenerArticuloReponer(string cadena)
+        {
+
+            List<ArticuloDevViewModel> articulos = new List<ArticuloDevViewModel>();
+            using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())
+            {
+                articulos = (from d in db.sp_ObtenerArticuloParaDevolucion(cadena)
+                             select new ArticuloDevViewModel
+                             {
+                                 Pk_ma = d.Pk_ma,
+                                 Pk_ubc=d.Pk_ubc,
+                                 Codigo=d.Codigo,
+                                 Descripcion=d.Descripcion,
+                                 StockTDA=Convert.ToInt32(d.StockTDA),
+                                 Almacen=d.Almacen,
+                                 Und=d.Und,
+                                 Stock=Convert.ToInt32(d.Stock)
+
+                             }).ToList();
+
+            Session["PkArticulo"] = articulos.FirstOrDefault().Pk_ma;
+            Session["PkUbicacion"] = articulos.FirstOrDefault().Pk_ubc;
+            }
 
 
+            Session["ArticuloDevolver"] = articulos;
+
+            return Redirect("~/Reposicion/DevolverPedido");
+        }
 
 
+        [HttpGet]
+        public ActionResult ConfirmarDevolucion(int? stockDev)
+        {
+            int PkArticulo =Convert.ToInt32(Session["PkArticulo"].ToString());
+            int PkUbicacion = Convert.ToInt32(Session["PkUbicacion"].ToString());
+            string user = Session["NameUser"].ToString();
+            bool response = true;
+            using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())
+            {
+                db.Database.CommandTimeout = 300;
+                var responseSP = db.sp_ConfirmarDevolucion(PkArticulo, PkUbicacion, stockDev,user);
+                if (responseSP == 0)
+                {
+                    response = false;
+                }
+            }
+
+            if (response == true)
+            {
+                Session["ConfirmarDevolucion"] = "OK";
+
+            }
+
+            return Redirect("~/Reposicion/DevolverPedido");
+        }
+
+
+        //**********************************************//
         public ActionResult ListarPedidoDet(string cadena)
         {
             if (cadena == null || cadena == "")

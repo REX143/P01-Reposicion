@@ -426,5 +426,35 @@ namespace WebReposicion.Models
     
             return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerListadoPedidoDetEditar_Result>("sp_ObtenerListadoPedidoDetEditar", nroReposicionParameter, codigoParameter, opParameter);
         }
+    
+        public virtual ObjectResult<sp_ObtenerArticuloParaDevolucion_Result> sp_ObtenerArticuloParaDevolucion(string codigoComercial)
+        {
+            var codigoComercialParameter = codigoComercial != null ?
+                new ObjectParameter("CodigoComercial", codigoComercial) :
+                new ObjectParameter("CodigoComercial", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction<sp_ObtenerArticuloParaDevolucion_Result>("sp_ObtenerArticuloParaDevolucion", codigoComercialParameter);
+        }
+    
+        public virtual int sp_ConfirmarDevolucion(Nullable<int> pkArticulo, Nullable<int> pkUbicacion, Nullable<int> cantidad, string nombreReponedor)
+        {
+            var pkArticuloParameter = pkArticulo.HasValue ?
+                new ObjectParameter("PkArticulo", pkArticulo) :
+                new ObjectParameter("PkArticulo", typeof(int));
+    
+            var pkUbicacionParameter = pkUbicacion.HasValue ?
+                new ObjectParameter("PkUbicacion", pkUbicacion) :
+                new ObjectParameter("PkUbicacion", typeof(int));
+    
+            var cantidadParameter = cantidad.HasValue ?
+                new ObjectParameter("Cantidad", cantidad) :
+                new ObjectParameter("Cantidad", typeof(int));
+    
+            var nombreReponedorParameter = nombreReponedor != null ?
+                new ObjectParameter("NombreReponedor", nombreReponedor) :
+                new ObjectParameter("NombreReponedor", typeof(string));
+    
+            return ((IObjectContextAdapter)this).ObjectContext.ExecuteFunction("sp_ConfirmarDevolucion", pkArticuloParameter, pkUbicacionParameter, cantidadParameter, nombreReponedorParameter);
+        }
     }
 }
