@@ -1,9 +1,9 @@
 ﻿
 @{
-                /**/
+    /**/
 
-                ViewBag.Title = "Devolver Pedido";
-                List<WebReposicion.Models.ViewModels.ArticuloDevViewModel> detallePedido = (List<WebReposicion.Models.ViewModels.ArticuloDevViewModel>)ViewBag.detallePedido;
+    ViewBag.Title = "Devolver Pedido";
+    List<WebReposicion.Models.ViewModels.ArticuloDevViewModel> detallePedido = (List<WebReposicion.Models.ViewModels.ArticuloDevViewModel>)ViewBag.detallePedido;
 
 }
 
@@ -170,7 +170,13 @@
     {
         <div class="box-footer" style="background-color:aliceblue;">
             <p style="color:green">Devolución correctamente realizada en el sistema.</p>
-         </div>
+        </div>
+    }
+    else
+    {
+        <div class="box-footer" style="background-color:aliceblue;">
+            <p style="color:red">Verificar, la cantidad a devolver es mayor al stock disponible.</p>
+        </div>
     }
 
 }

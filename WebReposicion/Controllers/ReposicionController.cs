@@ -559,6 +559,7 @@ namespace WebReposicion.Controllers
 
             Session["PkArticulo"] = articulos.FirstOrDefault().Pk_ma;
             Session["PkUbicacion"] = articulos.FirstOrDefault().Pk_ubc;
+            Session["StockTDA"] = articulos.FirstOrDefault().StockTDA;
             }
 
 
@@ -573,23 +574,33 @@ namespace WebReposicion.Controllers
         {
             int PkArticulo =Convert.ToInt32(Session["PkArticulo"].ToString());
             int PkUbicacion = Convert.ToInt32(Session["PkUbicacion"].ToString());
+            int StockTDA = Convert.ToInt32(Session["StockTDA"].ToString());
             string user = Session["NameUser"].ToString();
             bool response = true;
-            using (DBPREDICTIVOEntities db=new DBPREDICTIVOEntities())
+
+            if (stockDev<=StockTDA)
             {
-                db.Database.CommandTimeout = 300;
-                var responseSP = db.sp_ConfirmarDevolucion(PkArticulo, PkUbicacion, stockDev,user);
-                if (responseSP == 0)
+                using (DBPREDICTIVOEntities db = new DBPREDICTIVOEntities())
                 {
-                    response = false;
+                    db.Database.CommandTimeout = 500;
+                    var responseSP = db.sp_ConfirmarDevolucion(PkArticulo, PkUbicacion, stockDev, user);
+                    if (responseSP == 0)
+                    {
+                        response = false;
+                    }
+                }
+
+                if (response == true)
+                {
+                    Session["ConfirmarDevolucion"] = "OK";
+
                 }
             }
-
-            if (response == true)
+            else
             {
-                Session["ConfirmarDevolucion"] = "OK";
-
+                Session["ConfirmarDevolucion"] = "ERROR";
             }
+            
 
             return Redirect("~/Reposicion/DevolverPedido");
         }
