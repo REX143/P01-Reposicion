@@ -77,8 +77,8 @@ namespace CallRequestResponseService
                             "input1",
                             new StringTable()
                             {
-                                  ColumnNames = new string[] {"Col1", "Col2", "Col3", "Col4", "Col5", "Col6", "Col7", "Col8", "Col9", "Col10", "Col11", "Col12"},
-
+                                  //ColumnNames = new string[] {"Col1", "Col2", "Col3", "Col4", "Col5", "Col6", "Col7", "Col8", "Col9", "Col10", "Col11", "Col12"},
+                                ColumnNames = new string[] { "CODIGO", "DIA1", "DIA2", "DIA3", "DIA4", "DIA5", "DIA6", "DIA7", "DIA8", "DIA9", "DIA10", "DIA11"},
                                 Values = new string[,] {  { CODIGO, DIA1, DIA2, DIA3, DIA4, DIA5, DIA6, DIA7, DIA8, DIA9, DIA10, DIA11 } }
                             }
                         },
@@ -125,7 +125,7 @@ namespace CallRequestResponseService
                             
                         }
                         IndexCodigo++;
-                        Console.WriteLine(string.Format("Actualizando y cargando predicción- Artículo [" + IndexCodigo + "]-"+ codigoArticulo + "Stock Predictivo: ["+ Convert.ToString(Convert.ToInt16(Math.Ceiling(stockPredictivo))) + "]", response.StatusCode));
+                        Console.WriteLine(string.Format("Actualizando y cargando predicción- Artículo [" + IndexCodigo + "]-"+ codigoArticulo + "  Stock Predictivo: ["+ Convert.ToString(Convert.ToInt16(Math.Ceiling(stockPredictivo))) + "]", response.StatusCode));
                     }
                     else
                     {
@@ -144,10 +144,10 @@ namespace CallRequestResponseService
             
             SendEmail("HERALDAVA@GMAIL.COM");
             Console.WriteLine("Stock predictivo actualizado");
-            Console.ReadLine();
+            Console.WriteLine("Operación Finalizada!");
             timeMeasure.Stop();
             Console.WriteLine($"Tiempo: {timeMeasure.Elapsed.TotalMinutes} min");
-
+            Console.ReadLine();
 
 
         }
