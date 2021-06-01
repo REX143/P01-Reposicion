@@ -10,6 +10,8 @@ namespace WebReposicion.Controllers
     {
         public ActionResult Index()
         {
+            Session["NroReposicion"] = "0";
+            Session["NroReposicionRecepcionar"] = "0";
             return View();
         }
 

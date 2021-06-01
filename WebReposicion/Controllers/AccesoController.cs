@@ -45,7 +45,7 @@ namespace WebReposicion.Controllers
 
                 }
                 //return Redirect("~/Tabla/");
-                return RedirectToAction("Index", "Stock");
+                return RedirectToAction("Index", "Home");
             }
             catch (Exception ex)
             {
