@@ -29,6 +29,10 @@ namespace WebReposicion.Transversal
             return dt;
         }
 
+        public static string dtreporteGenerado()
+        {
+            return "OK";
+        }
 
     }
 }

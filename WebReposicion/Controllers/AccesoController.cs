@@ -170,6 +170,11 @@ namespace WebReposicion.Controllers
                     //Enviar correo
                     SendEmail(oUser.Correo,token);
                 }
+                else
+                {
+                    ViewBag.Message = "El correo no se encuentra registrado en el sistema.";
+                    return View();
+                }
             }
 
             ViewBag.Message = "Recibira un correo para poder actualizar su contraseña.";

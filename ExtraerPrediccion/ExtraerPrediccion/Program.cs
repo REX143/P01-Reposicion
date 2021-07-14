@@ -160,9 +160,9 @@ namespace CallRequestResponseService
             string EmailOrigen = "HERALDAVA@GMAIL.COM";
             string Contraseña = "/HERBERTSRS";
             //string url = UrlDomain + "/Acceso/Recovery/?token=" + Token;
-            MailMessage oMailMessage = new MailMessage(EmailOrigen, EmailDestino, "GRUPO GALDIAZ-STOCK PREDICTIVO",
+            MailMessage oMailMessage = new MailMessage(EmailOrigen, EmailDestino, "UPDATE STOCK PREDICTIVO",
                                      "<p>Correo de confirmación de ejecución de demanda predictiva-stock de artículos.</p>" +
-                                     "" + DateTime.Now + "'>Actualización exitosa.</a>");
+                                     "Fecha y hora de ejecución:" + DateTime.Now + " <p>INTERCONEXIÓN LOCAL/CLOUD-Actualización exitosa. </p>");
 
             oMailMessage.IsBodyHtml = true;
             SmtpClient oSmtpClient = new SmtpClient("smtp.gmail.com");
